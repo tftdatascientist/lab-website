@@ -14,22 +14,22 @@ export default function BlogPreview() {
         <div className="flex items-end justify-between mb-12">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-px bg-cyan" />
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+              <span className="w-8 h-px bg-primary" />
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
                 Blog
               </span>
             </div>
-            <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+            <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
               Wiedza i inspiracje
             </h2>
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-on-surface-variant leading-relaxed">
               Praktyczne poradniki i&nbsp;nowości ze świata automatyzacji
               i&nbsp;AI dla biznesu.
             </p>
           </div>
           <Link
             href="/blog"
-            className="hidden sm:inline-flex text-sm text-text-secondary hover:text-cyan transition-colors whitespace-nowrap"
+            className="hidden sm:inline-flex text-sm text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
           >
             Wszystkie artykuły →
           </Link>
@@ -45,7 +45,7 @@ export default function BlogPreview() {
         <div className="sm:hidden mt-8 text-center">
           <Link
             href="/blog"
-            className="text-sm text-text-secondary hover:text-cyan transition-colors"
+            className="text-sm text-on-surface-variant hover:text-primary transition-colors"
           >
             Wszystkie artykuły →
           </Link>

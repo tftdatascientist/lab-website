@@ -10,7 +10,7 @@ export default function PolitykaPrywatnosciPage() {
   return (
     <section className="py-20 lg:py-28">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-8">
+        <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-8">
           Polityka prywatności
         </h1>
 

@@ -35,14 +35,14 @@ export default function DziennikPage({ searchParams }: Props) {
         {/* Header */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-cyan/80 border border-cyan/20 rounded-full px-2.5 py-0.5">
+            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary/80 border border-primary/20 rounded-full px-2.5 py-0.5">
               Auto-digest
             </span>
           </div>
-          <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+          <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
             Dziennik AI
           </h1>
-          <p className="text-text-secondary leading-relaxed max-w-xl">
+          <p className="text-on-surface-variant leading-relaxed max-w-xl">
             Codzienny przegląd ze świata AI — publikacja dnia, wiadomości
             Claude&nbsp;Code&nbsp;News i&nbsp;przegląd wpisów. Aktualizowany
             automatycznie 3&nbsp;razy dziennie.
@@ -60,8 +60,8 @@ export default function DziennikPage({ searchParams }: Props) {
                 href={href}
                 className={`font-mono text-[11px] uppercase tracking-[0.1em] border rounded-full px-3 py-1 transition-colors duration-200 ${
                   isActive
-                    ? "bg-cyan/10 text-cyan border-cyan/30"
-                    : "text-text-muted border-white/[0.06] hover:text-text-secondary hover:border-white/10"
+                    ? "bg-primary/10 text-primary border-primary/30"
+                    : "text-outline border-outline-variant/15 hover:text-on-surface-variant hover:border-outline-variant/25"
                 }`}
               >
                 {label}
@@ -78,7 +78,7 @@ export default function DziennikPage({ searchParams }: Props) {
             ))}
           </div>
         ) : (
-          <p className="text-text-muted text-sm py-12 text-center">
+          <p className="text-outline text-sm py-12 text-center">
             Brak wpisów w tej kategorii.
           </p>
         )}

@@ -30,13 +30,13 @@ export default function FaqAccordion() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-px bg-cyan" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+            <span className="w-8 h-px bg-primary" />
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
               FAQ
             </span>
-            <span className="w-8 h-px bg-cyan" />
+            <span className="w-8 h-px bg-primary" />
           </div>
-          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
             Często zadawane pytania
           </h2>
         </div>
@@ -48,8 +48,8 @@ export default function FaqAccordion() {
             return (
               <div
                 key={i}
-                className={`rounded-xl border bg-bg-card transition-colors ${
-                  isOpen ? "border-cyan/15" : "border-white/[0.06]"
+                className={`rounded-xl border bg-surface-container transition-colors ${
+                  isOpen ? "border-primary/15" : "border-outline-variant/15"
                 }`}
               >
                 <button
@@ -57,11 +57,11 @@ export default function FaqAccordion() {
                   className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-heading text-sm font-semibold text-text-primary">
+                  <span className="font-heading text-sm font-semibold text-on-surface">
                     {faq.q}
                   </span>
                   <svg
-                    className={`w-4 h-4 shrink-0 text-text-muted transition-transform duration-300 ${
+                    className={`w-4 h-4 shrink-0 text-outline transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                     fill="none"
@@ -77,7 +77,7 @@ export default function FaqAccordion() {
                     isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <p className="px-5 pb-4 text-sm text-text-secondary leading-relaxed">
+                  <p className="px-5 pb-4 text-sm text-on-surface-variant leading-relaxed">
                     {faq.a}
                   </p>
                 </div>

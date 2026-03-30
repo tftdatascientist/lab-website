@@ -18,16 +18,16 @@ export default function TechStack() {
         {/* Header — centered */}
         <div className="max-w-2xl mx-auto text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-px bg-cyan" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+            <span className="w-8 h-px bg-primary" />
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
               Technologie
             </span>
-            <span className="w-8 h-px bg-cyan" />
+            <span className="w-8 h-px bg-primary" />
           </div>
-          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
             Nasz stack
           </h2>
-          <p className="text-text-secondary leading-relaxed">
+          <p className="text-on-surface-variant leading-relaxed">
             Sprawdzone narzędzia open-source i&nbsp;najlepsze API — łączymy je
             w&nbsp;rozwiązania szyte na miarę.
           </p>
@@ -38,16 +38,16 @@ export default function TechStack() {
           {technologies.map((tech) => (
             <div
               key={tech.name}
-              className="inline-flex items-center gap-3 rounded-full border border-white/[0.06] bg-bg-card px-5 py-2.5 hover:bg-bg-card-hover transition-colors"
+              className="inline-flex items-center gap-3 rounded-full border border-outline-variant/15 bg-surface-container px-5 py-2.5 hover:bg-surface-container-high transition-colors"
             >
               <span
                 className="w-2.5 h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: tech.color }}
               />
-              <span className="font-heading text-sm font-semibold text-text-primary">
+              <span className="font-heading text-sm font-semibold text-on-surface">
                 {tech.name}
               </span>
-              <span className="text-xs text-text-muted">{tech.category}</span>
+              <span className="text-xs text-outline">{tech.category}</span>
             </div>
           ))}
         </div>

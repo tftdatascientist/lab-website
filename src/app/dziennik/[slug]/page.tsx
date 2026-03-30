@@ -10,7 +10,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 const CATEGORY_CONFIG = {
   "publikacja-dnia": {
     label: "Publikacja dnia",
-    className: "text-amber-400/90 border-amber-400/30",
+    className: "text-secondary/90 border-secondary/30",
   },
   ccn: {
     label: "CCN",
@@ -18,7 +18,7 @@ const CATEGORY_CONFIG = {
   },
   przeglad: {
     label: "Przegląd",
-    className: "text-cyan/80 border-cyan/20",
+    className: "text-primary/80 border-primary/20",
   },
 } as const;
 
@@ -75,19 +75,19 @@ export default function DziennikPostPage({ params }: Props) {
     <article className="pt-28 pb-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-text-muted mb-10 flex-wrap">
-          <Link href="/" className="hover:text-text-secondary transition-colors">
+        <nav className="flex items-center gap-2 text-sm text-outline mb-10 flex-wrap">
+          <Link href="/" className="hover:text-on-surface-variant transition-colors">
             Strona główna
           </Link>
           <span>/</span>
           <Link
             href="/dziennik"
-            className="hover:text-text-secondary transition-colors"
+            className="hover:text-on-surface-variant transition-colors"
           >
             Dziennik
           </Link>
           <span>/</span>
-          <span className="text-text-secondary truncate">
+          <span className="text-on-surface-variant truncate">
             {frontmatter.title}
           </span>
         </nav>
@@ -101,10 +101,10 @@ export default function DziennikPostPage({ params }: Props) {
               {category.label}
             </span>
           </div>
-          <h1 className="font-heading text-[clamp(24px,3.5vw,38px)] font-bold tracking-[-0.5px] text-text-primary mb-4">
+          <h1 className="font-heading text-[clamp(24px,3.5vw,38px)] font-bold tracking-[-0.5px] text-on-surface mb-4">
             {frontmatter.title}
           </h1>
-          <div className="flex items-center gap-3 text-sm text-text-muted">
+          <div className="flex items-center gap-3 text-sm text-outline">
             <time dateTime={frontmatter.date}>
               {dateStr}, {timeStr}
             </time>
@@ -118,17 +118,17 @@ export default function DziennikPostPage({ params }: Props) {
         </header>
 
         {/* MDX content */}
-        <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-cyan prose-strong:text-text-primary prose-cyan">
+        <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-primary prose-strong:text-on-surface prose-primary">
           <MDXRemote source={content} />
         </div>
 
         {/* LinkedIn post box */}
         {frontmatter.linkedinPost && (
-          <div className="mt-10 rounded-xl border border-amber-400/20 bg-amber-400/[0.04] p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-amber-400/70 mb-3">
+          <div className="mt-10 rounded-xl border border-secondary/20 bg-secondary/[0.04] p-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-secondary/70 mb-3">
               Post LinkedIn
             </p>
-            <p className="text-sm text-text-secondary leading-relaxed mb-4">
+            <p className="text-sm text-on-surface-variant leading-relaxed mb-4">
               Ten wpis zawiera gotowy post na LinkedIn. Skopiuj treść z sekcji
               powyżej i&nbsp;opublikuj na swoim profilu.
             </p>
@@ -137,10 +137,10 @@ export default function DziennikPostPage({ params }: Props) {
         )}
 
         {/* Back link */}
-        <div className="mt-14 pt-8 border-t border-white/[0.06]">
+        <div className="mt-14 pt-8 border-t border-outline-variant/15">
           <Link
             href="/dziennik"
-            className="text-sm text-text-secondary hover:text-cyan transition-colors"
+            className="text-sm text-on-surface-variant hover:text-primary transition-colors"
           >
             ← Wróć do dziennika
           </Link>

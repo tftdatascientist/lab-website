@@ -16,15 +16,15 @@ export default function GeoGrid() {
         {/* Header */}
         <div className="max-w-2xl mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <span className="w-8 h-px bg-cyan" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
+            <span className="w-8 h-px bg-primary" />
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
               Zasięg
             </span>
           </div>
-          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+          <h2 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
             Automatyzacja AI blisko Twojej firmy
           </h2>
-          <p className="text-text-secondary leading-relaxed">
+          <p className="text-on-surface-variant leading-relaxed">
             Obsługujemy firmy z&nbsp;całego województwa kujawsko-pomorskiego.
             Lokalnie, z&nbsp;pełnym zrozumieniem rynku.
           </p>
@@ -35,13 +35,13 @@ export default function GeoGrid() {
           {cities.map((city) => (
             <div
               key={city.name}
-              className="rounded-xl border border-white/[0.06] bg-bg-card px-5 py-4 text-center hover:border-amber/40 transition-colors"
+              className="rounded-xl border border-outline-variant/15 bg-surface-container px-5 py-4 text-center hover:border-secondary/40 transition-colors"
             >
-              <span className="font-heading text-sm font-semibold text-text-primary">
+              <span className="font-heading text-sm font-semibold text-on-surface">
                 {city.name}
               </span>
               {city.note && (
-                <span className="block text-[11px] text-amber mt-0.5">
+                <span className="block text-[11px] text-secondary mt-0.5">
                   {city.note}
                 </span>
               )}

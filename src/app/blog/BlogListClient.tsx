@@ -26,7 +26,7 @@ export default function BlogListClient({ posts, tags }: Props) {
       <BlogTagFilter tags={tags} activeTag={activeTag} onTagChange={setActiveTag} />
 
       {filtered.length > 0 ? (
-        <div className="grid sm:grid-cols-2 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((post) => (
             <BlogCard
               key={post.slug}
@@ -35,7 +35,7 @@ export default function BlogListClient({ posts, tags }: Props) {
           ))}
         </div>
       ) : (
-        <p className="text-text-muted text-sm">
+        <p className="text-outline text-sm">
           Brak artykułów dla wybranego tagu.
         </p>
       )}

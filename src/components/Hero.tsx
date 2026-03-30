@@ -1,115 +1,60 @@
-"use client";
-
-import { useState, useEffect } from "react";
-
-const HEADLINE = "Automatyzacja i AI dla biznesu";
-const TYPE_SPEED = 55;
-
-const stats = [
-  { value: "400+", label: "integracji API" },
-  { value: "24/7", label: "chatbot AI" },
-  { value: "<48h", label: "wdrożenie" },
-  { value: "0 zł", label: "konsultacja" },
-];
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
-  const [displayText, setDisplayText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-
-  useEffect(() => {
-    if (displayText.length < HEADLINE.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(HEADLINE.slice(0, displayText.length + 1));
-      }, TYPE_SPEED);
-      return () => clearTimeout(timeout);
-    }
-  }, [displayText]);
-
-  useEffect(() => {
-    const interval = setInterval(() => setShowCursor((c) => !c), 530);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section className="min-h-screen flex items-center relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left — text */}
-          <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan/20 bg-cyan/10 mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan" />
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-cyan">
-                Pomorze &amp; Kujawy
-              </span>
-            </div>
+    <section className="relative min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+      {/* Ambient Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
-            {/* H1 */}
-            <h1 className="font-heading text-[clamp(36px,5vw,56px)] font-extrabold leading-[1.1] tracking-[-1.5px] text-text-primary mb-6">
-              {displayText}
-              <span
-                className={`inline-block w-[3px] h-[0.85em] bg-cyan ml-1 align-middle transition-opacity ${
-                  showCursor ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            </h1>
+      <div className="relative z-10 max-w-4xl">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high ghost-border mb-8">
+          <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">
+            Nowa Era Automatyzacji
+          </span>
+        </div>
 
-            {/* Paragraph */}
-            <p className="text-lg text-text-secondary leading-relaxed max-w-xl mb-8">
-              Wdrażamy{" "}
-              <span className="text-amber font-medium">
-                inteligentne automatyzacje
-              </span>{" "}
-              i&nbsp;rozwiązania AI dla małych i&nbsp;średnich firm z&nbsp;regionu
-              kujawsko-pomorskiego. Chatboty, agenci głosowi, integracje
-              systemów&nbsp;—{" "}
-              <span className="text-amber font-medium">
-                bez kodu, z&nbsp;pełnym wsparciem
-              </span>
-              .
-            </p>
+        {/* H1 */}
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black font-heading tracking-tighter text-on-surface mb-6 leading-[1.1]">
+          Automatyzacja i AI
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+            dla biznesu
+          </span>
+        </h1>
 
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#demo"
-                className="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-cyan to-blue-500 rounded-full hover:shadow-[0_0_24px_rgba(0,212,255,0.35)] transition-shadow"
-              >
-                Przetestuj chatbota AI →
-              </a>
-              <a
-                href="#uslugi"
-                className="inline-flex items-center px-6 py-3 text-sm font-medium text-text-secondary border border-white/[0.12] rounded-full hover:text-text-primary hover:border-white/[0.24] transition-colors"
-              >
-                Zobacz realizacje
-              </a>
-            </div>
-          </div>
+        {/* Subtitle */}
+        <p className="text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 leading-relaxed">
+          Zoptymalizuj procesy operacyjne dzięki rozwiązaniom low-code
+          i&nbsp;inteligentnym agentom AI. Skaluj swoją firmę bez zwiększania
+          kosztów zatrudnienia.
+        </p>
 
-          {/* Right — stat cards */}
-          <div className="hidden lg:block relative">
-            {/* Glow */}
-            <div className="absolute inset-0 -m-12 bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.12)_0%,transparent_70%)] animate-pulse" />
+        {/* CTAs */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <Link
+            href="/#demo"
+            className="w-full md:w-auto px-8 py-4 obsidian-gradient text-on-primary font-bold text-base rounded-lg shadow-lg hover:shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
+          >
+            Przetestuj chatbota AI
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/uslugi"
+            className="w-full md:w-auto px-8 py-4 bg-surface-low ghost-border hover:bg-surface-container transition-colors text-on-surface font-semibold text-base rounded-lg flex items-center justify-center gap-2"
+          >
+            Zobacz realizacje
+          </Link>
+        </div>
+      </div>
 
-            <div className="relative grid grid-cols-2 gap-4">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-xl border border-white/[0.06] bg-bg-card p-6 hover:bg-bg-card-hover hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(0,212,255,0.08)] transition-all duration-300"
-                >
-                  <span className="block font-heading text-3xl font-bold bg-gradient-to-r from-cyan to-amber bg-clip-text text-transparent">
-                    {stat.value}
-                  </span>
-                  <span className="block mt-1 text-sm text-text-secondary">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Hero Visual Hint */}
+      <div className="mt-20 w-full max-w-5xl px-4">
+        <div className="relative rounded-xl overflow-hidden ghost-border bg-surface-low aspect-[21/9]">
+          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-surface-container to-secondary/10 opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
       </div>
     </section>

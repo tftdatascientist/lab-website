@@ -1,11 +1,6 @@
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import ProcessSteps from "@/components/ProcessSteps";
-import TechStack from "@/components/TechStack";
-import ChatbotDemo from "@/components/ChatbotDemo";
-import BlogPreview from "@/components/BlogPreview";
-import GeoGrid from "@/components/GeoGrid";
-import FaqAccordion from "@/components/FaqAccordion";
+import StatsGrid from "@/components/StatsGrid";
+import FeatureSpotlight from "@/components/FeatureSpotlight";
 import CtaSection from "@/components/CtaSection";
 import ScrollReveal from "@/components/ScrollReveal";
 import SchemaOrg from "@/components/SchemaOrg";
@@ -40,25 +35,10 @@ export default function Home() {
       <SchemaOrg schema={generateFaqSchema(faqItems)} />
       <Hero />
       <ScrollReveal>
-        <Services />
+        <StatsGrid />
       </ScrollReveal>
       <ScrollReveal delay={100}>
-        <ProcessSteps />
-      </ScrollReveal>
-      <ScrollReveal delay={100}>
-        <TechStack />
-      </ScrollReveal>
-      <ScrollReveal>
-        <ChatbotDemo />
-      </ScrollReveal>
-      <ScrollReveal delay={100}>
-        <BlogPreview />
-      </ScrollReveal>
-      <ScrollReveal>
-        <GeoGrid />
-      </ScrollReveal>
-      <ScrollReveal delay={100}>
-        <FaqAccordion />
+        <FeatureSpotlight />
       </ScrollReveal>
       <ScrollReveal>
         <CtaSection />

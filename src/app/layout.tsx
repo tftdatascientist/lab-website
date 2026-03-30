@@ -62,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${sora.variable} ${dmSans.variable} ${jetbrainsMono.variable} font-body antialiased bg-bg-deep text-text-primary`}
+        className={`${sora.variable} ${dmSans.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
       >
         <SchemaOrg schema={generateLocalBusinessSchema()} />
         <Navbar />

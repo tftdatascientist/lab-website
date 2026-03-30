@@ -14,17 +14,14 @@ export default function ONasPage() {
   return (
     <section className="py-20 lg:py-28">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="w-8 h-px bg-cyan" />
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
-            O nas
-          </span>
-        </div>
-        <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-8">
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary block mb-4">
+          O nas
+        </span>
+        <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tighter text-on-surface mb-8">
           Lokalna Automatyzacja Biznesu
         </h1>
 
-        <div className="space-y-6 text-text-secondary leading-relaxed">
+        <div className="space-y-6 text-on-surface-variant leading-relaxed">
           <p>
             LAB to firma technologiczna z&nbsp;Grudziądza, specjalizująca się
             we&nbsp;wdrażaniu automatyzacji procesów biznesowych
@@ -65,12 +62,12 @@ export default function ONasPage() {
           ].map((v) => (
             <div
               key={v.title}
-              className="rounded-2xl border border-white/[0.06] bg-bg-card p-6"
+              className="rounded-2xl bg-surface-container ghost-border p-6"
             >
-              <h3 className="font-heading text-sm font-semibold text-text-primary mb-2">
+              <h3 className="font-heading text-sm font-semibold text-on-surface mb-2">
                 {v.title}
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
+              <p className="text-sm text-on-surface-variant leading-relaxed">
                 {v.desc}
               </p>
             </div>
@@ -81,7 +78,7 @@ export default function ONasPage() {
         <div className="mt-12">
           <Link
             href="/kontakt"
-            className="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-cyan to-blue-500 rounded-full hover:shadow-[0_0_24px_rgba(0,212,255,0.35)] transition-shadow"
+            className="inline-flex items-center px-8 py-3 text-sm font-bold text-on-primary obsidian-gradient rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-all"
           >
             Porozmawiajmy →
           </Link>

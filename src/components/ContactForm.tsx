@@ -40,11 +40,11 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-cyan/20 bg-cyan/[0.06] p-8 text-center">
-        <p className="font-heading text-lg font-semibold text-text-primary mb-2">
+      <div className="rounded-2xl border border-primary/20 bg-primary/[0.06] p-8 text-center">
+        <p className="font-heading text-lg font-semibold text-on-surface mb-2">
           Dziękujemy!
         </p>
-        <p className="text-sm text-text-secondary">
+        <p className="text-sm text-on-surface-variant">
           Odezwiemy się w ciągu 24h.
         </p>
       </div>
@@ -55,7 +55,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="name" className="block text-sm text-text-secondary mb-1.5">
+          <label htmlFor="name" className="block text-sm text-on-surface-variant mb-1.5">
             Imię *
           </label>
           <input
@@ -63,19 +63,19 @@ export default function ContactForm() {
             name="name"
             type="text"
             required
-            className="w-full rounded-xl border border-white/[0.08] bg-bg-card px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 outline-none focus:border-cyan/40 focus:shadow-[0_0_12px_rgba(0,212,255,0.1)] transition-all"
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-outline/60 outline-none focus:border-primary/40 focus:shadow-sm focus:shadow-primary/10 transition-all"
             placeholder="Jan"
           />
         </div>
         <div>
-          <label htmlFor="company" className="block text-sm text-text-secondary mb-1.5">
+          <label htmlFor="company" className="block text-sm text-on-surface-variant mb-1.5">
             Firma
           </label>
           <input
             id="company"
             name="company"
             type="text"
-            className="w-full rounded-xl border border-white/[0.08] bg-bg-card px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 outline-none focus:border-cyan/40 focus:shadow-[0_0_12px_rgba(0,212,255,0.1)] transition-all"
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-outline/60 outline-none focus:border-primary/40 focus:shadow-sm focus:shadow-primary/10 transition-all"
             placeholder="Nazwa firmy"
           />
         </div>
@@ -83,7 +83,7 @@ export default function ContactForm() {
 
       <div className="grid sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="email" className="block text-sm text-text-secondary mb-1.5">
+          <label htmlFor="email" className="block text-sm text-on-surface-variant mb-1.5">
             Email *
           </label>
           <input
@@ -91,26 +91,26 @@ export default function ContactForm() {
             name="email"
             type="email"
             required
-            className="w-full rounded-xl border border-white/[0.08] bg-bg-card px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 outline-none focus:border-cyan/40 focus:shadow-[0_0_12px_rgba(0,212,255,0.1)] transition-all"
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-outline/60 outline-none focus:border-primary/40 focus:shadow-sm focus:shadow-primary/10 transition-all"
             placeholder="jan@firma.pl"
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm text-text-secondary mb-1.5">
+          <label htmlFor="phone" className="block text-sm text-on-surface-variant mb-1.5">
             Telefon
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
-            className="w-full rounded-xl border border-white/[0.08] bg-bg-card px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 outline-none focus:border-cyan/40 focus:shadow-[0_0_12px_rgba(0,212,255,0.1)] transition-all"
+            className="w-full rounded-xl border border-outline-variant/20 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-outline/60 outline-none focus:border-primary/40 focus:shadow-sm focus:shadow-primary/10 transition-all"
             placeholder="+48 000 000 000"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm text-text-secondary mb-1.5">
+        <label htmlFor="message" className="block text-sm text-on-surface-variant mb-1.5">
           Opisz swoją potrzebę *
         </label>
         <textarea
@@ -118,7 +118,7 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full rounded-xl border border-white/[0.08] bg-bg-card px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/60 outline-none focus:border-cyan/40 focus:shadow-[0_0_12px_rgba(0,212,255,0.1)] transition-all resize-y"
+          className="w-full rounded-xl border border-outline-variant/20 bg-surface-container px-4 py-3 text-sm text-on-surface placeholder:text-outline/60 outline-none focus:border-primary/40 focus:shadow-sm focus:shadow-primary/10 transition-all resize-y"
           placeholder="Np. chcę zautomatyzować obsługę zapytań klientów..."
         />
       </div>
@@ -132,7 +132,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="inline-flex items-center px-6 py-3 text-sm font-medium text-white bg-gradient-to-r from-cyan to-blue-500 rounded-full hover:shadow-[0_0_24px_rgba(0,212,255,0.35)] transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex items-center px-6 py-3 text-sm font-medium text-on-primary obsidian-gradient rounded-lg hover:shadow-lg hover:shadow-primary/20 transition-shadow disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "sending" ? "Wysyłanie..." : "Wyślij wiadomość →"}
       </button>

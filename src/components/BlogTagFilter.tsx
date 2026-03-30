@@ -13,8 +13,8 @@ export default function BlogTagFilter({ tags, activeTag, onTagChange }: Props) {
         onClick={() => onTagChange(null)}
         className={`font-mono text-xs uppercase tracking-[0.1em] rounded-full px-3.5 py-1.5 border transition-colors ${
           activeTag === null
-            ? "text-white bg-cyan/20 border-cyan/30"
-            : "text-text-secondary border-white/[0.08] hover:text-text-primary hover:border-white/[0.16]"
+            ? "text-on-surface bg-primary/20 border-primary/30"
+            : "text-on-surface-variant border-outline-variant/30 hover:text-on-surface hover:border-outline-variant/60"
         }`}
       >
         Wszystko
@@ -25,8 +25,8 @@ export default function BlogTagFilter({ tags, activeTag, onTagChange }: Props) {
           onClick={() => onTagChange(tag === activeTag ? null : tag)}
           className={`font-mono text-xs uppercase tracking-[0.1em] rounded-full px-3.5 py-1.5 border transition-colors ${
             activeTag === tag
-              ? "text-white bg-cyan/20 border-cyan/30"
-              : "text-text-secondary border-white/[0.08] hover:text-text-primary hover:border-white/[0.16]"
+              ? "text-on-surface bg-primary/20 border-primary/30"
+              : "text-on-surface-variant border-outline-variant/30 hover:text-on-surface hover:border-outline-variant/60"
           }`}
         >
           {tag}

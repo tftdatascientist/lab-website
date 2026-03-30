@@ -2,7 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: #e0e4ec;
-  background: #060a14;
+@layer base {
+  body {
+    color: #e3e2e3;
+    background: #121315;
+  }
+
+  ::selection {
+    background: rgba(208, 188, 255, 0.3);
+  }
+}
+
+@layer components {
+  .obsidian-gradient {
+    background: linear-gradient(135deg, #d0bcff 0%, #a078ff 100%);
+  }
+
+  .glass-panel {
+    background: rgba(31, 32, 33, 0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  .ghost-border {
+    outline: 1px solid rgba(73, 68, 84, 0.15);
+  }
 }

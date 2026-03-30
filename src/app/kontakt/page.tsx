@@ -40,53 +40,47 @@ export default function KontaktPage() {
       <section className="py-20 lg:py-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-px bg-cyan" />
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">
-                Kontakt
-              </span>
-            </div>
-            <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-text-primary mb-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary block mb-4">
+              Kontakt
+            </span>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tighter text-on-surface mb-4">
               Porozmawiajmy o automatyzacji
             </h1>
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-on-surface-variant leading-relaxed text-lg">
               Opisz swoją potrzebę — odezwiemy się w ciągu 24h z&nbsp;propozycją
               rozwiązania.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-[1fr_340px] gap-12 lg:gap-16">
-            {/* Form */}
             <ContactForm />
 
-            {/* Sidebar */}
             <div className="space-y-8">
-              {/* Contact info */}
-              <div className="rounded-2xl border border-white/[0.06] bg-bg-card p-6">
-                <h2 className="font-heading text-sm font-semibold text-text-primary mb-4">
+              <div className="rounded-2xl bg-surface-container ghost-border p-6">
+                <h2 className="font-heading text-sm font-semibold text-on-surface mb-4">
                   Dane kontaktowe
                 </h2>
-                <ul className="space-y-3 text-sm text-text-secondary">
+                <ul className="space-y-3 text-sm text-on-surface-variant">
                   <li>
-                    <span className="block text-text-muted text-xs mb-0.5">Email</span>
+                    <span className="block text-outline text-xs mb-0.5">Email</span>
                     <a
                       href="mailto:kontakt@lab-ai.pl"
-                      className="hover:text-cyan transition-colors"
+                      className="hover:text-primary transition-colors"
                     >
                       kontakt@lab-ai.pl
                     </a>
                   </li>
                   <li>
-                    <span className="block text-text-muted text-xs mb-0.5">Telefon</span>
+                    <span className="block text-outline text-xs mb-0.5">Telefon</span>
                     <a
                       href="tel:+48000000000"
-                      className="hover:text-cyan transition-colors"
+                      className="hover:text-primary transition-colors"
                     >
                       +48 000 000 000
                     </a>
                   </li>
                   <li>
-                    <span className="block text-text-muted text-xs mb-0.5">Adres</span>
+                    <span className="block text-outline text-xs mb-0.5">Adres</span>
                     Grudziądz, kujawsko-pomorskie
                   </li>
                   <li>
@@ -94,7 +88,7 @@ export default function KontaktPage() {
                       href="https://linkedin.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-cyan transition-colors"
+                      className="hover:text-primary transition-colors"
                     >
                       LinkedIn →
                     </a>
@@ -102,13 +96,12 @@ export default function KontaktPage() {
                 </ul>
               </div>
 
-              {/* Map placeholder */}
-              <div className="rounded-2xl border border-white/[0.06] bg-bg-card overflow-hidden">
-                <div className="aspect-[4/3] bg-bg-deep flex items-center justify-center">
-                  <p className="text-xs text-text-muted text-center px-4">
+              <div className="rounded-2xl bg-surface-container ghost-border overflow-hidden">
+                <div className="aspect-[4/3] bg-surface-low flex items-center justify-center">
+                  <p className="text-xs text-outline text-center px-4">
                     Google Maps embed
                     <br />
-                    <span className="text-text-muted/60">(placeholder)</span>
+                    <span className="text-outline/60">(placeholder)</span>
                   </p>
                 </div>
               </div>
