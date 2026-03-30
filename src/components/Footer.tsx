@@ -11,6 +11,7 @@ const uslugiLinks = [
 
 const wiedzaLinks = [
   { label: "Blog", href: "/blog" },
+  { label: "Dziennik AI", href: "/dziennik" },
   { label: "FAQ", href: "/#faq" },
   { label: "Technologie", href: "/#technologie" },
   { label: "Demo AI", href: "/#demo" },

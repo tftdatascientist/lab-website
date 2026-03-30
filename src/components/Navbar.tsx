@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Technologie", href: "#technologie" },
   { label: "Demo AI", href: "#demo" },
   { label: "Blog", href: "#blog" },
+  { label: "Dziennik", href: "/dziennik" },
   { label: "FAQ", href: "#faq" },
 ];
 
