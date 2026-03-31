@@ -7,8 +7,10 @@ const legalLinks = [
 
 const resourceLinks = [
   { label: "Blog", href: "/blog" },
-  { label: "FAQ", href: "/#faq" },
   { label: "Dziennik AI", href: "/dziennik" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Demo AI", href: "/demo" },
+  { label: "Technologie", href: "/technologie" },
 ];
 
 const socialLinks = [

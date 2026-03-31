@@ -6,8 +6,9 @@ import Link from "next/link";
 const navLinks = [
   { label: "Usługi", href: "/uslugi" },
   { label: "Technologie", href: "/technologie" },
+  { label: "Demo AI", href: "/demo" },
   { label: "Blog", href: "/blog" },
-  { label: "Cennik", href: "/cennik" },
+  { label: "Dziennik", href: "/dziennik" },
   { label: "FAQ", href: "/faq" },
 ];
 
