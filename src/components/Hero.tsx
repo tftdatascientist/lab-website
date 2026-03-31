@@ -50,12 +50,10 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Hero Visual Hint */}
-      <div className="mt-20 w-full max-w-5xl px-4">
-        <div className="relative rounded-xl overflow-hidden ghost-border bg-surface-low aspect-[21/9]">
-          <div className="w-full h-full bg-gradient-to-br from-primary/20 via-surface-container to-secondary/10 opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-        </div>
+      {/* Scroll indicator */}
+      <div className="mt-20 flex flex-col items-center gap-2 text-outline animate-bounce">
+        <span className="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
+        <ArrowRight className="w-4 h-4 rotate-90" />
       </div>
     </section>
   );
