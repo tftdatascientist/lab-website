@@ -1,4 +1,5 @@
 import { Brain, Shield, Terminal } from "lucide-react";
+import Image from "next/image";
 
 const features = [
   {
@@ -65,8 +66,12 @@ export default function FeatureSpotlight() {
         <div className="relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000" />
           <div className="relative aspect-square rounded-2xl overflow-hidden ghost-border bg-surface-container">
-            {/* Placeholder gradient — replace with real image */}
-            <div className="w-full h-full bg-gradient-to-br from-primary/30 via-surface-container to-secondary/20 grayscale brightness-75 transition-transform duration-700 group-hover:scale-105" />
+            <Image
+              src="/images/stitch/android-face.jpg"
+              alt="Portret syntetycznej twarzy AI z cyfrowymi obwodami"
+              fill
+              className="object-cover grayscale brightness-75 transition-transform duration-700 group-hover:scale-105"
+            />
 
             {/* Glass Overlay Card */}
             <div className="absolute bottom-6 left-6 right-6 p-6 glass-panel rounded-xl ghost-border">

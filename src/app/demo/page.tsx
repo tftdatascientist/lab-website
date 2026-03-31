@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Zap,
   Bot,
@@ -194,8 +195,14 @@ export default function DemoPage() {
                     <p className="text-sm text-on-surface mb-3 italic">
                       Oto propozycja Twojego nowego pipeline&apos;u:
                     </p>
-                    {/* Dashboard placeholder */}
-                    <div className="w-full h-48 rounded-lg border border-outline-variant/20 bg-gradient-to-br from-primary/20 via-surface-container to-secondary/10 mb-2" />
+                    <div className="relative w-full h-48 rounded-lg border border-outline-variant/20 overflow-hidden mb-2">
+                      <Image
+                        src="/images/stitch/demo-dashboard.jpg"
+                        alt="Dashboard z wizualizacją danych w fioletowo-zielonych barwach"
+                        fill
+                        className="object-cover opacity-80"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

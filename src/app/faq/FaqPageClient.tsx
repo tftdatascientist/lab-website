@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ChevronRight,
@@ -191,6 +192,25 @@ export default function FaqPageClient() {
                 );
               })}
             </nav>
+          </div>
+
+          {/* Status image card */}
+          <div className="relative overflow-hidden rounded-xl h-64 bg-surface-low group ghost-border">
+            <Image
+              src="/images/stitch/faq-crystal.jpg"
+              alt="Abstrakcyjna krystaliczna struktura 3D w fioletowo-szmaragdowym świetle"
+              fill
+              className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-surface-lowest via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="font-mono text-[10px] text-secondary uppercase tracking-widest mb-1">
+                Status systemu
+              </p>
+              <p className="font-heading font-bold text-on-surface">
+                Wszystkie systemy operacyjne
+              </p>
+            </div>
           </div>
         </aside>
 

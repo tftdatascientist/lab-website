@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 
@@ -242,7 +243,15 @@ export default function CennikPage() {
                 ))}
               </div>
             </div>
-            <div className="w-full h-64 bg-surface-container rounded-xl" />
+            <div className="relative h-64 bg-surface-container rounded-xl overflow-hidden">
+              <Image
+                src="/images/stitch/pricing-nodes.jpg"
+                alt="Wizualizacja sieci połączonych węzłów w obsydianowej przestrzeni"
+                fill
+                className="object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface-lowest via-transparent to-transparent" />
+            </div>
           </div>
         </div>
       </section>

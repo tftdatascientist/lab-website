@@ -154,7 +154,7 @@ export default function TechnologiePage() {
             </p>
           </div>
           <div className="text-left sm:text-right">
-            <span className="text-4xl font-mono font-bold text-secondary">
+            <span className="text-4xl font-heading font-bold text-secondary">
               99.99%
             </span>
             <p className="text-[10px] font-mono text-outline uppercase tracking-widest mt-1">
@@ -223,7 +223,7 @@ export default function TechnologiePage() {
 
             <div className="flex flex-wrap gap-8 sm:gap-12">
               <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-primary">
+                <p className="font-heading text-2xl sm:text-3xl font-bold text-primary">
                   2.4 TB/s
                 </p>
                 <p className="text-xs uppercase tracking-widest text-outline mt-1">
@@ -231,7 +231,7 @@ export default function TechnologiePage() {
                 </p>
               </div>
               <div>
-                <p className="font-mono text-2xl sm:text-3xl font-bold text-secondary">
+                <p className="font-heading text-2xl sm:text-3xl font-bold text-secondary">
                   0.4ms
                 </p>
                 <p className="text-xs uppercase tracking-widest text-outline mt-1">
@@ -278,7 +278,7 @@ export default function TechnologiePage() {
               <p className="font-mono text-xs text-outline mb-2 uppercase tracking-widest">
                 Active Edge Nodes
               </p>
-              <p className="font-mono text-2xl font-bold">1,248</p>
+              <p className="font-heading text-2xl font-bold">1,248</p>
             </div>
           </div>
         </div>

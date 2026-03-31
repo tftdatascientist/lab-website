@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -50,10 +51,18 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="mt-20 flex flex-col items-center gap-2 text-outline animate-bounce">
-        <span className="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
-        <ArrowRight className="w-4 h-4 rotate-90" />
+      {/* Hero Visual */}
+      <div className="mt-20 w-full max-w-5xl px-4">
+        <div className="relative rounded-xl overflow-hidden ghost-border bg-surface-low aspect-[21/9]">
+          <Image
+            src="/images/stitch/hero-dashboard.jpg"
+            alt="Futurystyczna wizualizacja danych z fioletowymi i cyjanowymi liniami"
+            fill
+            className="object-cover opacity-40 mix-blend-luminosity"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+        </div>
       </div>
     </section>
   );

@@ -43,7 +43,7 @@ export default function StatsGrid() {
             <stat.icon className={`w-6 h-6 ${stat.iconColor} mb-8`} />
             <div>
               <div
-                className={`text-4xl font-mono font-bold text-on-surface mb-2 tracking-tighter ${stat.hoverColor} transition-colors`}
+                className={`text-4xl font-heading font-bold text-on-surface mb-2 tracking-tighter ${stat.hoverColor} transition-colors`}
               >
                 {stat.value}
               </div>
