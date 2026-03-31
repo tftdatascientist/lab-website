@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Sora, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SchemaOrg from "@/components/SchemaOrg";
@@ -8,15 +8,15 @@ import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
 
-const sora = Sora({
+const inter = Inter({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-sora",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-dm-sans",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -62,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${sora.variable} ${dmSans.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
       >
         <SchemaOrg schema={generateLocalBusinessSchema()} />
         <Navbar />
