@@ -26,7 +26,7 @@ export default function BlogListClient({ posts, tags }: Props) {
       <BlogTagFilter tags={tags} activeTag={activeTag} onTagChange={setActiveTag} />
 
       {filtered.length > 0 ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col">
           {filtered.map((post) => (
             <BlogCard
               key={post.slug}
