@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { Post } from "@/lib/mdx";
 
 export default function BlogCard({ post }: { post: Post }) {
@@ -8,46 +7,37 @@ export default function BlogCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group flex flex-col bg-surface-container rounded-xl overflow-hidden hover:bg-surface-container-high transition-all duration-300"
+      className="group block py-6 border-b border-outline-variant/20 hover:bg-surface-container/50 transition-colors -mx-4 px-4 rounded-lg"
     >
-      <div className="p-6 flex flex-col flex-grow">
-        {/* Tags + date row */}
-        <div className="flex items-center gap-3 mb-3">
-          {frontmatter.tags.slice(0, 2).map((tag) => (
-            <span
-              key={tag}
-              className="glass-panel px-2 py-1 text-[10px] font-mono text-secondary rounded uppercase tracking-wider"
-            >
-              {tag}
-            </span>
-          ))}
-          <span className="ml-auto text-xs font-mono text-on-surface-variant">
-            {frontmatter.readTime}
+      {/* Date + tags */}
+      <div className="flex items-center gap-3 mb-2">
+        <time className="text-sm font-mono text-on-surface-variant">
+          {new Date(frontmatter.date).toLocaleDateString("pl-PL", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+        <span className="text-outline">|</span>
+        {frontmatter.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-xs font-mono text-secondary uppercase tracking-wider"
+          >
+            {tag}
           </span>
-        </div>
-
-        {/* Title */}
-        <h3 className="text-xl font-bold text-on-surface mb-4 leading-snug group-hover:text-primary transition-colors line-clamp-2">
-          {frontmatter.title}
-        </h3>
-
-        {/* Excerpt */}
-        <p className="text-sm text-on-surface-variant line-clamp-2 mb-6">
-          {frontmatter.excerpt}
-        </p>
-
-        {/* Footer */}
-        <div className="mt-auto flex items-center justify-between">
-          <time className="text-xs font-mono text-on-surface-variant">
-            {new Date(frontmatter.date).toLocaleDateString("pl-PL", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-          <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
-        </div>
+        ))}
       </div>
+
+      {/* Title */}
+      <h3 className="text-base font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">
+        {frontmatter.title}
+      </h3>
+
+      {/* Excerpt */}
+      <p className="text-base text-on-surface-variant">
+        {frontmatter.excerpt}
+      </p>
     </Link>
   );
 }
