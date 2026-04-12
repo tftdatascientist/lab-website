@@ -1,0 +1,22 @@
+---
+title: "Slopsquatting — nowy wektor ataku: hakerzy wykorzystują halucynacje AI w kodzie. Badania pokazują, że 60-65% kodu generowanego przez AI jest podatne na ataki. AI wymyśla nazwy pakietów, a hakerzy rejestrują je jako malware. Krytyczne dla firm IT korzystających z vibe-codingu i narzędzi AI do programowania."
+date: "2026-04-12"
+tags: ["AI", "Nowe produkty AI"]
+excerpt: "**Twój programista używa AI? Sprawdź, czy nie instaluje malware.**"
+readTime: "2 min"
+image: "/blog/2026-04-12_slopsquatting-nowy-wektor-ataku-hakerzy-wykorzystuja-halucyn.png"
+---
+
+**Twój programista używa AI? Sprawdź, czy nie instaluje malware.**
+
+Slopsquatting to nowy wektor ataku, o którym mówi się coraz głośniej w branży security. Mechanizm jest prosty i dlatego tak niebezpieczny: modele AI generujące kod „halucynują" nazwy pakietów, które nie istnieją. Hakerzy monitorują te wymyślone nazwy, rejestrują je w repozytoriach (npm, PyPI) i wypełniają złośliwym kodem. Następny developer, który dostanie tę samą halucynację — instaluje malware.
+
+Badania pokazują, że 60-65% kodu generowanego przez AI zawiera odwołania do nieistniejących pakietów. To nie literówki — to systematyczny problem modeli językowych, które „zgadują" nazwy bibliotek na podstawie wzorców, zamiast weryfikować ich istnienie.
+
+Dla małego software house'u czy firmy IT, która wdrożyła vibe-coding albo pozwala zespołowi korzystać z Copilota i Claude'a — to realne ryzyko. Jeden zainfekowany pakiet w łańcuchu dostaw może oznaczać wyciek danych klienta albo backdoor w produkcie, który dostarczasz.
+
+Co możesz zrobić już dziś? Po pierwsze: wprowadź lockfile review w CI/CD — każda nowa zależność wymaga ludzkiego zatwierdzenia. Po drugie: zweryfikuj, czy pakiety sugerowane przez AI faktycznie istnieją i mają historię commitów. Po trzecie: rozważ narzędzia typu Socket.dev, które skanują łańcuch dostaw pod kątem podejrzanych pakietów.
+
+AI zmienia sposób, w jaki piszemy kod — ale nie zwalnia nas z odpowiedzialności za to, co trafia na produkcję. Czy Twój zespół ma procedurę weryfikacji zależności generowanych przez AI?
+
+#AI #Automatyzacja #Technologia #Biznes #Innowacje
