@@ -1,0 +1,22 @@
+---
+title: "Bielik v3 — nowa wersja polskiego LLM z zoptymalizowanym tokenizerem. 12 kwietnia 2026 ukazał się paper na arXiv opisujący Bielik v3 7B i 11B z dedykowanym słownikiem polskim (FOCUS-based embedding, multi-stage pretraining, DPO + RL). To pierwszy open-source LLM, który traktuje język polski priorytetowo na poziomie architektury — małe firmy IT mogą go hostować lokalnie bez kosztów API."
+date: "2026-04-15"
+tags: ["AI", "Polska scena AI"]
+excerpt: "Polski open-source LLM, który wreszcie traktuje polski jak pierwszy język — nie jako dodatek do angielskiego."
+readTime: "2 min"
+image: "/blog/2026-04-15_bielik-v3-nowa-wersja-polskiego-llm-z-zoptymalizowanym-token.png"
+---
+
+Polski open-source LLM, który wreszcie traktuje polski jak pierwszy język — nie jako dodatek do angielskiego.
+
+Bielik v3 ukazał się 12 kwietnia na arXiv jako dwa modele: 7B i 11B parametrów. Jeden szczegół robi tu całą różnicę: zamiast używać tokenizera zaprojektowanego pod angielski (jak Mistral czy Llama), autorzy zbudowali słownik od zera pod morfologię polskiego. To ważne, bo standardowe modele "nie rozumieją" fleksji — traktują "zamówiłem", "zamówiłam", "zamówię" jak zupełnie obce słowa. Dedykowany tokenizer redukuje tę fragmentację, co przekłada się na krótsze sekwencje, mniej obliczeń i lepsze rozumienie tekstu.
+
+Za kulisami: wieloetapowe pretraining na polskim korpusie, potem dostrajanie przez DPO i uczenie ze wzmocnieniem (to taki sposób, żeby model uczył się co jest "dobrą" odpowiedzią, nie tylko co jest "prawdopodobną"). Efekt to model, który nie tylko mówi po polsku, ale myśli w strukturach charakterystycznych dla polszczyzny.
+
+Co to zmienia dla małej firmy IT? Przede wszystkim: można to uruchomić lokalnie. 7B bez problemu chodzi na jednej karcie graficznej z 16 GB VRAM, 11B na dwóch lub na serwerze z wolną pamięcią. Zero opłat za API, zero danych wysyłanych na zewnątrz. Dla firm, które przetwarzają umowy, faktury czy maile klientów — to istotne.
+
+Projekt jest open-source, dostępny na Hugging Face. Nie trzeba czekać na polską wersję jakiegoś zagranicznego modelu — jest już coś budowanego od środka pod nasz język.
+
+Ciekawy jestem, czy ktoś już próbował hostować Bielika w produkcji — jakie mieliście pierwsze wrażenia ze 100% polskim LLM na własnym serwerze?
+
+#AI #Automatyzacja #Technologia #Biznes #Innowacje
