@@ -1,0 +1,78 @@
+---
+title: "Co to jest n8n i dlaczego warto go używać w biznesie?"
+date: "2026-04-21T10:00:00.000+02:00"
+tags: ["n8n", "automatyzacja", "no-code"]
+excerpt: "n8n to open-source'owa platforma automatyzacji workflow. Wyjaśniamy jak działa i dlaczego MŚP z regionu wybierają ją zamiast Zapier czy Make."
+readTime: "5 min"
+---
+
+## Czym jest n8n?
+
+n8n (wymawiane: "n-eight-n") to open-source'owa platforma automatyzacji procesów biznesowych. Działa na zasadzie wizualnego edytora przepływów danych — łączysz węzły (nodes) reprezentujące aplikacje i akcje, tworząc automatyczne workflow bez pisania kodu.
+
+Platforma dostępna jest w dwóch wariantach:
+- **n8n Cloud** — hostowany przez dostawcę, płatny abonament
+- **n8n self-hosted** — instalacja na własnym serwerze, bezpłatna (open-source)
+
+Dla firm z regionu kujawsko-pomorskiego, którym zależy na pełnej kontroli danych, rekomendujemy wariant self-hosted na VPS.
+
+## Co n8n robi lepiej niż Zapier czy Make?
+
+### 1. Pełna kontrola danych
+
+W Zapier i Make Twoje dane przechodzą przez serwery zewnętrznego dostawcy. W n8n self-hosted workflow działa na Twoim serwerze — dane nigdy nie opuszczają Twojej infrastruktury. To kluczowe dla firm obsługujących dane wrażliwe (kliniki, biura rachunkowe, kancelarie).
+
+### 2. Brak limitu operacji
+
+Zapier i Make liczą każde wykonanie workflow jako "operację" i pobierają opłatę po przekroczeniu limitu. n8n self-hosted nie ma takich limitów — możesz wykonywać miliony operacji miesięcznie bez dodatkowych kosztów.
+
+### 3. Ponad 400 wbudowanych integracji
+
+n8n integruje się natywnie z:
+- Google Workspace (Gmail, Sheets, Drive, Calendar)
+- Microsoft 365 (Outlook, Teams, SharePoint)
+- CRM: HubSpot, Pipedrive, Salesforce
+- E-commerce: Shopify, WooCommerce
+- Komunikatory: Slack, Telegram, WhatsApp
+- Systemy księgowe: Fakturownia, iFirma
+- Dowolne REST API i WebHook
+
+### 4. Niski próg wejścia, wysoki sufit możliwości
+
+Proste workflow (np. "gdy wpłynie email z zamówieniem → zapisz do arkusza → wyślij SMS") zbudujesz w 15 minut bez wiedzy technicznej. Zaawansowane scenariusze z logiką warunkową, pętlami, obsługą błędów i własnym kodem JavaScript są też możliwe — bez zewnętrznych narzędzi.
+
+## Przykłady zastosowań w lokalnych firmach
+
+**Sklep meblowy (Grudziądz):**
+Zamówienie z formularza www → automatyczne potwierdzenie emailem + SMS → zapis do arkusza Google → powiadomienie do magazynu na Slacku.
+
+**Gabinet dentystyczny (Toruń):**
+Nowa rejestracja w systemie → przypomnienie SMS 24h przed wizytą → po wizycie: automatyczna prośba o opinię Google.
+
+**Biuro rachunkowe (Bydgoszcz):**
+Klient przesyła dokumenty przez email → n8n sortuje według klienta → zapisuje do odpowiedniego folderu Drive → informuje księgową przez Teamsach.
+
+## Jak wygląda wdrożenie z lok-ai?
+
+Typowy proces wdrożenia automatyzacji n8n:
+
+1. **Audyt procesów** (48h) — identyfikujemy procesy z największym potencjałem automatyzacji
+2. **Projekt workflow** (24h) — prezentujemy proponowane przepływy do akceptacji
+3. **Implementacja** (72-96h) — budujemy i testujemy automatyzacje
+4. **Szkolenie** (2h) — pokazujemy jak monitorować i modyfikować workflow
+5. **Wsparcie** (30 dni) — bezpłatna opieka po wdrożeniu
+
+Średni czas zwrotu z inwestycji dla naszych klientów: **2-4 miesiące**.
+
+## Często zadawane pytania
+
+**Czy muszę mieć własny serwer?**
+Nie. Możemy skonfigurować n8n na Twoim hostingu lub uruchomić w chmurze (np. Railway, Render) — koszt od 20 zł/miesiąc.
+
+**Czy n8n działa 24/7?**
+Tak, automatyzacje działają ciągle — niezależnie czy komputer w biurze jest włączony.
+
+**Co się stanie gdy workflow przestanie działać?**
+n8n wysyła alerty email przy błędach. W ramach planu wsparcia monitorujemy workflow i reagujemy w ciągu 4 godzin.
+
+Chcesz zobaczyć jak automatyzacja może pomóc Twojej firmie? [Umów bezpłatną konsultację](/kontakt).

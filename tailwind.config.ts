@@ -59,7 +59,7 @@ const config: Config = {
         "inverse-primary": "#6d3bd7",
       },
       fontFamily: {
-        heading: ["var(--font-space-grotesk)", "sans-serif"],
+        heading: ["var(--font-inter)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
       },

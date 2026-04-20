@@ -16,7 +16,7 @@ export default function ChatWindow() {
         {/* Bot message */}
         <div className="max-w-[85%] rounded-xl rounded-tl-sm border border-primary/12 bg-primary/[0.08] px-4 py-3">
           <p className="text-sm text-on-surface leading-relaxed">
-            Cześć! Jestem asystentem LAB. Mogę opowiedzieć o&nbsp;automatyzacji
+            Cześć! Jestem asystentem lok-ai. Mogę opowiedzieć o&nbsp;automatyzacji
             procesów, chatbotach, agentach AI i&nbsp;rozwiązaniach low-code.
             O&nbsp;czym chcesz porozmawiać?
           </p>

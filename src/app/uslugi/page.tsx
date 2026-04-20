@@ -3,7 +3,7 @@ import { services } from "@/content/services";
 import ServiceCard from "@/components/ServiceCard";
 
 export const metadata: Metadata = {
-  title: "Usługi — LAB | Automatyzacja i AI dla firm",
+  title: "Usługi — lok-ai | Automatyzacja i AI dla firm",
   description:
     "Automatyzacja procesów, chatboty AI, agenci głosowi, bazy wiedzy RAG, dashboardy i integracje systemów dla MŚP z Pomorza i Kujaw.",
 };

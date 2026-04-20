@@ -5,7 +5,7 @@ import { services } from "@/content/services";
 import SchemaOrg from "@/components/SchemaOrg";
 import { generateServiceSchema } from "@/lib/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 interface Props {
   params: { slug: string };
@@ -20,10 +20,10 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!service) return {};
 
   return {
-    title: `${service.title} — LAB | Automatyzacja i AI`,
+    title: `${service.title} — lok-ai | Automatyzacja i AI`,
     description: service.desc,
     openGraph: {
-      title: `${service.title} — LAB`,
+      title: `${service.title} — lok-ai`,
       description: service.desc,
       type: "website",
       locale: "pl_PL",
@@ -84,20 +84,62 @@ export default function ServicePage({ params }: Props) {
             ))}
           </div>
 
-          {/* Placeholder content */}
-          <div className="rounded-2xl border border-outline-variant/15 bg-surface-container p-8 lg:p-10">
-            <p className="text-on-surface-variant leading-relaxed">
-              Szczegółowy opis usługi w przygotowaniu.
-            </p>
-          </div>
+          {/* Rich content when available */}
+          {service.longDesc ? (
+            <div className="space-y-10">
+              <div className="rounded-2xl border border-outline-variant/15 bg-surface-container p-8 lg:p-10">
+                <p className="text-on-surface-variant leading-relaxed">
+                  {service.longDesc}
+                </p>
+              </div>
+
+              {service.benefits && (
+                <section>
+                  <h2 className="font-heading text-xl font-bold text-on-surface mb-4">
+                    Korzyści
+                  </h2>
+                  <ul className="space-y-3">
+                    {service.benefits.map((b) => (
+                      <li key={b} className="flex items-start gap-3 text-sm text-on-surface-variant">
+                        <span className="text-secondary mt-0.5 shrink-0">✓</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+
+              {service.useCases && (
+                <section>
+                  <h2 className="font-heading text-xl font-bold text-on-surface mb-4">
+                    Przykłady zastosowań
+                  </h2>
+                  <ul className="space-y-3">
+                    {service.useCases.map((u) => (
+                      <li key={u} className="flex items-start gap-3 text-sm text-on-surface-variant">
+                        <span className="text-primary mt-0.5 shrink-0">→</span>
+                        {u}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-outline-variant/15 bg-surface-container p-8 lg:p-10">
+              <p className="text-on-surface-variant leading-relaxed">
+                Szczegółowy opis usługi w przygotowaniu.
+              </p>
+            </div>
+          )}
 
           {/* CTA */}
           <div className="mt-12 text-center">
             <a
-              href="/#kontakt"
+              href="/kontakt"
               className="inline-flex items-center px-6 py-3 text-sm font-medium text-on-primary obsidian-gradient rounded-lg hover:shadow-[0_0_24px_rgba(0,212,255,0.35)] transition-shadow"
             >
-              Zapytaj o tę usługę →
+              {service.ctaText ?? "Zapytaj o tę usługę"} →
             </a>
           </div>
         </div>

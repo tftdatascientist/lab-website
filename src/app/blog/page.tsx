@@ -3,7 +3,7 @@ import { getAllPosts, getAllTags } from "@/lib/mdx";
 import BlogListClient from "./BlogListClient";
 
 export const metadata: Metadata = {
-  title: "Blog — LAB | Automatyzacja i AI dla firm",
+  title: "Blog — lok-ai | Automatyzacja i AI dla firm",
   description:
     "Artykuły o automatyzacji procesów, chatbotach AI, agentach głosowych i rozwiązaniach low-code dla MŚP.",
 };

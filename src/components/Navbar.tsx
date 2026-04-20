@@ -5,10 +5,9 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "Usługi", href: "/uslugi" },
-  { label: "Technologie", href: "/technologie" },
-  { label: "Demo AI", href: "/demo" },
+  { label: "Technologia", href: "/technologia" },
   { label: "Blog", href: "/blog" },
-  { label: "Dziennik", href: "/dziennik" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -21,9 +20,14 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-xl font-bold tracking-tighter text-on-surface font-heading"
+          className="flex items-center gap-3"
         >
-          LAB
+          <span className="text-xl font-black tracking-tighter text-on-surface font-heading bg-surface-container-high px-2.5 py-1 rounded-lg">
+            lok-ai
+          </span>
+          <span className="hidden sm:block text-xs text-on-surface-variant font-medium tracking-tight">
+            Lokalna Automatyzacja Biznesu
+          </span>
         </Link>
 
         {/* Desktop links */}

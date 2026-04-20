@@ -1,0 +1,118 @@
+---
+title: "Chatboty AI dla firm — Flowise vs Typebot vs własne rozwiązanie"
+date: "2026-04-22T10:00:00.000+02:00"
+tags: ["chatboty", "flowise", "typebot", "ai"]
+excerpt: "Porównanie trzech podejść do wdrożenia chatbota AI dla firmy. Kiedy wybrać Flowise, kiedy Typebot, a kiedy zbudować własne rozwiązanie z LLM."
+readTime: "7 min"
+---
+
+## Trzy drogi do chatbota dla firmy
+
+Firmy z województwa kujawsko-pomorskiego coraz częściej pytają nas o chatboty AI. Najczęstsze pytanie brzmi: "Jakiego narzędzia użyć?" Odpowiedź zależy od tego, czego oczekujesz.
+
+W tym artykule porównamy trzy najpopularniejsze podejścia, z których korzystamy w lok-ai.
+
+## Flowise — gdy liczy się wiedza
+
+**Flowise** to open-source'owy framework do budowania chatbotów opartych na bazach wiedzy (RAG — Retrieval Augmented Generation). Idealne gdy chcesz, żeby chatbot "wiedział" wszystko o Twojej firmie.
+
+### Jak działa?
+
+1. Wgrywasz dokumenty (PDF, Word, strona www, baza danych)
+2. Flowise przetwarza je na reprezentacje wektorowe (embeddingi)
+3. Gdy klient zadaje pytanie, chatbot wyszukuje najbardziej trafne fragmenty
+4. LLM (GPT-4, Claude) generuje odpowiedź bazując na dokumentach
+
+### Dla kogo?
+
+- Sklepy e-commerce z rozbudowaną bazą produktów
+- Firmy usługowe z wieloma FAQ (kliniki, biura, hotele)
+- Serwisy techniczne z dokumentacją
+
+### Przykład
+
+Sklep budowlany: klient pyta "Jaka farba nadaje się do łazienki?" → chatbot przeszukuje katalog 2000 produktów i odpowiada z konkretnymi rekomendacjami i cenami.
+
+---
+
+## Typebot — gdy liczy się prowadzenie rozmowy
+
+**Typebot** to platforma do tworzenia konwersacyjnych formularzy i chatbotów z wizualnym edytorem przepływów. Zamiast "wolnej rozmowy" — prowadzisz klienta przez sekwencję pytań i odpowiedzi.
+
+### Jak działa?
+
+Budujesz drzewo decyzyjne: "Czego potrzebujesz? → [Oferty / Umówienia wizyty / Wsparcia technicznego]". Każda gałąź prowadzi do różnych akcji.
+
+### Dla kogo?
+
+- Firmy zbierające leady przez www
+- Gabinety i kliniki (booking wizyt)
+- Sklepy konfigurowalne (kalkulator wyceny)
+
+### Przykład
+
+Salon fryzjerski: "Jaką usługę chcesz zarezerwować?" → wybór z menu → "Wybierz stylistę" → wybór z menu → "Podaj imię i telefon" → automatyczne wpisanie do kalendarza.
+
+---
+
+## Własne rozwiązanie z LLM API
+
+Gdy Flowise i Typebot to za mało — budujemy chatboty od podstaw z bezpośrednim dostępem do OpenAI API lub Anthropic Claude API.
+
+### Kiedy to ma sens?
+
+- Wielojęzyczny chatbot z zaawansowaną logiką
+- Integracja z systemami legacy (własny CRM, ERP)
+- Wymagania dotyczące prywatności (lokalne modele LLM)
+- Złożone przepływy łączące RAG + booking + powiadomienia
+
+### Koszt
+
+Wyższy czas implementacji (2-4 tygodnie vs 3-7 dni), ale pełna elastyczność i brak ograniczeń platformy.
+
+---
+
+## Porównanie tabelaryczne
+
+| Kryterium | Flowise | Typebot | Własne |
+|---|---|---|---|
+| Czas wdrożenia | 3-5 dni | 2-4 dni | 2-4 tygodnie |
+| Baza wiedzy RAG | ✓ natywnie | ✗ | ✓ własna |
+| Konwersacyjny flow | ograniczony | ✓ natywnie | ✓ pełny |
+| Integracje | n8n + API | n8n + webhook | pełne API |
+| Koszt miesięczny | ~50-150 zł | ~0-100 zł | API + hosting |
+| Próg techniczny | niski | bardzo niski | wysoki |
+
+---
+
+## Który wybrać dla swojej firmy?
+
+**Wybierz Flowise** jeśli:
+- Masz dużo treści do "nauczenia" chatbota
+- Klienci zadają różnorodne pytania
+- Ważna jest jakość odpowiedzi, nie tylko zbieranie danych
+
+**Wybierz Typebot** jeśli:
+- Chcesz prowadzić klienta krok po kroku
+- Zbierasz dane do formularza lub bookingu
+- Priorytetem jest szybkie wdrożenie
+
+**Wybierz własne rozwiązanie** jeśli:
+- Masz niestandardowe wymagania integracyjne
+- Chatbot ma działać w wielu kanałach jednocześnie
+- Potrzebujesz pełnej kontroli nad logiką biznesową
+
+---
+
+## Jak wygląda wdrożenie chatbota z lok-ai?
+
+Niezależnie od wybranego narzędzia, proces jest podobny:
+
+1. **Warsztaty wymagań** — co chatbot ma robić, jakie pytania ma obsługiwać
+2. **Wybór narzędzia** — dopasowanie technologii do wymagań
+3. **Przygotowanie bazy wiedzy** — zebranie i strukturyzacja treści
+4. **Implementacja i testy** — budowa + testy z prawdziwymi pytaniami
+5. **Wdrożenie** — embed na stronie lub integracja z komunikatorem
+6. **Monitoring** — analiza rozmów, optymalizacja odpowiedzi
+
+Chcesz chatbota dla swojej firmy? [Napisz do nas](/kontakt) — w ciągu 24 godzin odpowiemy z propozycją rozwiązania.

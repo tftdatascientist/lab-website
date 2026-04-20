@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import FaqPageClient from "./FaqPageClient";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 export const metadata: Metadata = {
-  title: "FAQ — LAB | Najczęściej Zadawane Pytania",
+  title: "FAQ — lok-ai | Najczęściej Zadawane Pytania",
   description:
-    "Odpowiedzi na najczęściej zadawane pytania o automatyzację procesów, chatboty AI i wdrożenia LAB.",
+    "Odpowiedzi na najczęściej zadawane pytania o automatyzację procesów, chatboty AI i wdrożenia lok-ai.",
   alternates: {
     canonical: `${SITE_URL}/faq`,
   },

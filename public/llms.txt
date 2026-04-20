@@ -1,4 +1,4 @@
-# LAB - Lokalna Automatyzacja Biznesu
+# lok-ai — Lokalna Automatyzacja Biznesu
 
 ## Czym się zajmujemy
 Automatyzacja procesów biznesowych i wdrożenia AI dla małych i średnich firm
@@ -15,5 +15,5 @@ z województwa kujawsko-pomorskiego (Grudziądz, Toruń, Bydgoszcz i okolice).
 n8n, Flowise, Typebot, Redis, Pinecone, OpenAI API, ElevenLabs, Claude API
 
 ## Kontakt
-Email: kontakt@lab-ai.pl
+Email: kontakt@lok-ai.pl
 Lokalizacja: Grudziądz, kujawsko-pomorskie, Polska

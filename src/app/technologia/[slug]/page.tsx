@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { getAllTechPosts, getTechPostBySlug } from "@/lib/mdx";
 import SchemaOrg from "@/components/SchemaOrg";
 import { generateArticleSchema } from "@/lib/schema";
 
@@ -13,15 +13,15 @@ interface Props {
 }
 
 export function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+  return getAllTechPosts().map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const post = getPostBySlug(params.slug);
+  const post = getTechPostBySlug(params.slug);
   if (!post) return {};
 
   return {
-    title: `${post.frontmatter.title} — lok-ai Blog`,
+    title: `${post.frontmatter.title} — lok-ai Technologia`,
     description: post.frontmatter.excerpt,
     openGraph: {
       title: post.frontmatter.title,
@@ -29,21 +29,21 @@ export function generateMetadata({ params }: Props): Metadata {
       type: "article",
       locale: "pl_PL",
       publishedTime: post.frontmatter.date,
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: `${SITE_URL}/technologia/${post.slug}`,
     },
     alternates: {
-      canonical: `${SITE_URL}/blog/${post.slug}`,
+      canonical: `${SITE_URL}/technologia/${post.slug}`,
     },
   };
 }
 
-export default function BlogPostPage({ params }: Props) {
-  const post = getPostBySlug(params.slug);
+export default function TechPostPage({ params }: Props) {
+  const post = getTechPostBySlug(params.slug);
   if (!post) notFound();
 
   return (
     <>
-      <SchemaOrg schema={generateArticleSchema(post)} />
+      <SchemaOrg schema={generateArticleSchema(post, "technologia")} />
 
       <article className="py-20 lg:py-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,8 +53,8 @@ export default function BlogPostPage({ params }: Props) {
               Strona główna
             </Link>
             <span>/</span>
-            <Link href="/blog" className="hover:text-on-surface-variant transition-colors">
-              Blog
+            <Link href="/technologia" className="hover:text-on-surface-variant transition-colors">
+              Technologia
             </Link>
             <span>/</span>
             <span className="text-on-surface-variant truncate">
@@ -98,10 +98,10 @@ export default function BlogPostPage({ params }: Props) {
           {/* Back */}
           <div className="mt-14 pt-8 border-t border-outline-variant/15">
             <Link
-              href="/blog"
+              href="/technologia"
               className="text-sm text-on-surface-variant hover:text-primary transition-colors"
             >
-              ← Wróć do bloga
+              ← Wróć do sekcji Technologia
             </Link>
           </div>
         </div>

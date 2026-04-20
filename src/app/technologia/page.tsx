@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { getAllTechPosts } from "@/lib/mdx";
 import {
   Brain,
   ShieldCheck,
@@ -16,11 +18,11 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Technologie — LAB | Stack technologiczny AI",
+  title: "Technologia — lok-ai | Stack technologiczny AI",
   description:
-    "Poznaj technologie LAB — modele AI (GPT-4, Claude, Llama), infrastruktura H100, ponad 400 integracji enterprise.",
+    "Poznaj technologie lok-ai — modele AI (GPT-4, Claude, Llama), infrastruktura H100, ponad 400 integracji enterprise.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl"}/technologie`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/technologia`,
   },
 };
 
@@ -34,7 +36,7 @@ const models = [
     badge: "ULTRA-LATENCY",
     badgeColor: "text-secondary border-secondary/30",
     name: "GPT-4 Turbo",
-    desc: "Multimodalne rozumowanie z oknem kontekstu do 128 k tokenów. Optymalizacja latencji przez dedykowane kernele LAB.",
+    desc: "Multimodalne rozumowanie z oknem kontekstu do 128 k tokenów. Optymalizacja latencji przez dedykowane kernele lok-ai.",
     ttft: "12ms",
     tokens: "140",
   },
@@ -56,7 +58,7 @@ const models = [
     badge: "SELF-HOSTED",
     badgeColor: "text-secondary border-secondary/30",
     name: "Llama 3 70B",
-    desc: "Najnowsze modele open-source uruchomione na dedykowanych podach GPU H100 w infrastrukturze LAB.",
+    desc: "Najnowsze modele open-source uruchomione na dedykowanych podach GPU H100 w infrastrukturze lok-ai.",
     ttft: "8ms",
     tokens: "195",
   },
@@ -119,6 +121,8 @@ const telemetryRows = [
 /* ── Page ──────────────────────────────────────────────────────────── */
 
 export default function TechnologiePage() {
+  const techPosts = getAllTechPosts();
+
   return (
     <section className="pt-20 lg:pt-28 pb-24 px-4 sm:px-6 lg:px-12 max-w-[1600px] mx-auto">
       {/* ── Hero Header ───────────────────────────────────────── */}
@@ -136,7 +140,7 @@ export default function TechnologiePage() {
         </h1>
 
         <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
-          LAB zapewnia orkiestrację na poziomie infrastruktury wymaganą dla
+          lok-ai zapewnia orkiestrację na poziomie infrastruktury wymaganą dla
           nowej generacji autonomicznej inteligencji. Zero-latency inference,
           zunifikowany data-fabric i&nbsp;elastyczny compute.
         </p>
@@ -358,6 +362,48 @@ export default function TechnologiePage() {
           </table>
         </div>
       </section>
+
+      {/* ── Artykuły technologiczne ───────────────────────────── */}
+      {techPosts.length > 0 && (
+        <section className="mt-20">
+          <div className="flex items-center gap-4 mb-10">
+            <h2 className="font-heading text-3xl font-bold tracking-tight whitespace-nowrap">
+              Artykuły
+            </h2>
+            <div className="h-px flex-grow bg-outline-variant/20" />
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {techPosts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/technologia/${post.slug}`}
+                className="group rounded-xl bg-surface-container ghost-border p-6 hover:bg-surface-bright transition-all duration-300"
+              >
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {post.frontmatter.tags.slice(0, 2).map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary/80 border border-primary/20 rounded-full px-2.5 py-0.5"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="font-heading text-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors leading-tight">
+                  {post.frontmatter.title}
+                </h3>
+                <p className="text-sm text-on-surface-variant leading-relaxed mb-4">
+                  {post.frontmatter.excerpt}
+                </p>
+                <span className="text-xs text-outline">
+                  {post.frontmatter.readTime} czytania
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </section>
   );
 }

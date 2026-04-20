@@ -37,7 +37,7 @@ const faqItems: FaqItem[] = [
     content: (
       <>
         <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-          Standardowe wdrożenia LAB trwają 7-14 dni. Każdy projekt przechodzi
+          Standardowe wdrożenia lok-ai trwają 7-14 dni. Każdy projekt przechodzi
           przez trzy precyzyjnie zaplanowane fazy.
         </p>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -73,7 +73,7 @@ const faqItems: FaqItem[] = [
     title: "Model cenowy",
     content: (
       <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-        LAB oferuje elastyczny model cenowy. Darmowa konsultacja na start.
+        lok-ai oferuje elastyczny model cenowy. Darmowa konsultacja na start.
         Wdrożenia od{" "}
         <span className="text-secondary font-mono">0 zł</span> (w ramach
         grantów) do indywidualnej wyceny. Każdy projekt wyceniamy osobno,
@@ -132,6 +132,55 @@ const faqItems: FaqItem[] = [
       </p>
     ),
   },
+  {
+    protocol: "Protokół 06",
+    title: "Dla jakich firm działamy?",
+    content: (
+      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+        Specjalizujemy się w małych i średnich firmach z województwa
+        kujawsko-pomorskiego — Grudziądz, Toruń, Bydgoszcz, Świecie,
+        Chełmno, Wąbrzeźno i okolice.
+        <br />
+        <br />
+        Obsługujemy firmy z każdej branży: handel, usługi, gabinety
+        medyczne i kosmetyczne, biura rachunkowe, sklepy e-commerce,
+        warsztaty, agencje nieruchomości. Jeśli masz powtarzalne procesy —
+        możemy je zautomatyzować.
+      </p>
+    ),
+  },
+  {
+    protocol: "Protokół 07",
+    title: "Czy potrzebuję działu IT w firmie?",
+    content: (
+      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+        Nie. Nasze wdrożenia są &ldquo;done-for-you&rdquo; — zajmujemy się
+        całą stroną techniczną. Jedyne czego potrzebujesz to dostęp do
+        używanych narzędzi (email, CRM, kalendarz, system rezerwacji).
+        <br />
+        <br />
+        Po zakończeniu wdrożenia przeprowadzamy szkolenie (zazwyczaj 2
+        godziny), żebyś mógł samodzielnie monitorować automatyzacje.
+        Codzienne korzystanie nie wymaga wiedzy technicznej.
+      </p>
+    ),
+  },
+  {
+    protocol: "Protokół 08",
+    title: "Co się dzieje po zakończeniu projektu?",
+    content: (
+      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+        Po wdrożeniu otrzymujesz kompletną dokumentację projektu i
+        szkolenie dla Twojego zespołu. Przez pierwsze 30 dni zapewniamy
+        bezpłatne wsparcie techniczne.
+        <br />
+        <br />
+        Opcjonalnie oferujemy stały monitoring i utrzymanie automatyzacji
+        w ramach umowy serwisowej. Monitorujemy workflow, aktualizujemy
+        integracje po zmianach API dostawców i reagujemy na incydenty.
+      </p>
+    ),
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -169,7 +218,7 @@ export default function FaqPageClient() {
       {/* ---- Bento 12-col grid ---- */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left sidebar -- categories */}
-        <aside className="lg:col-span-3 space-y-6">
+        <aside className="hidden lg:block lg:col-span-3 space-y-6">
           <div className="p-6 bg-surface-low rounded-xl ghost-border">
             <h3 className="font-heading text-lg font-bold mb-6 text-on-surface">
               Kategorie

@@ -1,6 +1,6 @@
 import { getAllPosts } from "@/lib/mdx";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 export function GET() {
   const posts = getAllPosts();
@@ -22,7 +22,7 @@ export function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>LAB — Lokalna Automatyzacja Biznesu</title>
+    <title>lok-ai — Lokalna Automatyzacja Biznesu</title>
     <link>${SITE_URL}</link>
     <description>Artykuły o automatyzacji procesów, chatbotach AI i rozwiązaniach low-code dla MŚP.</description>
     <language>pl</language>

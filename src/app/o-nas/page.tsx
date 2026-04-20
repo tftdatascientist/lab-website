@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "O nas — LAB | Automatyzacja i AI dla firm",
+  title: "O nas — lok-ai | Automatyzacja i AI dla firm",
   description:
-    "LAB — Lokalna Automatyzacja Biznesu. Wdrażamy automatyzacje procesów i AI dla MŚP z regionu kujawsko-pomorskiego.",
+    "lok-ai — Lokalna Automatyzacja Biznesu. Wdrażamy automatyzacje procesów i AI dla MŚP z regionu kujawsko-pomorskiego.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl"}/o-nas`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/o-nas`,
   },
 };
 
@@ -23,7 +23,7 @@ export default function ONasPage() {
 
         <div className="space-y-6 text-on-surface-variant leading-relaxed">
           <p>
-            LAB to firma technologiczna z&nbsp;Grudziądza, specjalizująca się
+            lok-ai to firma technologiczna z&nbsp;Grudziądza, specjalizująca się
             we&nbsp;wdrażaniu automatyzacji procesów biznesowych
             i&nbsp;rozwiązań opartych na sztucznej inteligencji dla małych
             i&nbsp;średnich przedsiębiorstw z&nbsp;regionu

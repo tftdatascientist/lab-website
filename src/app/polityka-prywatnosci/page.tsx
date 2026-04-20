@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Polityka prywatności — LAB",
-  description: "Polityka prywatności serwisu LAB - Lokalna Automatyzacja Biznesu.",
+  title: "Polityka prywatności — lok-ai",
+  description: "Polityka prywatności serwisu lok-ai — Lokalna Automatyzacja Biznesu.",
   robots: { index: false },
 };
 
@@ -17,7 +17,7 @@ export default function PolitykaPrywatnosciPage() {
         <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-headings:font-heading prose-headings:tracking-tight">
           <h2>1. Administrator danych</h2>
           <p>
-            Administratorem danych osobowych jest LAB — Lokalna Automatyzacja
+            Administratorem danych osobowych jest lok-ai — Lokalna Automatyzacja
             Biznesu z siedzibą w Grudziądzu, woj. kujawsko-pomorskie.
           </p>
 
@@ -45,7 +45,7 @@ export default function PolitykaPrywatnosciPage() {
           <p>
             Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia,
             ograniczenia przetwarzania oraz przenoszenia. Kontakt:
-            kontakt@lab-ai.pl.
+            kontakt@lok-ai.pl.
           </p>
 
           <h2>6. Pliki cookies</h2>

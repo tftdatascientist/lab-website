@@ -1,19 +1,20 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/mdx";
-import { getAllDziennikPosts } from "@/lib/dziennik";
+import { getAllPosts, getAllTechPosts } from "@/lib/mdx";
 import { services } from "@/content/services";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/uslugi`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/technologia`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${SITE_URL}/dziennik`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
-    { url: `${SITE_URL}/demo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/portfolio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/kontakt`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/o-nas`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/demo`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.3 },
     { url: `${SITE_URL}/polityka-prywatnosci`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/regulamin`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
@@ -32,12 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const dziennikPages: MetadataRoute.Sitemap = getAllDziennikPosts().map((p) => ({
-    url: `${SITE_URL}/dziennik/${p.slug}`,
+  const techPages: MetadataRoute.Sitemap = getAllTechPosts().map((p) => ({
+    url: `${SITE_URL}/technologia/${p.slug}`,
     lastModified: new Date(p.frontmatter.date),
-    changeFrequency: "daily",
-    priority: 0.4,
+    changeFrequency: "monthly",
+    priority: 0.6,
   }));
 
-  return [...staticPages, ...servicePages, ...blogPages, ...dziennikPages];
+  return [...staticPages, ...servicePages, ...blogPages, ...techPages];
 }

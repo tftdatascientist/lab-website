@@ -3,20 +3,20 @@ import ContactForm from "@/components/ContactForm";
 import SchemaOrg from "@/components/SchemaOrg";
 
 export const metadata: Metadata = {
-  title: "Kontakt — LAB | Automatyzacja i AI dla firm",
+  title: "Kontakt — lok-ai | Automatyzacja i AI dla firm",
   description:
-    "Skontaktuj się z LAB — bezpłatna konsultacja automatyzacji procesów i AI dla Twojej firmy. Grudziądz, kujawsko-pomorskie.",
+    "Skontaktuj się z lok-ai — bezpłatna konsultacja automatyzacji procesów i AI dla Twojej firmy. Grudziądz, kujawsko-pomorskie.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl"}/kontakt`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/kontakt`,
   },
 };
 
 const contactSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "LAB - Lokalna Automatyzacja Biznesu",
+  name: "lok-ai — Lokalna Automatyzacja Biznesu",
   telephone: "+48-000-000-000",
-  email: "kontakt@lab-ai.pl",
+  email: "kontakt@lok-ai.pl",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Grudziądz",
@@ -28,6 +28,7 @@ const contactSchema = {
     telephone: "+48-000-000-000",
     email: "kontakt@lab-ai.pl",
     contactType: "customer service",
+
     availableLanguage: "Polish",
   },
 };
@@ -64,10 +65,10 @@ export default function KontaktPage() {
                   <li>
                     <span className="block text-outline text-xs mb-0.5">Email</span>
                     <a
-                      href="mailto:kontakt@lab-ai.pl"
+                      href="mailto:kontakt@lok-ai.pl"
                       className="hover:text-primary transition-colors"
                     >
-                      kontakt@lab-ai.pl
+                      kontakt@lok-ai.pl
                     </a>
                   </li>
                   <li>

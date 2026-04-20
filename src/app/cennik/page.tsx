@@ -4,11 +4,11 @@ import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cennik — LAB | Plany automatyzacji AI dla firm",
+  title: "Cennik — lok-ai | Plany automatyzacji AI dla firm",
   description:
-    "Elastyczne plany cenowe LAB — od darmowej konsultacji po dedykowane wdrożenia enterprise. Automatyzacja i AI dla MŚP.",
+    "Elastyczne plany cenowe lok-ai — od darmowej konsultacji po dedykowane wdrożenia enterprise. Automatyzacja i AI dla MŚP.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl"}/cennik`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/cennik`,
   },
 };
 
@@ -120,7 +120,7 @@ export default function CennikPage() {
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-surface-container-high ghost-border mb-6">
           <span className="w-2 h-2 rounded-full bg-secondary" />
           <span className="text-[10px] font-mono uppercase tracking-widest text-secondary">
-            Integracja z ekosystemem LAB
+            Integracja z ekosystemem lok-ai
           </span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black font-heading tracking-tighter text-on-surface mb-8">

@@ -1,16 +1,16 @@
 import type { Service } from "@/content/services";
 import type { Post } from "@/lib/mdx";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 const localBusiness = {
   "@type": "LocalBusiness",
-  name: "LAB - Lokalna Automatyzacja Biznesu",
+  name: "lok-ai — Lokalna Automatyzacja Biznesu",
   description:
     "Automatyzacja procesów biznesowych i rozwiązania AI dla małych i średnich firm z regionu kujawsko-pomorskiego",
   url: SITE_URL,
   telephone: "+48-000-000-000",
-  email: "kontakt@lab-ai.pl",
+  email: "kontakt@lok-ai.pl",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Grudziądz",
@@ -77,10 +77,10 @@ export function generateServiceSchema(service: Service) {
   };
 }
 
-export function generateArticleSchema(post: Post) {
+export function generateArticleSchema(post: Post, basePath: string = "blog") {
   const org = {
     "@type": "Organization",
-    name: "LAB - Lokalna Automatyzacja Biznesu",
+    name: "lok-ai — Lokalna Automatyzacja Biznesu",
   };
 
   return {
@@ -91,6 +91,6 @@ export function generateArticleSchema(post: Post) {
     datePublished: post.frontmatter.date,
     author: org,
     publisher: org,
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/${basePath}/${post.slug}`,
   };
 }

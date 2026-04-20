@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Regulamin — LAB",
-  description: "Regulamin serwisu LAB - Lokalna Automatyzacja Biznesu.",
+  title: "Regulamin — lok-ai",
+  description: "Regulamin serwisu lok-ai — Lokalna Automatyzacja Biznesu.",
   robots: { index: false },
 };
 
@@ -18,7 +18,7 @@ export default function RegulaminPage() {
           <h2>1. Postanowienia ogólne</h2>
           <p>
             Niniejszy regulamin określa zasady korzystania z serwisu
-            internetowego lab-ai.pl prowadzonego przez LAB — Lokalna
+            internetowego lok-ai.pl prowadzonego przez lok-ai — Lokalna
             Automatyzacja Biznesu z siedzibą w Grudziądzu.
           </p>
 
@@ -38,7 +38,7 @@ export default function RegulaminPage() {
 
           <h2>4. Odpowiedzialność</h2>
           <p>
-            Treści publikowane w serwisie mają charakter informacyjny. LAB
+            Treści publikowane w serwisie mają charakter informacyjny. lok-ai
             dokłada starań, aby informacje były aktualne i rzetelne.
           </p>
 

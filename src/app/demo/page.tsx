@@ -17,11 +17,11 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Demo AI — LAB | Doświadcz Mocy Naszych Agentów AI",
+  title: "Demo AI — lok-ai | Doświadcz Mocy Naszych Agentów AI",
   description:
     "Zautomatyzuj procesy w czasie rzeczywistym dzięki naszym gotowym rozwiązaniom AI. Przetestuj demo agenta.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lab-ai.pl"}/demo`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/demo`,
   },
 };
 
@@ -136,7 +136,7 @@ export default function DemoPage() {
                 </div>
                 <div className="space-y-2">
                   <div className="bg-surface-container-high p-4 rounded-xl rounded-tl-none border border-outline-variant/10 text-on-surface leading-relaxed">
-                    Witaj w konsoli demonstracyjnej LAB. Jestem gotowy, aby
+                    Witaj w konsoli demonstracyjnej lok-ai. Jestem gotowy, aby
                     zautomatyzować Twój workflow. W czym mogę Ci dzisiaj pomóc?
                   </div>
                   <span className="font-mono text-[10px] text-on-surface-variant uppercase opacity-50">
