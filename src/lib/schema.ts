@@ -9,7 +9,7 @@ const localBusiness = {
   description:
     "Automatyzacja procesów biznesowych i rozwiązania AI dla małych i średnich firm z regionu kujawsko-pomorskiego",
   url: SITE_URL,
-  telephone: "+48-000-000-000",
+  telephone: "+48-534-541-454",
   email: "kontakt@lok-ai.pl",
   address: {
     "@type": "PostalAddress",
