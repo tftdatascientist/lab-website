@@ -1,11 +1,23 @@
 # STATUS.md — Aktualny stan projektu
-## lok-ai.pl · Aktualizacja: 21.04.2026
+## lok-ai.pl · Aktualizacja: 21.04.2026 (redesign 21.04)
 
 ---
 
 ## FAZA BIEŻĄCA
 
-**Sprint 21–25.04.2026** — wykonany w dniu 21.04 ✅
+**Sprint 21–25.04.2026** — w toku
+
+### Redesign (21.04) ✅
+- [x] Paleta amber/coral/sand/rust (zamiana violet/mint) — `tailwind.config.ts`, `globals.css`
+- [x] Fonty: Chakra Petch (display italic) + IBM Plex Mono (labels) dodane w `layout.tsx`
+- [x] Nowe komponenty: `Logo`, `AuroraBg`, `Ticker`, `Counter`, `ChatDemo`
+- [x] Hero A — aurora, chatbot demo, stats row z animowanymi licznikami, ticker
+- [x] Services — grid 3×2 z kartami i metrykami
+- [x] BlogPreview — layout magazynowy (featured + 3 mniejsze)
+- [x] ContactSection — 2-kolumnowy formularz zintegrowany z /api/contact
+- [x] Navbar + Footer — nowe logo SVG, warm palette
+- [x] Merge do `main`, push na Vercel
+- [ ] **Faza 7 — podstrony** w nowym stylu: /uslugi, /kontakt, /blog, /faq, /o-nas, /portfolio
 
 ---
 
