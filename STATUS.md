@@ -1,5 +1,5 @@
 # STATUS.md — Aktualny stan projektu
-## lok-ai.pl · Aktualizacja: 21.04.2026 (redesign 21.04)
+## lok-ai.pl · Aktualizacja: 21.04.2026 (Faza 7 + Portfolio)
 
 ---
 
@@ -17,7 +17,8 @@
 - [x] ContactSection — 2-kolumnowy formularz zintegrowany z /api/contact
 - [x] Navbar + Footer — nowe logo SVG, warm palette
 - [x] Merge do `main`, push na Vercel
-- [ ] **Faza 7 — podstrony** w nowym stylu: /uslugi, /kontakt, /blog, /faq, /o-nas, /portfolio
+- [x] **Faza 7 — podstrony** w nowym stylu: /uslugi, /kontakt, /blog, /faq, /o-nas, /portfolio ✅
+- [x] **Portfolio WWW** — siatka 16 projektów z miniaturkami Microlink, ukryte URL-e ✅
 
 ---
 
@@ -70,6 +71,27 @@
 - [x] `grep -rn "\bLAB\b" src/ public/` → zero wyników
 - [x] `npx tsc --noEmit` → zero błędów TypeScript
 - [x] `next build` → exit code 0
+
+---
+
+### Faza 7 — Redesign podstron (21.04) ✅
+
+- [x] `src/components/ServiceCard.tsx` — przepisany do nowego systemu (orb, top-line, `.num` metryka, hover outline w akcencie)
+- [x] `src/components/ContactForm.tsx` — nowy styl inputów (mono labels, surface bg, radius 10, btn-primary)
+- [x] `src/components/BlogCard.tsx` — nowe karty (top-line, tag+date dot, hover outline)
+- [x] `src/components/BlogTagFilter.tsx` — pill-style gradient w nowym systemie kolorów
+- [x] `src/app/uslugi/page.tsx` — nowy header eyebrow + display h1 amber italic
+- [x] `src/app/kontakt/page.tsx` — dwukolumnowy kontener wg `LokaiContact` (lewa info z aurora, prawa formularz)
+- [x] `src/app/blog/page.tsx` — nowy header coral + live indicator
+- [x] `src/app/blog/BlogListClient.tsx` — magazynowy layout: featured (1.3fr) + 3 mniejsze (1fr), reszta w siatce
+- [x] `src/app/o-nas/page.tsx` — nowy header, value cards z top-line, tech stack pills
+- [x] `src/app/faq/FaqPageClient.tsx` — nowy header + accordion w stylu handoffu, CTA bar
+- [x] `src/app/portfolio/page.tsx` — siatka 16 projektów WWW z miniaturkami Microlink API, ukryte URL-e, grid 4-kol
+
+### Weryfikacja Fazy 7 ✅
+- [x] `npx tsc --noEmit` → zero błędów TypeScript
+- [x] `next build` → 83 strony, exit code 0
+- [x] Push → commit `57adf50`, deploy Vercel
 
 ---
 

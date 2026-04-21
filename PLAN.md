@@ -81,10 +81,20 @@ Usługi | Technologia | Blog | Portfolio | FAQ
 
 ---
 
+## 7. FAZA 7 — REDESIGN PODSTRON ✅
+
+- [x] `/uslugi` — nowy header, ServiceCard w nowym stylu (metryki, top-line, orby)
+- [x] `/kontakt` — dwukolumnowy layout LokaiContact z formularzem Resend
+- [x] `/blog` — header coral + magazynowy BlogListClient (featured 1.3fr + 3 mniejsze)
+- [x] `/faq` — accordion w nowym stylu, CTA bar
+- [x] `/o-nas` — value cards, tech stack pills
+- [x] `/portfolio` — siatka 16 projektów WWW z miniaturkami Microlink, ukryte URL-e
+
+---
+
 ## NASTĘPNY SPRINT (sugerowane)
 
-- [ ] Commit + push → deploy Vercel
+- [x] Commit + push → deploy Vercel ✅
 - [ ] Weryfikacja DNS lok-ai.pl
 - [ ] SEO/LLM audit (llms.txt, Schema.org, sitemap)
-- [ ] Wypełnienie Portfolio (po ustaleniach z Tomkiem)
 - [ ] Integracja chatbota Typebot (~07.05)
