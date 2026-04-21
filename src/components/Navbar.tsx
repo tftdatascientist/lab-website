@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 const navLinks = [
   { label: "Usługi", href: "/uslugi" },
@@ -15,19 +16,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/70 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-      <div className="flex items-center justify-between px-6 md:px-10 h-16 max-w-screen-2xl mx-auto">
+    <nav
+      className="fixed top-0 w-full z-50"
+      style={{
+        background: "rgba(11,12,14,0.7)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+      }}
+    >
+      <div className="flex items-center justify-between px-8 h-16 max-w-[1280px] mx-auto">
         {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-3"
-        >
-          <span className="text-xl font-black tracking-tighter text-on-surface font-heading bg-surface-container-high px-2.5 py-1 rounded-lg">
-            lok-ai
-          </span>
-          <span className="hidden sm:block text-xs text-on-surface-variant font-medium tracking-tight">
-            Lokalna Automatyzacja Biznesu
-          </span>
+        <Link href="/" aria-label="lok-ai — strona główna">
+          <Logo size={34} showTagline />
         </Link>
 
         {/* Desktop links */}
@@ -36,7 +36,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="tracking-tight text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors duration-200"
+              className="text-[14px] font-medium text-text-dim hover:text-text transition-colors duration-150"
             >
               {link.label}
             </Link>
@@ -47,18 +47,17 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/kontakt"
-            className="hidden md:inline-flex px-5 py-2 obsidian-gradient text-on-primary font-bold text-sm rounded-lg transition-all hover:shadow-lg hover:shadow-primary/20 active:opacity-80"
+            className="hidden md:inline-flex btn-primary px-4 py-2.5 rounded-[10px] text-[13px] font-bold"
           >
             Bezpłatna konsultacja
           </Link>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"
+            className="md:hidden relative w-10 h-10 flex items-center justify-center text-text-dim hover:text-text transition-colors"
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={isOpen}
           >
-            <span className="sr-only">Menu</span>
             <div className="w-5 flex flex-col gap-[5px]">
               <span
                 className={`block h-[2px] bg-current transition-all duration-300 origin-center ${
@@ -86,13 +85,16 @@ export default function Navbar() {
           isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-6 pb-4 pt-2 space-y-1 border-t border-outline-variant/15">
+        <div
+          className="px-6 pb-4 pt-2 space-y-1 border-t"
+          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block px-3 py-2.5 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors"
+              className="block px-3 py-2.5 text-sm text-text-dim hover:text-text hover:bg-surface rounded-md transition-colors"
             >
               {link.label}
             </Link>
@@ -100,7 +102,7 @@ export default function Navbar() {
           <Link
             href="/kontakt"
             onClick={() => setIsOpen(false)}
-            className="block mt-3 text-center px-4 py-2.5 text-sm font-bold text-on-primary obsidian-gradient rounded-lg"
+            className="block mt-3 text-center px-4 py-2.5 text-sm btn-primary rounded-[10px]"
           >
             Bezpłatna konsultacja
           </Link>
