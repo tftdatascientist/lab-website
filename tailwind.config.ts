@@ -9,59 +9,93 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#121315",
+        // ── Backgrounds ──────────────────────────────────────────────────
+        background: "#0b0c0e",
+        "bg-soft": "#121315",
         surface: {
-          DEFAULT: "#121315",
+          DEFAULT: "#17181b",
+          hi: "#1f2125",
+          "hi-hi": "#2a2d32",
+          // legacy aliases (keep for unused pages during migration)
           dim: "#121315",
-          bright: "#38393a",
-          lowest: "#0d0e0f",
-          low: "#1b1c1d",
-          container: "#1f2021",
-          "container-high": "#292a2b",
-          "container-highest": "#343536",
-          variant: "#343536",
-          tint: "#d0bcff",
+          bright: "#2a2d32",
+          lowest: "#0b0c0e",
+          low: "#17181b",
+          container: "#1f2125",
+          "container-high": "#2a2d32",
+          "container-highest": "#2a2d32",
+          variant: "#2a2d32",
+          tint: "#f5b845",
         },
+        // ── Accents — warm amber/coral/sand/rust ─────────────────────────
+        amber: {
+          DEFAULT: "#f5b845",
+          deep: "#c48a1c",
+        },
+        coral: {
+          DEFAULT: "#ef7955",
+          deep: "#b84a2a",
+        },
+        sand: {
+          DEFAULT: "#d9b88a",
+          deep: "#8a6a3c",
+        },
+        rust: {
+          DEFAULT: "#b8542f",
+          deep: "#7a3018",
+        },
+        // ── Legacy aliases (map to warm palette, keep until full migration) ─
         primary: {
-          DEFAULT: "#d0bcff",
-          container: "#a078ff",
+          DEFAULT: "#f5b845",
+          container: "#c48a1c",
         },
         secondary: {
-          DEFAULT: "#4edea3",
-          container: "#00a572",
+          DEFAULT: "#d9b88a",
+          container: "#8a6a3c",
         },
         tertiary: {
-          DEFAULT: "#ffb3af",
-          container: "#f55e5d",
+          DEFAULT: "#ef7955",
+          container: "#b84a2a",
         },
         error: {
           DEFAULT: "#ffb4ab",
           container: "#93000a",
         },
+        // ── Text ─────────────────────────────────────────────────────────
         "on-surface": {
-          DEFAULT: "#e3e2e3",
-          variant: "#cbc3d7",
+          DEFAULT: "#ede7dc",
+          variant: "#a8a29e",
         },
         "on-primary": {
-          DEFAULT: "#3c0091",
-          container: "#340080",
+          DEFAULT: "#1a0f00",
+          container: "#1a0f00",
         },
         "on-secondary": {
-          DEFAULT: "#003824",
-          container: "#00311f",
+          DEFAULT: "#1a0f00",
+          container: "#1a0f00",
         },
-        "on-background": "#e3e2e3",
+        "on-background": "#ede7dc",
+        text: {
+          DEFAULT: "#ede7dc",
+          dim: "#a8a29e",
+          mute: "#78716c",
+        },
         outline: {
-          DEFAULT: "#958ea0",
-          variant: "#494454",
+          DEFAULT: "#78716c",
+          variant: "rgba(255,255,255,0.08)",
         },
-        "inverse-surface": "#e3e2e3",
-        "inverse-primary": "#6d3bd7",
+        "inverse-surface": "#ede7dc",
+        "inverse-primary": "#c48a1c",
+        border: {
+          DEFAULT: "rgba(255,255,255,0.08)",
+          strong: "rgba(255,255,255,0.14)",
+        },
       },
       fontFamily: {
         heading: ["var(--font-inter)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        mono: ["var(--font-ibm-plex-mono)", "var(--font-jetbrains-mono)", "monospace"],
+        display: ["var(--font-chakra-petch)", "var(--font-inter)", "sans-serif"],
       },
       borderRadius: {
         DEFAULT: "0.25rem",

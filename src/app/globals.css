@@ -4,35 +4,141 @@
 
 @layer base {
   body {
-    color: #e3e2e3;
-    background: #121315;
+    color: #ede7dc;
+    background: #0b0c0e;
+    font-feature-settings: 'zero' 0, 'ss01' 0;
   }
 
   ::selection {
-    background: rgba(208, 188, 255, 0.3);
+    background: rgba(245, 184, 69, 0.25);
   }
 }
 
 @layer components {
+  /* Primary gradient button */
+  .btn-primary {
+    background: linear-gradient(135deg, #f5b845 0%, #ef7955 100%);
+    color: #1a0f00;
+    font-weight: 700;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px -10px #f5b845, 0 0 0 1px rgba(245, 184, 69, 0.3);
+  }
+
+  /* Legacy alias — keep until full migration */
   .obsidian-gradient {
-    background: linear-gradient(135deg, #d0bcff 0%, #a078ff 100%);
+    background: linear-gradient(135deg, #f5b845 0%, #ef7955 100%);
+    color: #1a0f00;
+    font-weight: 700;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .obsidian-gradient:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 40px -10px #f5b845, 0 0 0 1px rgba(245, 184, 69, 0.3);
   }
 
   .glass-panel {
-    background: rgba(31, 32, 33, 0.7);
+    background: rgba(23, 24, 27, 0.7);
     backdrop-filter: blur(20px);
   }
 
   .glass-header {
-    background: rgba(18, 19, 21, 0.7);
+    background: rgba(11, 12, 14, 0.7);
     backdrop-filter: blur(20px);
   }
 
   .hero-gradient {
-    background: radial-gradient(circle at top center, rgba(208, 188, 255, 0.1) 0%, rgba(18, 19, 21, 0) 70%);
+    background: radial-gradient(circle at top center, rgba(245, 184, 69, 0.08) 0%, rgba(11, 12, 14, 0) 70%);
   }
 
   .ghost-border {
-    outline: 1px solid rgba(73, 68, 84, 0.15);
+    outline: 1px solid rgba(255, 255, 255, 0.08);
   }
+
+  /* Grid background */
+  .lokai-grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: lokai-grid-drift 60s linear infinite;
+  }
+
+  /* Display numbers */
+  .num {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'zero' 0, 'ss01' 0, 'cv11' 1;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes lokai-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes lokai-aurora {
+  0%   { transform: translate(-10%, -10%) rotate(0deg)   scale(1); }
+  33%  { transform: translate(15%,  -5%) rotate(120deg)  scale(1.2); }
+  66%  { transform: translate(-5%,  10%) rotate(240deg)  scale(0.9); }
+  100% { transform: translate(-10%, -10%) rotate(360deg) scale(1); }
+}
+
+@keyframes lokai-aurora-b {
+  0%   { transform: translate(10%, 10%)  rotate(0deg)   scale(1.1); }
+  33%  { transform: translate(-20%, 5%)  rotate(-120deg) scale(0.9); }
+  66%  { transform: translate(5%, -15%)  rotate(-240deg) scale(1.2); }
+  100% { transform: translate(10%, 10%)  rotate(-360deg) scale(1.1); }
+}
+
+@keyframes lokai-aurora-c {
+  0%   { transform: translate(-5%, 15%)  rotate(0deg)   scale(0.9); }
+  33%  { transform: translate(10%, -10%) rotate(120deg)  scale(1.1); }
+  66%  { transform: translate(-15%, -5%) rotate(240deg)  scale(1); }
+  100% { transform: translate(-5%, 15%)  rotate(360deg)  scale(0.9); }
+}
+
+@keyframes lokai-grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+@keyframes lokai-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes lokai-ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes lokai-fadeup {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lokai-orb-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%       { transform: translate(20px, -20px); }
+}
+
+@keyframes lokai-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes lokai-draw {
+  from { stroke-dashoffset: 400; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lokai-grid-bg { animation: none; }
+  [style*="lokai-aurora"] { animation: none !important; }
+  [style*="lokai-ticker"] { animation: none !important; }
 }

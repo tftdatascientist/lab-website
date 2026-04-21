@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "./Logo";
 
 const productLinks = [
   { label: "Usługi", href: "/uslugi" },
@@ -15,85 +16,76 @@ const resourceLinks = [
 const companyLinks = [
   { label: "O nas", href: "/o-nas" },
   { label: "Kontakt", href: "/kontakt" },
-  { label: "Privacy Policy", href: "/polityka-prywatnosci" },
+  { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
+];
+
+const linkCols = [
+  { title: "Produkt", links: productLinks },
+  { title: "Zasoby", links: resourceLinks },
+  { title: "Firma", links: companyLinks },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-background w-full border-t border-outline-variant/15">
-      <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <footer
+      className="w-full"
+      style={{ background: "#0b0c0e", borderTop: "1px solid rgba(255,255,255,0.08)" }}
+    >
+      <div className="max-w-[1280px] mx-auto px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="text-lg font-black font-heading text-on-surface">
-              lok-ai
-            </div>
-            <p className="text-sm text-on-surface-variant max-w-xs leading-relaxed">
-              Budujemy przyszłość automatyzacji AI dla nowej ery cyfrowej.
-              Wspieramy lokalne biznesy w transformacji.
+            <Logo size={34} showTagline={false} />
+            <p className="text-sm text-text-dim max-w-[300px] leading-relaxed mt-3">
+              Automatyzujemy procesy biznesowe dla lokalnych firm z regionu kujawsko-pomorskiego.
             </p>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-3 gap-8">
-            <div className="flex flex-col gap-4">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
-                Produkt
+          {/* Link columns */}
+          {linkCols.map((col) => (
+            <div key={col.title} className="flex flex-col gap-4">
+              <span
+                className="font-mono text-[11px] uppercase text-amber"
+                style={{ letterSpacing: "0.12em" }}
+              >
+                {col.title}
               </span>
-              {productLinks.map((link) => (
+              {col.links.map((link) => (
                 <Link
                   key={link.href + link.label}
                   href={link.href}
-                  className="font-mono text-[10px] uppercase tracking-widest text-outline hover:text-secondary transition-colors"
+                  className="text-[13px] text-text-dim hover:text-text transition-colors"
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
-
-            <div className="flex flex-col gap-4">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
-                Zasoby
-              </span>
-              {resourceLinks.map((link) => (
-                <Link
-                  key={link.href + link.label}
-                  href={link.href}
-                  className="font-mono text-[10px] uppercase tracking-widest text-outline hover:text-secondary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
-                Firma
-              </span>
-              {companyLinks.map((link) => (
-                <Link
-                  key={link.href + link.label}
-                  href={link.href}
-                  className="font-mono text-[10px] uppercase tracking-widest text-outline hover:text-secondary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* System Status Bar */}
-      <div className="border-t border-outline-variant/10 py-6 px-6 md:px-10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-outline">
+      {/* Bottom bar */}
+      <div
+        className="border-t py-6 px-8"
+        style={{ borderColor: "rgba(255,255,255,0.06)" }}
+      >
+        <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-text-mute">
             &copy; 2026 lok-ai — Lokalna Automatyzacja Biznesu
           </p>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high">
-            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-secondary">
-              System Status: Operational
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full"
+            style={{ background: "rgba(255,255,255,0.04)", outline: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ background: "#d9b88a", animation: "lokai-pulse 2s ease-in-out infinite" }}
+            />
+            <span
+              className="font-mono text-[11px] uppercase"
+              style={{ color: "#d9b88a", letterSpacing: "0.08em" }}
+            >
+              Wszystkie systemy działają
             </span>
           </div>
         </div>

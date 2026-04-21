@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Chakra_Petch, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -11,7 +11,22 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
+});
+
+const chakraPetch = Chakra_Petch({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-chakra-petch",
   display: "swap",
 });
 
@@ -57,7 +72,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
+        className={`${inter.variable} ${ibmPlexMono.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
       >
         <SchemaOrg schema={generateLocalBusinessSchema()} />
         <Navbar />
