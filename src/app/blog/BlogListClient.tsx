@@ -114,11 +114,11 @@ export default function BlogListClient({ posts, tags }: Props) {
 
                 <div className="relative flex-1 flex items-center">
                   <h2
-                    className="font-heading font-bold text-text"
+                    className="font-heading font-semibold text-text"
                     style={{
-                      fontSize: "clamp(22px,2.5vw,36px)",
+                      fontSize: "clamp(20px,2.2vw,32px)",
                       letterSpacing: "-0.025em",
-                      lineHeight: 1.1,
+                      lineHeight: 1.15,
                     }}
                   >
                     {featured.frontmatter.title}

@@ -74,7 +74,7 @@ export default function BlogPostPage({ params }: Props) {
                 </span>
               ))}
             </div>
-            <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-bold tracking-[-1px] text-on-surface mb-4">
+            <h1 className="font-heading text-[clamp(24px,3.5vw,36px)] font-semibold tracking-[-1px] text-on-surface mb-4">
               {post.frontmatter.title}
             </h1>
             <div className="flex items-center gap-4 text-sm text-outline">
