@@ -15,7 +15,7 @@ const contactSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "lok-ai — Lokalna Automatyzacja Biznesu",
-  telephone: "+48-000-000-000",
+  telephone: "+48-534-541-454",
   email: "kontakt@lok-ai.pl",
   address: {
     "@type": "PostalAddress",
@@ -25,8 +25,8 @@ const contactSchema = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+48-000-000-000",
-    email: "kontakt@lab-ai.pl",
+    telephone: "+48-534-541-454",
+    email: "kontakt@lok-ai.pl",
     contactType: "customer service",
 
     availableLanguage: "Polish",
@@ -74,10 +74,10 @@ export default function KontaktPage() {
                   <li>
                     <span className="block text-outline text-xs mb-0.5">Telefon</span>
                     <a
-                      href="tel:+48000000000"
+                      href="tel:+48534541454"
                       className="hover:text-primary transition-colors"
                     >
-                      +48 000 000 000
+                      +48 534 541 454
                     </a>
                   </li>
                   <li>
