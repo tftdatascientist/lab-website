@@ -1,34 +1,107 @@
+"use client";
+
 import Link from "next/link";
 import type { Service } from "@/content/services";
 
+const COLOR_MAP: Record<string, string> = {
+  "automatyzacja-n8n": "#d9b88a",
+  "chatboty-ai": "#f5b845",
+  "agenci-glosowi": "#b8542f",
+  "bazy-wiedzy-rag": "#ef7955",
+  "dashboardy-raporty": "#f5b845",
+  "integracje-systemow": "#d9b88a",
+};
+
+const ICON_MAP: Record<string, string> = {
+  "automatyzacja-n8n": "⚙",
+  "chatboty-ai": "◎",
+  "agenci-glosowi": "◐",
+  "bazy-wiedzy-rag": "▲",
+  "dashboardy-raporty": "▦",
+  "integracje-systemow": "⬡",
+};
+
+const METRIC_MAP: Record<string, { v: string; l: string }> = {
+  "automatyzacja-n8n": { v: "47", l: "aktywnych workflow" },
+  "chatboty-ai": { v: "12ms", l: "średni czas odpowiedzi" },
+  "agenci-glosowi": { v: "24/7", l: "pełna obsługa" },
+  "bazy-wiedzy-rag": { v: "98%", l: "trafność odpowiedzi" },
+  "dashboardy-raporty": { v: "5min", l: "częstotliwość odświeżania" },
+  "integracje-systemow": { v: "400+", l: "gotowych konektorów" },
+};
+
 export default function ServiceCard({ service }: { service: Service }) {
+  const c = COLOR_MAP[service.slug] ?? "#f5b845";
+  const icon = ICON_MAP[service.slug] ?? "◆";
+  const metric = METRIC_MAP[service.slug] ?? { v: "—", l: "" };
+
   return (
     <Link
       href={`/uslugi/${service.slug}`}
-      className="group relative block rounded-2xl border border-outline-variant/15 bg-surface-container p-8 transition-all duration-300 hover:-translate-y-1.5 hover:bg-surface-container-high hover:shadow-[0_0_40px_rgba(0,212,255,0.08)]"
+      className="group relative block rounded-[16px] overflow-hidden text-text no-underline min-h-[260px] p-7 transition-all duration-200 hover:-translate-y-[3px]"
+      style={{
+        background: "#17181b",
+        outline: "1px solid rgba(255,255,255,0.08)",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.outlineColor = c + "66";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.outlineColor =
+          "rgba(255,255,255,0.08)";
+      }}
     >
-      {/* Gradient top border on hover */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary to-secondary opacity-0 transition-opacity duration-300 group-hover:opacity-100 rounded-t-2xl" />
+      {/* Blur orb */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: -40,
+          right: -40,
+          width: 120,
+          height: 120,
+          background: `radial-gradient(circle, ${c}30, transparent 70%)`,
+          filter: "blur(30px)",
+        }}
+      />
+      {/* Top accent line */}
+      <div
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${c}, transparent)`,
+          opacity: 0.6,
+        }}
+      />
 
-      <span className="text-[32px] block mb-4">{service.icon}</span>
+      {/* Tag + icon */}
+      <div className="flex items-center justify-between mb-7">
+        <span
+          className="font-mono text-[10px] uppercase"
+          style={{ color: c, letterSpacing: "0.15em" }}
+        >
+          {service.tags[0]}
+        </span>
+        <span style={{ fontSize: 22, color: c, opacity: 0.7 }}>{icon}</span>
+      </div>
 
-      <h3 className="font-heading text-lg font-semibold text-on-surface mb-2">
+      <h3
+        className="font-heading font-bold text-text mb-2.5"
+        style={{ fontSize: 22, letterSpacing: "-0.02em" }}
+      >
         {service.title}
       </h3>
-
-      <p className="text-sm text-on-surface-variant leading-relaxed mb-5">
+      <p className="text-[14px] text-text-dim leading-[1.55] mb-7">
         {service.desc}
       </p>
 
-      <div className="flex flex-wrap gap-2">
-        {service.tags.map((tag) => (
-          <span
-            key={tag}
-            className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary/80 border border-primary/20 rounded-full px-2.5 py-1"
-          >
-            {tag}
-          </span>
-        ))}
+      {/* Metric */}
+      <div
+        className="absolute bottom-5 left-7 right-7 flex items-baseline gap-2.5 pt-3.5 border-t"
+        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+      >
+        <span className="num font-bold" style={{ fontSize: 22, color: c }}>
+          {metric.v}
+        </span>
+        <span className="text-[11px] text-text-mute">{metric.l}</span>
       </div>
     </Link>
   );

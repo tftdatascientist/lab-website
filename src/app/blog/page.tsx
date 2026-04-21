@@ -13,29 +13,60 @@ export default function BlogPage() {
   const tags = getAllTags();
 
   return (
-    <section className="py-20 lg:py-28">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mb-12">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary block mb-4">
-            Resources &amp; Intelligence
-          </span>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tighter text-on-surface mb-4 leading-tight">
-            Baza Wiedzy i{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-              Nowości AI
+    <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
+      {/* Header */}
+      <div
+        className="flex items-end justify-between gap-8 mb-12"
+      >
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-7 h-px" style={{ background: "#ef7955" }} />
+            <span
+              className="font-mono text-[11px] uppercase"
+              style={{ color: "#ef7955", letterSpacing: "0.15em" }}
+            >
+              Blog · codzienny przegląd AI
             </span>
+          </div>
+          <h1
+            className="font-heading font-bold text-text"
+            style={{
+              fontSize: "clamp(28px,4vw,48px)",
+              letterSpacing: "-0.035em",
+              lineHeight: 1.05,
+            }}
+          >
+            Co się{" "}
+            <span
+              className="font-display font-medium italic"
+              style={{ color: "#ef7955" }}
+            >
+              naprawdę
+            </span>{" "}
+            dzieje w&nbsp;AI w&nbsp;Polsce
           </h1>
-          <p className="text-on-surface-variant leading-relaxed text-lg">
-            Eksperckie spojrzenie na przyszłość automatyzacji. Praktyczne
-            poradniki, case studies i&nbsp;nowości ze świata AI dla biznesu.
-          </p>
         </div>
-
-        <BlogListClient
-          posts={posts.map((p) => ({ slug: p.slug, frontmatter: p.frontmatter }))}
-          tags={tags}
-        />
+        <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+          <span
+            className="w-2 h-2 rounded-full"
+            style={{
+              background: "#f5b845",
+              animation: "lokai-pulse 2s ease-in-out infinite",
+            }}
+          />
+          <span
+            className="font-mono text-[11px] text-text-dim"
+            style={{ letterSpacing: "0.1em" }}
+          >
+            AKTUALIZOWANE 4× DZIENNIE
+          </span>
+        </div>
       </div>
+
+      <BlogListClient
+        posts={posts.map((p) => ({ slug: p.slug, frontmatter: p.frontmatter }))}
+        tags={tags}
+      />
     </section>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import BlogCard from "@/components/BlogCard";
 import BlogTagFilter from "@/components/BlogTagFilter";
 import type { PostFrontmatter } from "@/lib/mdx";
@@ -10,6 +9,19 @@ import type { PostFrontmatter } from "@/lib/mdx";
 interface Props {
   posts: { slug: string; frontmatter: PostFrontmatter }[];
   tags: string[];
+}
+
+const TAG_COLORS: Record<string, string> = {
+  startupy: "#f5b845",
+  bezpieczeństwo: "#ef7955",
+  prawo: "#d9b88a",
+  narzędzia: "#b8542f",
+  ai: "#f5b845",
+  automatyzacja: "#d9b88a",
+};
+
+function tagColor(tag: string) {
+  return TAG_COLORS[tag.toLowerCase()] ?? "#d9b88a";
 }
 
 export default function BlogListClient({ posts, tags }: Props) {
@@ -31,83 +43,181 @@ export default function BlogListClient({ posts, tags }: Props) {
 
       {filtered.length > 0 ? (
         <>
-          {/* Featured Post */}
+          {/* Featured post — magazine layout */}
           {featured && !activeTag && (
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="group block mb-8 bg-surface-container rounded-xl overflow-hidden hover:bg-surface-container-high transition-all duration-300"
+            <div
+              className="grid lg:grid-cols-[1.3fr_1fr] gap-6 mb-10"
             >
-              <div className="p-8 md:p-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-secondary bg-secondary/10 px-2 py-1 rounded">
-                    Polecane
+              {/* Featured card */}
+              <Link
+                href={`/blog/${featured.slug}`}
+                className="group relative block rounded-[16px] overflow-hidden text-text no-underline p-10 transition-all duration-200 hover:-translate-y-[3px]"
+                style={{
+                  background: "#17181b",
+                  outline: "1px solid rgba(255,255,255,0.08)",
+                  minHeight: 420,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                onMouseEnter={(e) => {
+                  const c = tagColor(featured.frontmatter.tags[0] ?? "");
+                  (e.currentTarget as HTMLElement).style.outlineColor = c + "55";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.outlineColor =
+                    "rgba(255,255,255,0.08)";
+                }}
+              >
+                {/* Blur orb */}
+                {(() => {
+                  const c = tagColor(featured.frontmatter.tags[0] ?? "");
+                  return (
+                    <div
+                      className="absolute pointer-events-none"
+                      style={{
+                        top: -60,
+                        right: -60,
+                        width: 280,
+                        height: 280,
+                        background: `radial-gradient(circle, ${c}40, transparent 70%)`,
+                        filter: "blur(50px)",
+                      }}
+                    />
+                  );
+                })()}
+
+                {/* Tag + date */}
+                <div className="relative flex items-center gap-2.5 mb-6">
+                  <span
+                    className="font-mono text-[10px] uppercase"
+                    style={{
+                      color: tagColor(featured.frontmatter.tags[0] ?? ""),
+                      letterSpacing: "0.15em",
+                    }}
+                  >
+                    {featured.frontmatter.tags[0]}
                   </span>
-                  {featured.frontmatter.tags.slice(0, 2).map((tag) => (
-                    <span
-                      key={tag}
-                      className="glass-panel px-2 py-1 text-[10px] font-mono text-on-surface-variant rounded uppercase tracking-wider"
+                  <span
+                    className="w-[3px] h-[3px] rounded-full"
+                    style={{ background: "#78716c" }}
+                  />
+                  <time
+                    className="font-mono text-[10px] text-text-mute"
+                    dateTime={featured.frontmatter.date}
+                  >
+                    {new Date(featured.frontmatter.date).toLocaleDateString(
+                      "pl-PL",
+                      { day: "numeric", month: "short", year: "numeric" }
+                    )}
+                  </time>
+                </div>
+
+                <div className="relative flex-1 flex items-center">
+                  <h2
+                    className="font-heading font-bold text-text"
+                    style={{
+                      fontSize: "clamp(22px,2.5vw,36px)",
+                      letterSpacing: "-0.025em",
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {featured.frontmatter.title}
+                  </h2>
+                </div>
+
+                {featured.frontmatter.excerpt && (
+                  <p
+                    className="relative text-[15px] text-text-dim leading-relaxed mt-5 mb-6"
+                    style={{ maxWidth: 560 }}
+                  >
+                    {featured.frontmatter.excerpt}
+                  </p>
+                )}
+
+                <div
+                  className="relative flex items-center gap-2 font-semibold text-[13px]"
+                  style={{
+                    color: tagColor(featured.frontmatter.tags[0] ?? ""),
+                  }}
+                >
+                  Czytaj dalej <span>→</span>
+                </div>
+              </Link>
+
+              {/* Smaller posts column */}
+              <div className="flex flex-col gap-3">
+                {rest.slice(0, 3).map((p) => {
+                  const c = tagColor(p.frontmatter.tags[0] ?? "");
+                  return (
+                    <Link
+                      key={p.slug}
+                      href={`/blog/${p.slug}`}
+                      className="group relative block rounded-[14px] overflow-hidden text-text no-underline p-6 transition-all duration-200 hover:-translate-y-[2px] flex-1"
+                      style={{
+                        background: "#17181b",
+                        outline: "1px solid rgba(255,255,255,0.08)",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.outlineColor =
+                          c + "55";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.outlineColor =
+                          "rgba(255,255,255,0.08)";
+                      }}
                     >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-on-surface mb-4 leading-snug group-hover:text-primary transition-colors">
-                  {featured.frontmatter.title}
-                </h2>
-                <p className="text-on-surface-variant mb-6 max-w-2xl leading-relaxed">
-                  {featured.frontmatter.excerpt}
-                </p>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-mono text-on-surface-variant">
-                    {featured.frontmatter.readTime}
-                  </span>
-                  <span className="text-primary font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Czytaj artykuł <ArrowRight className="w-4 h-4" />
-                  </span>
-                </div>
+                      <div className="flex items-center gap-2.5 mb-2.5">
+                        <span
+                          className="font-mono text-[10px] uppercase"
+                          style={{ color: c, letterSpacing: "0.15em" }}
+                        >
+                          {p.frontmatter.tags[0]}
+                        </span>
+                        <span
+                          className="w-[3px] h-[3px] rounded-full"
+                          style={{ background: "#78716c" }}
+                        />
+                        <time
+                          className="font-mono text-[10px] text-text-mute"
+                          dateTime={p.frontmatter.date}
+                        >
+                          {new Date(p.frontmatter.date).toLocaleDateString(
+                            "pl-PL",
+                            { day: "numeric", month: "short" }
+                          )}
+                        </time>
+                      </div>
+                      <h3
+                        className="font-heading font-semibold text-text"
+                        style={{
+                          fontSize: 17,
+                          letterSpacing: "-0.015em",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {p.frontmatter.title}
+                      </h3>
+                    </Link>
+                  );
+                })}
               </div>
-            </Link>
+            </div>
           )}
 
-          {/* Rest of posts grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(activeTag ? filtered : rest).map((post) => (
-              <BlogCard
-                key={post.slug}
-                post={{ slug: post.slug, frontmatter: post.frontmatter, content: "" }}
-              />
-            ))}
-          </div>
-
-          {/* Newsletter CTA */}
-          <div className="relative mt-20 p-8 md:p-12 bg-surface-container-low rounded-2xl border border-outline-variant/10 text-center overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-              <div className="absolute -top-1/2 -left-1/4 w-full h-full bg-primary blur-[120px] rounded-full" />
-              <div className="absolute -bottom-1/2 -right-1/4 w-full h-full bg-secondary blur-[120px] rounded-full" />
-            </div>
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold font-heading mb-3">
-                Bądź na bieżąco z AI
-              </h3>
-              <p className="text-on-surface-variant mb-8 max-w-lg mx-auto">
-                Zapisz się do naszego newslettera, aby otrzymywać praktyczne case
-                studies i analizy prosto na swoją skrzynkę.
-              </p>
-              <div className="max-w-md mx-auto flex gap-3">
-                <input
-                  className="flex-grow bg-surface-lowest ghost-border rounded-lg py-3 px-4 text-sm text-on-surface focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50"
-                  placeholder="Twój adres e-mail"
-                  type="email"
+          {/* Remaining posts grid */}
+          {(activeTag ? filtered : rest.slice(3)).length > 0 && (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
+              {(activeTag ? filtered : rest.slice(3)).map((post) => (
+                <BlogCard
+                  key={post.slug}
+                  post={{ slug: post.slug, frontmatter: post.frontmatter, content: "" }}
                 />
-                <button className="px-6 py-3 obsidian-gradient text-on-primary font-bold text-sm rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
-                  Subskrybuj
-                </button>
-              </div>
+              ))}
             </div>
-          </div>
+          )}
         </>
       ) : (
-        <p className="text-outline text-sm">
+        <p className="text-text-mute text-sm mt-8">
           Brak artykułów dla wybranego tagu.
         </p>
       )}

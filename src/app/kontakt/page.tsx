@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
 import SchemaOrg from "@/components/SchemaOrg";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Kontakt — lok-ai | Automatyzacja i AI dla firm",
@@ -28,85 +28,124 @@ const contactSchema = {
     telephone: "+48-534-541-454",
     email: "kontakt@lok-ai.pl",
     contactType: "customer service",
-
     availableLanguage: "Polish",
   },
 };
+
+const BENEFITS = [
+  "Audyt procesów — pokazujemy co można zautomatyzować",
+  "Szybkie wygrane — gdzie zysk jest natychmiastowy",
+  "Szacunek kosztów i oszczędności",
+  "Konkretny plan na kolejny krok",
+];
 
 export default function KontaktPage() {
   return (
     <>
       <SchemaOrg schema={contactSchema} />
 
-      <section className="py-20 lg:py-28">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mb-12">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-secondary block mb-4">
-              Kontakt
-            </span>
-            <h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tighter text-on-surface mb-4">
-              Porozmawiajmy o automatyzacji
+      <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
+        <div
+          className="grid lg:grid-cols-2 rounded-[24px] overflow-hidden"
+          style={{ outline: "1px solid rgba(255,255,255,0.08)" }}
+        >
+          {/* Left — warm accent */}
+          <div
+            className="relative overflow-hidden p-14"
+            style={{
+              background:
+                "radial-gradient(circle at 20% 0%, rgba(196,138,28,0.3), transparent 60%), #17181b",
+            }}
+          >
+            {/* Floating orb */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                top: 20,
+                right: 20,
+                width: 240,
+                height: 240,
+                background:
+                  "radial-gradient(circle, rgba(245,184,69,0.2), transparent 70%)",
+                filter: "blur(40px)",
+                animation: "lokai-orb-float 10s ease-in-out infinite",
+              }}
+            />
+
+            {/* Badge */}
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
+              style={{
+                background: "rgba(245,184,69,0.08)",
+                outline: "1px solid rgba(245,184,69,0.2)",
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full shrink-0"
+                style={{
+                  background: "#f5b845",
+                  animation: "lokai-pulse 1.8s ease-in-out infinite",
+                }}
+              />
+              <span
+                className="font-mono text-[10px] uppercase"
+                style={{ color: "#f5b845", letterSpacing: "0.12em" }}
+              >
+                Bezpłatna konsultacja
+              </span>
+            </div>
+
+            <h1
+              className="font-heading font-bold text-text mb-5"
+              style={{
+                fontSize: "clamp(28px,3.5vw,42px)",
+                letterSpacing: "-0.03em",
+                lineHeight: 1.05,
+                maxWidth: 440,
+              }}
+            >
+              30 minut, które mogą{" "}
+              <span
+                className="font-display font-medium italic"
+                style={{ color: "#f5b845" }}
+              >
+                zmienić
+              </span>{" "}
+              sposób pracy Twojej firmy
             </h1>
-            <p className="text-on-surface-variant leading-relaxed text-lg">
-              Opisz swoją potrzebę — odezwiemy się w ciągu 24h z&nbsp;propozycją
-              rozwiązania.
-            </p>
+
+            <ul className="space-y-3 mb-8">
+              {BENEFITS.map((t) => (
+                <li
+                  key={t}
+                  className="flex gap-3 text-[14px] text-text-dim leading-relaxed"
+                >
+                  <span
+                    className="font-bold shrink-0"
+                    style={{ color: "#f5b845" }}
+                  >
+                    ✓
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+
+            <div
+              className="flex items-center gap-3 font-mono text-[12px] text-text-mute"
+            >
+              <span>kontakt@lok-ai.pl</span>
+              <span>·</span>
+              <span>+48 534 541 454</span>
+            </div>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_340px] gap-12 lg:gap-16">
+          {/* Right — form */}
+          <div
+            className="p-14 flex flex-col gap-4"
+            style={{ background: "#121315" }}
+          >
             <ContactForm />
-
-            <div className="space-y-8">
-              <div className="rounded-2xl bg-surface-container ghost-border p-6">
-                <h2 className="font-heading text-sm font-semibold text-on-surface mb-4">
-                  Dane kontaktowe
-                </h2>
-                <ul className="space-y-3 text-sm text-on-surface-variant">
-                  <li>
-                    <span className="block text-outline text-xs mb-0.5">Email</span>
-                    <a
-                      href="mailto:kontakt@lok-ai.pl"
-                      className="hover:text-primary transition-colors"
-                    >
-                      kontakt@lok-ai.pl
-                    </a>
-                  </li>
-                  <li>
-                    <span className="block text-outline text-xs mb-0.5">Telefon</span>
-                    <a
-                      href="tel:+48534541454"
-                      className="hover:text-primary transition-colors"
-                    >
-                      +48 534 541 454
-                    </a>
-                  </li>
-                  <li>
-                    <span className="block text-outline text-xs mb-0.5">Adres</span>
-                    Grudziądz, kujawsko-pomorskie
-                  </li>
-                  <li>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary transition-colors"
-                    >
-                      LinkedIn →
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="rounded-2xl bg-surface-container ghost-border overflow-hidden">
-                <div className="aspect-[4/3] bg-surface-low flex items-center justify-center">
-                  <p className="text-xs text-outline text-center px-4">
-                    Google Maps embed
-                    <br />
-                    <span className="text-outline/60">(placeholder)</span>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

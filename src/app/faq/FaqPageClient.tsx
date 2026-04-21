@@ -1,21 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import {
-  ChevronRight,
-  Lock,
-  Code,
-  History,
-  Plus,
-  Minus,
-  Zap,
-} from "lucide-react";
-
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
 
 interface FaqItem {
   protocol: string;
@@ -23,47 +9,40 @@ interface FaqItem {
   content: React.ReactNode;
 }
 
-const categories = [
-  { label: "System", icon: ChevronRight, active: true },
-  { label: "Bezpieczeństwo", icon: Lock, active: false },
-  { label: "API i Integracje", icon: Code, active: false },
-  { label: "Wsparcie", icon: History, active: false },
-];
-
 const faqItems: FaqItem[] = [
   {
     protocol: "Protokół 01",
     title: "Czas wdrożenia",
     content: (
       <>
-        <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-          Standardowe wdrożenia lok-ai trwają 7-14 dni. Każdy projekt przechodzi
+        <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
+          Standardowe wdrożenia lok-ai trwają 7–14 dni. Każdy projekt przechodzi
           przez trzy precyzyjnie zaplanowane fazy.
         </p>
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-surface-container rounded-lg">
-            <p className="font-mono text-secondary text-xs mb-2">Faza 01</p>
-            <p className="text-sm font-bold text-on-surface">
-              Analiza procesów
-            </p>
-            <p className="text-xs text-on-surface-variant mt-1">
-              48-72 godziny
-            </p>
-          </div>
-          <div className="p-4 bg-surface-container rounded-lg">
-            <p className="font-mono text-secondary text-xs mb-2">Faza 02</p>
-            <p className="text-sm font-bold text-on-surface">
-              Konfiguracja automatyzacji
-            </p>
-            <p className="text-xs text-on-surface-variant mt-1">96 godzin</p>
-          </div>
-          <div className="p-4 bg-surface-container rounded-lg">
-            <p className="font-mono text-secondary text-xs mb-2">Faza 03</p>
-            <p className="text-sm font-bold text-on-surface">
-              Testy i uruchomienie
-            </p>
-            <p className="text-xs text-on-surface-variant mt-1">24 godziny</p>
-          </div>
+          {[
+            { label: "Faza 01", title: "Analiza procesów", time: "48–72 godziny" },
+            { label: "Faza 02", title: "Konfiguracja automatyzacji", time: "96 godzin" },
+            { label: "Faza 03", title: "Testy i uruchomienie", time: "24 godziny" },
+          ].map((f) => (
+            <div
+              key={f.label}
+              className="p-4 rounded-[10px]"
+              style={{
+                background: "#1f2125",
+                outline: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <p
+                className="font-mono text-[10px] uppercase mb-2"
+                style={{ color: "#f5b845", letterSpacing: "0.12em" }}
+              >
+                {f.label}
+              </p>
+              <p className="text-[13px] font-bold text-text">{f.title}</p>
+              <p className="text-[12px] text-text-mute mt-1">{f.time}</p>
+            </div>
+          ))}
         </div>
       </>
     ),
@@ -72,16 +51,18 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 02",
     title: "Model cenowy",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         lok-ai oferuje elastyczny model cenowy. Darmowa konsultacja na start.
         Wdrożenia od{" "}
-        <span className="text-secondary font-mono">0 zł</span> (w ramach
-        grantów) do indywidualnej wyceny. Każdy projekt wyceniamy osobno,
+        <span className="font-mono" style={{ color: "#f5b845" }}>
+          0 zł
+        </span>{" "}
+        (w ramach grantów) do indywidualnej wyceny. Każdy projekt wyceniamy osobno,
         uwzględniając złożoność procesów i zakres integracji.
         <br />
         <br />
-        Nie stosujemy ryczałtowych opłat licencyjnych. Płacisz za realne
-        wdrożenie i utrzymanie — bez ukrytych kosztów.
+        Nie stosujemy ryczałtowych opłat licencyjnych. Płacisz za realne wdrożenie
+        i utrzymanie — bez ukrytych kosztów.
       </p>
     ),
   },
@@ -89,14 +70,14 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 03",
     title: "Bezpieczeństwo danych i AI",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-        Stosujemy szyfrowanie end-to-end, lokalne instancje modeli AI oraz
-        pełną zgodność z RODO. Twoje dane nigdy nie opuszczają Twojej
-        infrastruktury bez jawnej autoryzacji.
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
+        Stosujemy szyfrowanie end-to-end, lokalne instancje modeli AI oraz pełną
+        zgodność z RODO. Twoje dane nigdy nie opuszczają Twojej infrastruktury
+        bez jawnej autoryzacji.
         <br />
         <br />
-        Każde wdrożenie przechodzi audyt bezpieczeństwa. Monitorujemy modele
-        pod kątem halucynacji i wycieków danych wrażliwych.
+        Każde wdrożenie przechodzi audyt bezpieczeństwa. Monitorujemy modele pod
+        kątem halucynacji i wycieków danych wrażliwych.
       </p>
     ),
   },
@@ -104,17 +85,24 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 04",
     title: "Integracja z istniejącymi systemami",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Integrujemy się z popularnymi narzędziami:{" "}
-        <span className="text-secondary font-mono">CRM</span>,{" "}
-        <span className="text-secondary font-mono">ERP</span>, Google
-        Workspace, Microsoft 365, systemy księgowe i wiele innych. Ponad{" "}
-        <span className="text-secondary font-mono">400</span> gotowych
-        integracji API dzięki platformie n8n.
+        <span className="font-mono" style={{ color: "#f5b845" }}>
+          CRM
+        </span>
+        ,{" "}
+        <span className="font-mono" style={{ color: "#f5b845" }}>
+          ERP
+        </span>
+        , Google Workspace, Microsoft 365, systemy księgowe i wiele innych. Ponad{" "}
+        <span className="font-mono" style={{ color: "#f5b845" }}>
+          400
+        </span>{" "}
+        gotowych integracji API dzięki platformie n8n.
         <br />
         <br />
-        Wspieramy również dedykowane systemy legacy — jeśli system ma API lub
-        bazę danych, możemy się z nim połączyć.
+        Wspieramy również dedykowane systemy legacy — jeśli system ma API lub bazę
+        danych, możemy się z nim połączyć.
       </p>
     ),
   },
@@ -122,13 +110,13 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 05",
     title: "Wsparcie po wdrożeniu",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-        Zapewniamy pełne wsparcie techniczne po wdrożeniu. Monitoring 24/7,
-        szybkie reagowanie na problemy, regularne aktualizacje.
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
+        Zapewniamy pełne wsparcie techniczne po wdrożeniu. Monitoring 24/7, szybkie
+        reagowanie na problemy, regularne aktualizacje.
         <br />
         <br />
-        Otrzymujesz dokumentację, szkolenie zespołu i dedykowany kanał
-        kontaktu. Nie zostawiamy klientów po zakończeniu projektu.
+        Otrzymujesz dokumentację, szkolenie zespołu i dedykowany kanał kontaktu. Nie
+        zostawiamy klientów po zakończeniu projektu.
       </p>
     ),
   },
@@ -136,16 +124,15 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 06",
     title: "Dla jakich firm działamy?",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Specjalizujemy się w małych i średnich firmach z województwa
-        kujawsko-pomorskiego — Grudziądz, Toruń, Bydgoszcz, Świecie,
-        Chełmno, Wąbrzeźno i okolice.
+        kujawsko-pomorskiego — Grudziądz, Toruń, Bydgoszcz, Świecie, Chełmno,
+        Wąbrzeźno i okolice.
         <br />
         <br />
-        Obsługujemy firmy z każdej branży: handel, usługi, gabinety
-        medyczne i kosmetyczne, biura rachunkowe, sklepy e-commerce,
-        warsztaty, agencje nieruchomości. Jeśli masz powtarzalne procesy —
-        możemy je zautomatyzować.
+        Obsługujemy firmy z każdej branży: handel, usługi, gabinety medyczne
+        i kosmetyczne, biura rachunkowe, sklepy e-commerce, warsztaty, agencje
+        nieruchomości. Jeśli masz powtarzalne procesy — możemy je zautomatyzować.
       </p>
     ),
   },
@@ -153,15 +140,15 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 07",
     title: "Czy potrzebuję działu IT w firmie?",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-        Nie. Nasze wdrożenia są &ldquo;done-for-you&rdquo; — zajmujemy się
-        całą stroną techniczną. Jedyne czego potrzebujesz to dostęp do
-        używanych narzędzi (email, CRM, kalendarz, system rezerwacji).
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
+        Nie. Nasze wdrożenia są &ldquo;done-for-you&rdquo; — zajmujemy się całą
+        stroną techniczną. Jedyne czego potrzebujesz to dostęp do używanych
+        narzędzi (email, CRM, kalendarz, system rezerwacji).
         <br />
         <br />
-        Po zakończeniu wdrożenia przeprowadzamy szkolenie (zazwyczaj 2
-        godziny), żebyś mógł samodzielnie monitorować automatyzacje.
-        Codzienne korzystanie nie wymaga wiedzy technicznej.
+        Po zakończeniu wdrożenia przeprowadzamy szkolenie (zazwyczaj 2 godziny),
+        żebyś mógł samodzielnie monitorować automatyzacje. Codzienne korzystanie
+        nie wymaga wiedzy technicznej.
       </p>
     ),
   },
@@ -169,192 +156,159 @@ const faqItems: FaqItem[] = [
     protocol: "Protokół 08",
     title: "Co się dzieje po zakończeniu projektu?",
     content: (
-      <p className="text-on-surface-variant leading-relaxed max-w-4xl">
-        Po wdrożeniu otrzymujesz kompletną dokumentację projektu i
-        szkolenie dla Twojego zespołu. Przez pierwsze 30 dni zapewniamy
-        bezpłatne wsparcie techniczne.
+      <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
+        Po wdrożeniu otrzymujesz kompletną dokumentację projektu i szkolenie dla
+        Twojego zespołu. Przez pierwsze 30 dni zapewniamy bezpłatne wsparcie
+        techniczne.
         <br />
         <br />
-        Opcjonalnie oferujemy stały monitoring i utrzymanie automatyzacji
-        w ramach umowy serwisowej. Monitorujemy workflow, aktualizujemy
-        integracje po zmianach API dostawców i reagujemy na incydenty.
+        Opcjonalnie oferujemy stały monitoring i utrzymanie automatyzacji w ramach
+        umowy serwisowej. Monitorujemy workflow, aktualizujemy integracje po
+        zmianach API dostawców i reagujemy na incydenty.
       </p>
     ),
   },
 ];
 
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
-
 export default function FaqPageClient() {
   const [openIndex, setOpenIndex] = useState<number>(0);
 
-  const toggleItem = (index: number) => {
-    setOpenIndex(openIndex === index ? -1 : index);
-  };
-
   return (
-    <div className="pb-24 px-6 md:px-12 max-w-7xl mx-auto">
-      {/* ---- Header ---- */}
-      <header className="pt-16 md:pt-20 mb-20 text-center md:text-left">
-        <div className="inline-block mb-4 px-3 py-1 bg-surface-container-highest rounded-full">
-          <span className="font-mono text-secondary text-[10px] uppercase tracking-[0.2em]">
-            Dokumentacja / Baza Wiedzy
+    <div className="py-[100px] px-8 max-w-[1280px] mx-auto">
+      {/* Header */}
+      <div className="max-w-[720px] mb-14">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-7 h-px" style={{ background: "#f5b845" }} />
+          <span
+            className="font-mono text-[11px] uppercase"
+            style={{ color: "#f5b845", letterSpacing: "0.15em" }}
+          >
+            Pytania i odpowiedzi
           </span>
         </div>
-        <h1 className="font-heading text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-6">
-          Najczęściej Zadawane
-          <br />
-          Pytania
+        <h1
+          className="font-heading font-bold text-text mb-4"
+          style={{
+            fontSize: "clamp(32px,4.5vw,56px)",
+            letterSpacing: "-0.035em",
+            lineHeight: 1,
+          }}
+        >
+          Najczęściej{" "}
+          <span
+            className="font-display font-medium italic"
+            style={{ color: "#f5b845" }}
+          >
+            zadawane
+          </span>{" "}
+          pytania
         </h1>
-        <p className="text-on-surface-variant max-w-2xl text-lg leading-relaxed font-body">
+        <p className="text-[16px] text-text-dim leading-relaxed">
           Odpowiedzi na pytania o automatyzację procesów, chatboty AI,
-          bezpieczeństwo i&nbsp;integracje. Przygotowane z myślą
-          o&nbsp;przejrzystości.
+          bezpieczeństwo i&nbsp;integracje.
         </p>
-      </header>
+      </div>
 
-      {/* ---- Bento 12-col grid ---- */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left sidebar -- categories */}
-        <aside className="hidden lg:block lg:col-span-3 space-y-6">
-          <div className="p-6 bg-surface-low rounded-xl ghost-border">
-            <h3 className="font-heading text-lg font-bold mb-6 text-on-surface">
-              Kategorie
-            </h3>
-            <nav className="space-y-2" aria-label="Kategorie FAQ">
-              {categories.map((cat) => {
-                const Icon = cat.icon;
-                return (
-                  <button
-                    key={cat.label}
-                    className={`w-full text-left px-4 py-3 rounded-lg font-medium flex items-center justify-between transition-all ${
-                      cat.active
-                        ? "bg-surface-container text-primary"
-                        : "hover:bg-surface-container-high text-on-surface-variant"
-                    }`}
-                  >
-                    {cat.label}
-                    <Icon className="w-4 h-4" />
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-
-          {/* Status image card */}
-          <div className="relative overflow-hidden rounded-xl h-64 bg-surface-low group ghost-border">
-            <Image
-              src="/images/stitch/faq-crystal.jpg"
-              alt="Abstrakcyjna krystaliczna struktura 3D w fioletowo-szmaragdowym świetle"
-              fill
-              className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-surface-lowest via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="font-mono text-[10px] text-secondary uppercase tracking-widest mb-1">
-                Status systemu
-              </p>
-              <p className="font-heading font-bold text-on-surface">
-                Wszystkie systemy operacyjne
-              </p>
-            </div>
-          </div>
-        </aside>
-
-        {/* Right content -- accordion */}
-        <section className="lg:col-span-9 space-y-4">
-          {faqItems.map((item, index) => {
-            const isOpen = openIndex === index;
-            /* Protocol 02 (Model cenowy) gets accent left border */
-            const isAccented = index === 1;
-
-            return (
-              <div
-                key={index}
-                className={`rounded-xl overflow-hidden transition-all duration-300 ghost-border ${
-                  isAccented
-                    ? "bg-surface-container border-l-4 border-primary/20"
-                    : "bg-surface-low group"
-                }`}
+      {/* Accordion */}
+      <div className="space-y-3 mb-14">
+        {faqItems.map((item, index) => {
+          const isOpen = openIndex === index;
+          return (
+            <div
+              key={index}
+              className="rounded-[14px] overflow-hidden transition-all duration-200"
+              style={{
+                background: "#17181b",
+                outline: isOpen
+                  ? "1px solid rgba(245,184,69,0.25)"
+                  : "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <button
+                onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                className="w-full p-7 flex items-start justify-between text-left"
+                aria-expanded={isOpen}
               >
-                <button
-                  onClick={() => toggleItem(index)}
-                  className={`w-full p-8 flex items-start justify-between text-left transition-colors ${
-                    !isAccented ? "hover:bg-surface-container" : ""
-                  }`}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-panel-${index}`}
-                >
-                  <div className="space-y-1">
-                    <span className="font-mono text-[10px] text-primary-container uppercase tracking-widest">
-                      {item.protocol}
-                    </span>
-                    <h2
-                      className={`font-heading text-2xl font-medium text-on-surface transition-colors ${
-                        !isAccented ? "group-hover:text-primary" : ""
-                      }`}
-                    >
-                      {item.title}
-                    </h2>
-                  </div>
-                  {isOpen ? (
-                    <Minus className="w-7 h-7 text-on-surface-variant shrink-0" />
-                  ) : (
-                    <Plus className="w-7 h-7 text-primary shrink-0" />
-                  )}
-                </button>
-
-                <div
-                  id={`faq-panel-${index}`}
-                  role="region"
-                  aria-labelledby={`faq-heading-${index}`}
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen
-                      ? "max-h-[600px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div
-                    className={`px-8 pb-8 ${
-                      isOpen ? "border-t border-outline-variant/10 pt-4" : ""
-                    }`}
+                <div>
+                  <span
+                    className="font-mono text-[10px] uppercase block mb-1"
+                    style={{ color: "#f5b845", letterSpacing: "0.12em" }}
                   >
-                    {item.content}
-                  </div>
+                    {item.protocol}
+                  </span>
+                  <h2
+                    className="font-heading font-semibold text-text"
+                    style={{ fontSize: 20, letterSpacing: "-0.02em" }}
+                  >
+                    {item.title}
+                  </h2>
+                </div>
+                <span
+                  className="text-text-dim text-2xl shrink-0 ml-6 transition-transform duration-200"
+                  style={{ transform: isOpen ? "rotate(45deg)" : "none" }}
+                >
+                  +
+                </span>
+              </button>
+
+              <div
+                className="overflow-hidden transition-all duration-300"
+                style={{ maxHeight: isOpen ? 600 : 0, opacity: isOpen ? 1 : 0 }}
+              >
+                <div
+                  className="px-7 pb-7 pt-0"
+                  style={{
+                    borderTop: "1px solid rgba(255,255,255,0.06)",
+                    paddingTop: 16,
+                  }}
+                >
+                  {item.content}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
+      </div>
 
-          {/* ---- CTA Bar ---- */}
-          <div className="mt-12 p-8 bg-surface-container-highest rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 ghost-border">
-            <div>
-              <h3 className="font-heading text-xl font-bold text-on-surface flex items-center gap-2">
-                <Zap className="w-5 h-5 text-secondary" />
-                Masz więcej pytań technicznych?
-              </h3>
-              <p className="text-on-surface-variant text-sm mt-1">
-                Nasi inżynierowie są dostępni na szczegółowe konsultacje.
-              </p>
-            </div>
-            <div className="flex gap-4">
-              <Link
-                href="/blog"
-                className="px-6 py-3 bg-surface-low text-on-surface font-mono text-xs uppercase tracking-widest hover:bg-surface-bright transition-colors rounded-lg ghost-border"
-              >
-                Dokumentacja
-              </Link>
-              <Link
-                href="/kontakt"
-                className="px-6 py-3 obsidian-gradient text-on-primary font-bold text-sm rounded-lg hover:opacity-90 transition-opacity"
-              >
-                Skontaktuj się
-              </Link>
-            </div>
-          </div>
-        </section>
+      {/* CTA */}
+      <div
+        className="rounded-[16px] p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+        style={{
+          background: "#17181b",
+          outline: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <div>
+          <h3
+            className="font-heading font-bold text-text mb-1"
+            style={{ fontSize: 18 }}
+          >
+            Masz więcej pytań?
+          </h3>
+          <p className="text-[14px] text-text-dim">
+            Nasz zespół chętnie odpowie na szczegółowe pytania.
+          </p>
+        </div>
+        <div className="flex gap-3 shrink-0">
+          <Link
+            href="/blog"
+            className="font-mono text-[12px] uppercase text-text-dim hover:text-text transition-colors rounded-[10px] px-5 py-3"
+            style={{
+              letterSpacing: "0.1em",
+              background: "#1f2125",
+              outline: "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            Blog
+          </Link>
+          <Link
+            href="/kontakt"
+            className="btn-primary inline-flex items-center gap-2 rounded-[10px] text-[14px]"
+            style={{ padding: "12px 20px" }}
+          >
+            Skontaktuj się →
+          </Link>
+        </div>
       </div>
     </div>
   );
