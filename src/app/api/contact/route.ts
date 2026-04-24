@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
   const { error } = await resend.emails.send({
     from: "Formularz lok-ai <onboarding@resend.dev>",
-    to: "maciej.g@automatyczni.com",
+    to: "serekrazd@gmail.com",
     replyTo: email,
     subject: `Nowa wiadomość od ${name}${company ? ` (${company})` : ""}`,
     text: [
