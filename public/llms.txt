@@ -1,19 +1,42 @@
 # lok-ai — Lokalna Automatyzacja Biznesu
 
-## Czym się zajmujemy
-Automatyzacja procesów biznesowych i wdrożenia AI dla małych i średnich firm
-z województwa kujawsko-pomorskiego (Grudziądz, Toruń, Bydgoszcz i okolice).
+> Automatyzacja procesów biznesowych i wdrożenia AI dla małych i średnich firm
+> z województwa kujawsko-pomorskiego (Grudziądz, Toruń, Bydgoszcz i okolice).
 
-## Usługi
-- Automatyzacja procesów (n8n, workflow, integracje API)
-- Chatboty AI (Flowise, Typebot, OpenAI, bazy wiedzy RAG)
-- Agenci głosowi (ElevenLabs, Twilio)
-- Integracje systemów (CRM, ERP, e-commerce)
-- Dashboardy i raporty automatyczne
-
-## Technologie
-n8n, Flowise, Typebot, Redis, Pinecone, OpenAI API, ElevenLabs, Claude API
-
-## Kontakt
+URL: https://lok-ai.pl
 Email: kontakt@lok-ai.pl
 Lokalizacja: Grudziądz, kujawsko-pomorskie, Polska
+
+## Usługi
+
+- [Automatyzacja procesów n8n](https://lok-ai.pl/uslugi/automatyzacja-n8n) — workflow, integracje API, eliminacja ręcznej pracy
+- [Chatboty AI](https://lok-ai.pl/uslugi/chatboty-ai) — Flowise, Typebot, OpenAI, bazy wiedzy RAG
+- [Agenci głosowi](https://lok-ai.pl/uslugi/agenci-glosowi) — ElevenLabs, Twilio, obsługa klienta 24/7
+- [Bazy wiedzy RAG](https://lok-ai.pl/uslugi/bazy-wiedzy-rag) — inteligentne wyszukiwanie w dokumentach firmowych
+- [Dashboardy i raporty](https://lok-ai.pl/uslugi/dashboardy) — automatyczne raporty i wizualizacje danych
+- [Integracje systemów](https://lok-ai.pl/uslugi/integracje) — CRM, ERP, e-commerce, API
+
+## Strony
+
+- [Strona główna](https://lok-ai.pl)
+- [Usługi](https://lok-ai.pl/uslugi)
+- [Technologia](https://lok-ai.pl/technologia)
+- [Blog](https://lok-ai.pl/blog)
+- [Portfolio](https://lok-ai.pl/portfolio)
+- [FAQ](https://lok-ai.pl/faq)
+- [O nas](https://lok-ai.pl/o-nas)
+- [Kontakt](https://lok-ai.pl/kontakt)
+
+## Artykuły technologia
+
+- [Co to jest n8n?](https://lok-ai.pl/technologia/co-to-jest-n8n)
+- [Chatboty AI dla firm — Flowise, Typebot, własne rozwiązania](https://lok-ai.pl/technologia/chatboty-ai-dla-firm)
+- [Agenci głosowi — ElevenLabs i Twilio](https://lok-ai.pl/technologia/agenci-glosowi-elevenlabs-twilio)
+
+## Technologie
+
+n8n, Flowise, Typebot, Redis, Pinecone, OpenAI API, ElevenLabs, Claude API, Twilio
+
+## Obsługiwane lokalizacje
+
+Grudziądz, Toruń, Bydgoszcz, Świecie, Chełmno, Wąbrzeźno, Inowrocław, Brodnica
