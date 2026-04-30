@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import GeoStripe from "@/components/GeoStripe";
 import Services from "@/components/Services";
 import BlogPreview from "@/components/BlogPreview";
 import ContactSection from "@/components/ContactSection";
@@ -33,6 +34,7 @@ export default function Home() {
     <>
       <SchemaOrg schema={generateFaqSchema(faqItems)} />
       <Hero />
+      <GeoStripe />
       <Services />
       <BlogPreview />
       <ContactSection />

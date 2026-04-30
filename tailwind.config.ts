@@ -14,6 +14,7 @@ const config: Config = {
         "bg-soft": "#121315",
         surface: {
           DEFAULT: "#17181b",
+          warm: "#1E1B18",
           hi: "#1f2125",
           "hi-hi": "#2a2d32",
           // legacy aliases (keep for unused pages during migration)

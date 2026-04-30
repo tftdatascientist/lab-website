@@ -15,52 +15,40 @@ export default function BlogPage() {
   return (
     <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
       {/* Header */}
-      <div
-        className="flex items-end justify-between gap-8 mb-12"
-      >
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-7 h-px" style={{ background: "#ef7955" }} />
-            <span
-              className="font-mono text-[11px] uppercase"
-              style={{ color: "#ef7955", letterSpacing: "0.15em" }}
-            >
-              Blog · codzienny przegląd AI
-            </span>
-          </div>
-          <h1
-            className="font-heading font-bold text-text"
-            style={{
-              fontSize: "clamp(28px,4vw,48px)",
-              letterSpacing: "-0.035em",
-              lineHeight: 1.05,
-            }}
-          >
-            Co się{" "}
-            <span
-              className="font-display font-medium italic"
-              style={{ color: "#ef7955" }}
-            >
-              naprawdę
-            </span>{" "}
-            dzieje w&nbsp;AI w&nbsp;Polsce
-          </h1>
-        </div>
-        <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+      <div className="mb-12">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-7 h-px" style={{ background: "#f5b845" }} />
           <span
-            className="w-2 h-2 rounded-full"
-            style={{
-              background: "#f5b845",
-              animation: "lokai-pulse 2s ease-in-out infinite",
-            }}
-          />
-          <span
-            className="font-mono text-[11px] text-text-dim"
-            style={{ letterSpacing: "0.1em" }}
+            className="font-mono text-[11px] uppercase"
+            style={{ color: "#f5b845", letterSpacing: "0.15em" }}
           >
-            AKTUALIZOWANE 4× DZIENNIE
+            Blog · 14&nbsp;szablonów
           </span>
         </div>
+        <h1
+          className="font-heading font-bold text-text mb-5"
+          style={{
+            fontSize: "clamp(28px,5vw,64px)",
+            letterSpacing: "-0.04em",
+            lineHeight: 0.95,
+            maxWidth: 1000,
+          }}
+        >
+          News z&nbsp;polskiej i&nbsp;światowej{" "}
+          <span
+            className="font-display font-medium italic"
+            style={{ color: "#f5b845" }}
+          >
+            sceny AI
+          </span>
+          .
+        </h1>
+        <p
+          className="text-text-dim"
+          style={{ fontSize: 17, maxWidth: 620, lineHeight: 1.55 }}
+        >
+          Każda kategoria ma własny ręcznie rysowany neon line-art w&nbsp;cieple amber/coral. Bez stockowych grafik, bez chłodnych niebieskości — wszystko trzyma się palety Amber&nbsp;&amp;&nbsp;Ash.
+        </p>
       </div>
 
       <BlogListClient
