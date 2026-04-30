@@ -34,3 +34,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code — logi sesji, pliki robocze, handoff
+/logs/
+/_archive/
+/design-canvas.jsx
+/lok-ai-reimagined.html
+/REDESIGNE2_PORMPT.md
+/README_UPDATE.md
+/ROADMAP.md
+/components/
+/assets/
+sh.exe.stackdump

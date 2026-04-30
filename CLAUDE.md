@@ -61,14 +61,10 @@ Każda nowa podstrona musi mieć: `export metadata` + wywołanie `lib/schema.ts`
 
 ---
 
-## AKTUALNY SPRINT (21–25.04.2026)
+## DOKUMENTY PROJEKTU
 
-Szczegóły w `PLAN.md`. Skrót:
-1. Rebrand: LAB → **lok-ai** (logo, nazwy, meta)
-2. Restrukturyzacja nawigacji (usunąć: Demo-AI, Dziennik; dodać: Technologia, Portfolio)
-3. 3 produkty-usługi + ogólna prezentacja automatyzacji
-4. 3 artykuły w sekcji Technologia
-5. Migracja wpisów z Dziennika → Blog
-6. Uzupełnienie FAQ + sekcja Portfolio (placeholder)
-
-Stan bieżący → `STATUS.md` · Architektura → `ARCHITECTURE.md`
+| Plik | Cel |
+|---|---|
+| `ARCHITECTURE.md` | Stack, struktura katalogów, integracje |
+| `PLAN.md` | Aktualny sprint i blokery |
+| `CHANGELOG.md` | Historia zakończonych sprintów i zmian |

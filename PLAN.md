@@ -1,100 +1,39 @@
-# PLAN.md — Sprint 21–25.04.2026
-## lok-ai.pl · Status: WYKONANY 21.04.2026
+# PLAN.md — Aktualny sprint
+## lok-ai.pl · Lokalna Automatyzacja Biznesu
+
+Zakończone sprinty → [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
-## CEL SPRINTU ✅
+## AKTUALNY CEL
 
-Przekształcenie strony z wersji MVP (szkielet LAB) w kompletną, gotową do promocji stronę usługową działającą pod marką **lok-ai / Lokalna Automatyzacja Biznesu**.
-
----
-
-## 1. REBRAND: LAB → lok-ai ✅
-
-- [x] Logo Navbar i Footer: "LAB" → "lok-ai"
-- [x] Meta title/template/siteName w layout.tsx
-- [x] Schema.org `name`: lok-ai — Lokalna Automatyzacja Biznesu
-- [x] Email: kontakt@lok-ai.pl (schema.ts, kontakt/page.tsx, polityka, llms.txt)
-- [x] llms.txt zaktualizowany
-- [x] Copyright stopki zaktualizowany
-- [x] Wszystkie strony — meta titles, opisy, treści body
+> Brak aktywnego sprintu. Ostatni sprint (21.04.2026) zakończony — zob. CHANGELOG.
 
 ---
 
-## 2. RESTRUKTURYZACJA NAWIGACJI ✅
+## NASTĘPNY SPRINT (do ustalenia)
 
-**Nawigacja:**
-```
-Usługi | Technologia | Blog | Portfolio | FAQ
-```
-(usunięto: Demo AI, Dziennik — strony pozostają jako deep linki)
-
-- [x] Navbar.tsx — zaktualizowane navLinks
-- [x] MobileBottomNav.tsx — Portfolio z ikoną Briefcase
-- [x] Footer.tsx — zaktualizowane linki
-
----
-
-## 3. PODSTRONY USŁUG ✅
-
-- [x] `src/content/services.ts` — nowe pola: longDesc, benefits[], useCases[], ctaText
-- [x] Wypełnione dla: automatyzacja-n8n, chatboty-ai, agenci-glosowi
-- [x] `src/app/uslugi/[slug]/page.tsx` — bogaty layout (Opis + Korzyści + Use cases + CTA)
-
----
-
-## 4. SEKCJA TECHNOLOGIA ✅
-
-- [x] Katalog `/technologie/` → `/technologia/`
-- [x] `src/lib/mdx.ts` — refaktoryzacja createMdxReader, nowe eksporty dla technologia
-- [x] 3 artykuły MDX w `src/content/technologia/`:
-  - co-to-jest-n8n.mdx
-  - chatboty-ai-dla-firm.mdx
-  - agenci-glosowi-elevenlabs-twilio.mdx
-- [x] `src/app/technologia/[slug]/page.tsx` — pełna strona artykułu
-- [x] Listing artykułów na `src/app/technologia/page.tsx`
-
----
-
-## 5. MIGRACJA DZIENNIKA → BLOG ✅
-
-- [x] 3 wpisy przeniesione do `src/content/blog/` (frontmatter dostosowany)
-- [x] Sitemap zaktualizowany (usunięto /dziennik, dodano /technologia, /portfolio)
-
----
-
-## 6. FAQ ✅
-
-- [x] 3 nowe pytania (Protokół 06, 07, 08): dla jakich firm, czy potrzebuję IT, co po projekcie
-
----
-
-## 7. PORTFOLIO ✅
-
-- [x] `src/app/portfolio/page.tsx` — placeholder z metadata i CTA
-
----
-
-## 8. SEKCJA KONSULTACJI ✅
-
-- [x] Sekcja "Bezpłatna konsultacja" na stronie głównej (między FeatureSpotlight a CtaSection)
-
----
-
-## 7. FAZA 7 — REDESIGN PODSTRON ✅
-
-- [x] `/uslugi` — nowy header, ServiceCard w nowym stylu (metryki, top-line, orby)
-- [x] `/kontakt` — dwukolumnowy layout LokaiContact z formularzem Resend
-- [x] `/blog` — header coral + magazynowy BlogListClient (featured 1.3fr + 3 mniejsze)
-- [x] `/faq` — accordion w nowym stylu, CTA bar
-- [x] `/o-nas` — value cards, tech stack pills
-- [x] `/portfolio` — siatka 16 projektów WWW z miniaturkami Microlink, ukryte URL-e
-
----
-
-## NASTĘPNY SPRINT (sugerowane)
-
-- [x] Commit + push → deploy Vercel ✅
-- [ ] Weryfikacja DNS lok-ai.pl
+- [ ] Weryfikacja DNS lok-ai.pl → Vercel
 - [ ] SEO/LLM audit (llms.txt, Schema.org, sitemap)
-- [ ] Integracja chatbota Typebot (~07.05)
+- [ ] Integracja chatbota Typebot w `/demo` (~07.05)
+- [ ] Portfolio — wypełnienie po zakończeniu negocjacji (Creato/Tomek)
+
+---
+
+## BLOKERY
+
+| Problem | Akcja |
+|---|---|
+| DNS lok-ai.pl → Vercel | Sprawdzić propagację w panelu OVH |
+| Partnerstwo z Tomkiem (Creato) | Wpływa na zakres sekcji Portfolio |
+| Stitch MCP NPX proxy — ghost config | Sprawdzić `.claude/settings.json` i `.mcp.json` |
+
+<!-- SECTION:session_log -->
+- 2026-04-30 22:09 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 13:29 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 13:24 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 13:18 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 11:48 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 00:48 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+- 2026-04-30 00:35 | HANDOFF: sesja zamknięta, ostatnie current='(brak)'
+<!-- /SECTION:session_log -->

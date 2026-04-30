@@ -5,109 +5,113 @@
 
 ## STACK
 
-| Warstwa | Technologia | Uwagi |
+| Warstwa | Technologia | Wersja / Uwagi |
 |---|---|---|
-| Framework | Next.js 14 (App Router) | TypeScript |
-| Stylowanie | Tailwind CSS | Tokeny z Stitch |
-| Design source | Google Stitch | Jedyne źródło prawdy dla UI |
+| Framework | Next.js (App Router) | 14.2.35, TypeScript 5 |
+| Stylowanie | Tailwind CSS | 3.4.1, tokeny wyłącznie ze Stitch |
+| Design source | Google Stitch | Jedyne źródło prawdy dla UI — zero hardkodowanych wartości |
+| Treści | next-mdx-remote | 6.0.0, MDX + gray-matter 4.0.3 |
+| Email | Resend | 6.12.2, formularz kontaktu przez /api/contact |
 | Deploy | Vercel | Auto-deploy z GitHub, edge routing |
 | Domena | lok-ai.pl (OVH) | .pl — kluczowe dla lokalnego B2B |
-| CMS (przyszłość) | WordPress headless | CyberFolks, odroczone na później |
-| Automatyzacja | n8n | Własne workflowy, w tym auto-publikacja bloga |
-| Chatbot | Typebot | Embed na /demo-ai (integracja ~maj 2026) |
+| Automatyzacja | n8n | Auto-publikacja bloga (działa) |
+| Chatbot | Typebot | Embed planowany ~maj 2026 |
 | Agent głosowy | ElevenLabs Conversational AI | Planowany czerwiec 2026 |
 | Analityka | Plausible / Umami | Do konfiguracji |
+| CMS (przyszłość) | WordPress headless | CyberFolks, odroczone |
 
 ---
 
 ## STRUKTURA KATALOGÓW
 
 ```
-lok-ai.pl/
-├── app/                          # Next.js App Router
-│   ├── page.tsx                  # Strona główna
-│   ├── layout.tsx                # Root layout (fonty, chatbot embed)
-│   ├── sitemap.ts                # Auto sitemap — chroniony
-│   ├── robots.ts                 # Robots — chroniony
+lab-website/
+├── src/
+│   ├── app/                          # Next.js App Router
+│   │   ├── page.tsx                  # Strona główna
+│   │   ├── layout.tsx                # Root layout (fonty, meta, chatbot embed placeholder)
+│   │   ├── globals.css               # Globalne style + animacje (aurora, ticker, fadeup)
+│   │   ├── sitemap.ts                # Auto sitemap — CHRONIONY
+│   │   ├── robots.ts                 # Robots directives — CHRONIONY
+│   │   ├── feed.xml/route.ts         # RSS feed
+│   │   │
+│   │   ├── uslugi/
+│   │   │   ├── page.tsx              # Listing usług
+│   │   │   └── [slug]/page.tsx       # Pojedyncza usługa (longDesc, benefits, useCases)
+│   │   │
+│   │   ├── technologia/
+│   │   │   ├── page.tsx              # Listing przewodników
+│   │   │   └── [slug]/page.tsx       # Pojedynczy artykuł z breadcrumb i Schema.org
+│   │   │
+│   │   ├── blog/
+│   │   │   ├── page.tsx              # Listing blogów (featured + magazynowy grid)
+│   │   │   ├── BlogListClient.tsx
+│   │   │   └── [slug]/page.tsx
+│   │   │
+│   │   ├── portfolio/page.tsx        # Siatka 16 projektów WWW z miniaturkami Microlink
+│   │   ├── faq/page.tsx + FaqPageClient.tsx
+│   │   ├── kontakt/page.tsx          # Formularz Resend (dwukolumnowy layout)
+│   │   ├── o-nas/page.tsx
+│   │   ├── cennik/page.tsx
+│   │   ├── demo/page.tsx             # Placeholder Typebot (poza nawigacją)
+│   │   ├── dziennik/[slug]/page.tsx  # Deep linki (poza nawigacją)
+│   │   ├── polityka-prywatnosci/
+│   │   ├── regulamin/
+│   │   └── api/contact/route.ts      # Email API (Resend)
 │   │
-│   ├── uslugi/                   # Podstrony usług
-│   │   ├── page.tsx              # Listing usług + ogólna prezentacja
-│   │   ├── automatyzacja-procesow/
-│   │   ├── chatbot-ai/
-│   │   └── agent-glosowy/
+│   ├── components/                   # Komponenty React
+│   │   ├── Navbar.tsx                # Nawigacja górna
+│   │   ├── MobileBottomNav.tsx       # Nawigacja mobilna (dolna)
+│   │   ├── Footer.tsx                # Stopka + NAP
+│   │   ├── Hero.tsx                  # Aurora, chatbot demo, stats, ticker
+│   │   ├── Logo.tsx
+│   │   ├── AuroraBg.tsx
+│   │   ├── Ticker.tsx
+│   │   ├── Counter.tsx               # Animowane liczniki
+│   │   ├── ServiceCard.tsx           # Karta usługi (orb, metryka, hover outline)
+│   │   ├── BlogCard.tsx              # Karta wpisu (top-line, tag+date)
+│   │   ├── BlogTagFilter.tsx         # Pill-style filtr tagów
+│   │   ├── FaqAccordion.tsx
+│   │   ├── ContactForm.tsx           # Formularz z walidacją
+│   │   └── ChatDemo.tsx              # Placeholder chatbota
 │   │
-│   ├── technologia/              # [NOWE] Przewodniki i poradniki
-│   │   └── page.tsx              # Listing artykułów Technologia
-│   │   └── [slug]/page.tsx       # Pojedynczy artykuł
+│   ├── content/                      # Treści edytorialne
+│   │   ├── blog/                     # 68 artykułów MDX
+│   │   ├── technologia/              # 3 przewodniki MDX
+│   │   ├── dziennik/                 # 6 archiwalnych wpisów MDX (deep link, poza nav)
+│   │   └── services.ts               # Dane usług (longDesc, benefits, useCases, ctaText)
 │   │
-│   ├── blog/
-│   │   └── page.tsx              # Listing bloga
-│   │   └── [slug]/page.tsx       # Pojedynczy wpis
-│   │
-│   ├── portfolio/                # [NOWE] Realizacje stron
-│   │   └── page.tsx
-│   │
-│   ├── faq/                      # lub sekcja na /
-│   ├── kontakt/
-│   ├── o-nas/
-│   ├── polityka-prywatnosci/
-│   └── regulamin/
-│
-├── components/                   # Komponenty UI
-│   ├── Navbar.tsx                # Nawigacja
-│   ├── Footer.tsx                # Stopka + NAP
-│   ├── Hero.tsx
-│   ├── FaqAccordion.tsx
-│   ├── TechStack.tsx
-│   ├── ProcessSteps.tsx
-│   ├── GeoGrid.tsx
-│   └── ChatbotDemo.tsx           # Placeholder Typebot
-│
-├── content/                      # Treści (MDX)
-│   ├── blog/                     # Krótkie regularne wpisy
-│   │   └── *.mdx
-│   └── technologia/              # [NOWE] Długie przewodniki
-│       └── *.mdx
-│
-├── lib/
-│   └── schema.ts                 # Schema.org JSON-LD — chroniony
+│   └── lib/
+│       ├── mdx.ts                    # createMdxReader — parser MDX, getBySlug, getAll, getTags
+│       └── schema.ts                 # Schema.org JSON-LD — CHRONIONY
 │
 ├── public/
-│   ├── llms.txt                  # LLM discovery — chroniony
-│   └── images/
-│       └── og-default.png
+│   ├── llms.txt                      # LLM discovery — CHRONIONY
+│   └── images/og-default.png
 │
-└── tailwind.config.ts            # Design tokens (ze Stitch)
+├── tailwind.config.ts                # Design tokens (amber, coral, sand, rust)
+├── next.config.mjs                   # MDX plugin, image domains (api.microlink.io)
+├── package.json
+└── tsconfig.json
 ```
 
 ---
 
-## NAWIGACJA (po sprincie 21–25.04)
+## NAWIGACJA
 
 ```
-Strona główna
-├── Usługi
-│   ├── Automatyzacja procesów
-│   ├── Chatbot AI
-│   └── Agent głosowy
-├── Technologia          ← nowa
-├── Blog
-├── FAQ
-├── Portfolio            ← nowa
-└── Kontakt
+Usługi | Technologia | Blog | Portfolio | FAQ | Kontakt
 ```
 
-Ukryte (tymczasowo):
-- `Demo-AI` — wróci po integracji Typebot (~maj 2026)
-
-Usunięte:
-- `AI Dziennik` — wpisy zmigrowane do Bloga
+Poza nawigacją (deep linki):
+- `/demo` — placeholder Typebot (wróci po integracji ~maj 2026)
+- `/dziennik/[slug]` — archiwalne wpisy (zmigrowane do bloga)
 
 ---
 
 ## TREŚCI — FORMAT MDX
 
-### Blog (`content/blog/slug.mdx`)
+### Blog (`src/content/blog/slug.mdx`)
 ```yaml
 ---
 title: "Tytuł wpisu"
@@ -117,9 +121,9 @@ excerpt: "Opis 150–200 znaków"
 readTime: "4 min"
 ---
 ```
-Charakter: krótkie (400–800 słów), regularne, 1–2× tygodniowo.
+Charakter: krótkie (400–800 słów), regularne, news-driven. Aktualnie: 68 artykułów.
 
-### Technologia (`content/technologia/slug.mdx`)
+### Technologia (`src/content/technologia/slug.mdx`)
 ```yaml
 ---
 title: "Tytuł przewodnika"
@@ -130,46 +134,64 @@ readTime: "10 min"
 type: "guide"
 ---
 ```
-Charakter: długie (1000–2000 słów), poradniki i przewodniki dla właścicieli firm.
+Charakter: długie (1000–2000 słów), poradniki dla właścicieli firm. Aktualnie: 3 artykuły.
 
 ---
 
 ## SEO / LLM — ARTEFAKTY CHRONIONE
 
-| Plik | Cel | Zasada |
-|---|---|---|
-| `app/sitemap.ts` | Mapa strony dla crawlerów | Każda nowa ścieżka musi być tu dodana |
-| `app/robots.ts` | Dyrektywy dla botów | Nie blokuj ważnych sekcji |
-| `public/llms.txt` | Discovery dla LLM crawlerów | Aktualizować przy zmianach struktury |
-| `lib/schema.ts` | Schema.org JSON-LD | Każda strona wywołuje odpowiednią funkcję |
+Poniższe pliki są **chronione** — edytuj ostrożnie, nigdy nie usuwaj:
 
-Każda nowa podstrona: `export metadata` (title, description, canonical) + Schema.org.
+| Plik | Cel |
+|---|---|
+| `src/app/sitemap.ts` | Mapa strony dla crawlerów — każda nowa ścieżka musi być tu dodana |
+| `src/app/robots.ts` | Dyrektywy dla botów — nie blokuj ważnych sekcji |
+| `public/llms.txt` | Discovery dla LLM crawlerów — aktualizować przy zmianach struktury |
+| `src/lib/schema.ts` | Schema.org JSON-LD — każda strona wywołuje odpowiednią funkcję |
+
+Każda nowa podstrona musi mieć: `export metadata` (title, description, canonical) + wywołanie `lib/schema.ts`.
 
 ---
 
-## INTEGRACJE (mapa)
+## DESIGN SYSTEM
+
+- **Źródło prawdy:** Google Stitch — wszystkie tokeny, komponenty, layouty
+- **Kolory:** amber (primary), coral (akcent), sand (tło), rust (ciemny akcent)
+- **Fonty:** Inter (body) + Chakra Petch (display italic) + IBM Plex Mono (labels)
+- **Tokeny w kodzie:** `tailwind.config.ts`
+- **Globalne style + animacje:** `src/app/globals.css` (aurora, ticker, fadeup, shimmer, pulse)
+
+---
+
+## INTEGRACJE
 
 ```
 lok-ai.pl (Next.js / Vercel)
     │
-    ├── n8n ──────────────── automatyzacja workflows
-    │       └── blog auto-publish pipeline (działa)
+    ├── Resend ───────────── email z formularza kontaktu (/api/contact)
+    │
+    ├── n8n ──────────────── auto-publikacja bloga [AKTYWNE]
     │
     ├── Typebot ──────────── chatbot embed [PENDING ~maj 2026]
-    │       └── app/demo-ai/page.tsx (placeholder)
+    │       └── /demo/page.tsx (placeholder)
     │
     ├── ElevenLabs ────────── agent głosowy [PLANNED czerwiec 2026]
     │
-    └── Notion ────────────── CRM leads + zarządzanie projektem
+    └── Microlink API ─────── miniaturki stron w /portfolio
 ```
 
 ---
 
-## ŚRODOWISKO LOKALNE
+## ŚRODOWISKO I DEPLOY
 
-- OS: Windows
-- IDE: VS Code
-- Claude Code: terminal w VS Code
-- MCP NPX config: `"command": "cmd"`, `"args": ["/c", "npx", ...]`
-- Env: `.env.local` (lokalnie) — nigdy nie commitować
-- Vercel env: Dashboard → Settings → Environment Variables
+- **OS:** Windows 11, IDE: VS Code, terminal: Git Bash
+- **MCP NPX:** `"command": "cmd"`, `"args": ["/c", "npx", ...]`
+- **Env lokalnie:** `.env.local` — nigdy nie commitować
+- **Env produkcja:** Vercel Dashboard → Settings → Environment Variables
+- **Pipeline:** `git push origin main` → Vercel auto-build → deploy
+
+### Zmienne środowiskowe
+
+```
+RESEND_API_KEY=     # formularz kontaktu
+```
