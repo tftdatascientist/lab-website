@@ -34,10 +34,12 @@ export default function Home() {
   return (
     <>
       <SchemaOrg schema={generateFaqSchema(faqItems)} />
-      <section className="relative w-full" style={{ maxHeight: '80vh' }}>
-        <Suspense fallback={<StaticLogoFallback />}>
-          <AnimatedLogoWrapper accentStart="mint" accentEnd="gold" />
-        </Suspense>
+      <section className="relative w-full flex justify-center" style={{ maxHeight: '80vh' }}>
+        <div style={{ width: '75%' }}>
+          <Suspense fallback={<StaticLogoFallback />}>
+            <AnimatedLogoWrapper accentStart="mint" accentEnd="gold" />
+          </Suspense>
+        </div>
       </section>
       <GeoStripe />
       <Services />
