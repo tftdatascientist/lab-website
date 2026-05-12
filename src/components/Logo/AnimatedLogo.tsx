@@ -176,9 +176,9 @@ function Scene({ accentStart, accentEnd, glow, tagline, bg }: SceneProps) {
   const gearCenterX = 960;
   const gearCenterY = 540 + (GEAR_LOCKUP_Y - 540) * lockupEase;
 
-  // Color transformation: burgund (0–7s) → coral (7–9s) → gold (9–14.5s)
-  const phase1P = clamp((t - 7.0) / 2.0, 0, 1); // burgund → coral
-  const phase2P = clamp((t - 9.0) / 2.0, 0, 1); // coral → gold
+  // Color transformation: burgund (0–1s) → coral (1–4s) → gold (4–14.5s, stabilne od ~11.5s)
+  const phase1P = clamp(t / 1.0, 0, 1);           // burgund → coral (0–1s)
+  const phase2P = clamp((t - 1.0) / 3.0, 0, 1);  // coral → gold (1–4s)
   const midColor = lerpColor(COLOR_BURGUNDY, COLOR_CORAL, Easing.easeInOutCubic(phase1P));
   const liveColor = lerpColor(midColor, COLOR_GOLD, Easing.easeInOutCubic(phase2P));
 
