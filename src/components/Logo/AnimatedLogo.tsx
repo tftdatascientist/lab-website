@@ -12,7 +12,9 @@ import {
 
 const COLOR_GOLD     = '#f5b820';
 const COLOR_LAVENDER = '#ef7955';
-const COLOR_MINT     = '#4edea3';
+const COLOR_MINT     = '#8b1a2f';
+const COLOR_BURGUNDY = '#8b1a2f';
+const COLOR_CORAL    = '#ef7955';
 const DURATION       = 14.5;
 
 const MAP_W = 1700;
@@ -141,9 +143,6 @@ type SceneProps = Required<Omit<LogoProps, 'speed' | 'className'>>;
 function Scene({ accentStart, accentEnd, glow, tagline, bg }: SceneProps) {
   const t = useTime();
 
-  const colorNameToHex = (n: AccentColor) =>
-    n === 'gold' ? COLOR_GOLD : n === 'lavender' ? COLOR_LAVENDER : COLOR_MINT;
-
   // Stage 1: Poland map (0–4s)
   const mapDrawP  = clamp(t / 2.0, 0, 1);
   const mapGridP  = clamp((t - 0.3) / 2.0, 0, 1);
@@ -177,13 +176,11 @@ function Scene({ accentStart, accentEnd, glow, tagline, bg }: SceneProps) {
   const gearCenterX = 960;
   const gearCenterY = 540 + (GEAR_LOCKUP_Y - 540) * lockupEase;
 
-  // Color transformation (7.0–8.4s)
-  const colorP    = clamp((t - 7.0) / 1.4, 0, 1);
-  const liveColor = lerpColor(
-    colorNameToHex(accentStart),
-    colorNameToHex(accentEnd),
-    Easing.easeInOutCubic(colorP),
-  );
+  // Color transformation: burgund (0–7s) → coral (7–9s) → gold (9–14.5s)
+  const phase1P = clamp((t - 7.0) / 2.0, 0, 1); // burgund → coral
+  const phase2P = clamp((t - 9.0) / 2.0, 0, 1); // coral → gold
+  const midColor = lerpColor(COLOR_BURGUNDY, COLOR_CORAL, Easing.easeInOutCubic(phase1P));
+  const liveColor = lerpColor(midColor, COLOR_GOLD, Easing.easeInOutCubic(phase2P));
 
   // Wordmark + tagline
   const wordmarkP = clamp((t - 7.6) / 1.6, 0, 1);
