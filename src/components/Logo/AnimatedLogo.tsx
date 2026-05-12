@@ -11,7 +11,7 @@ import {
 } from './Scenes';
 
 const COLOR_GOLD     = '#f5b820';
-const COLOR_LAVENDER = '#d0bcff';
+const COLOR_LAVENDER = '#ef7955';
 const COLOR_MINT     = '#4edea3';
 const DURATION       = 14.5;
 
