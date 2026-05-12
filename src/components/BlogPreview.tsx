@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getAllPosts } from "@/lib/mdx";
 
 const COLOR_CYCLE = ["#f5b845", "#ef7955", "#d9b88a", "#b8542f"];
@@ -55,17 +56,26 @@ export default function BlogPreview() {
             dzieje w&nbsp;AI w&nbsp;Polsce
           </h2>
         </div>
-        <div className="flex items-center gap-2.5">
-          <span
-            className="w-2 h-2 rounded-full"
-            style={{ background: "#f5b845", animation: "lokai-pulse 2s ease-in-out infinite" }}
-          />
-          <span
-            className="font-mono text-[11px] text-text-dim uppercase"
-            style={{ letterSpacing: "0.1em" }}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2.5">
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ background: "#f5b845", animation: "lokai-pulse 2s ease-in-out infinite" }}
+            />
+            <span
+              className="font-mono text-[11px] text-text-dim uppercase"
+              style={{ letterSpacing: "0.1em" }}
+            >
+              Aktualizowane 4× dziennie
+            </span>
+          </div>
+          <Link
+            href="/blog"
+            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase transition-colors hover:text-text"
+            style={{ color: "#f5b845", letterSpacing: "0.1em" }}
           >
-            Aktualizowane 4× dziennie
-          </span>
+            Wszystkie artykuły <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
 
@@ -74,63 +84,86 @@ export default function BlogPreview() {
         {/* Featured */}
         <Link
           href={`/blog/${featured.slug}`}
-          className="group relative block rounded-[16px] overflow-hidden no-underline text-text min-h-[420px] flex flex-col p-10 transition-all duration-200 hover:-translate-y-[3px]"
+          className="group relative block rounded-[16px] overflow-hidden no-underline text-text flex flex-col transition-all duration-200 hover:-translate-y-[3px]"
           style={{
             background: "#17181b",
             outline: "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          {/* Blur orb */}
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              top: -60,
-              right: -60,
-              width: 280,
-              height: 280,
-              background: `radial-gradient(circle, ${featuredColor}40, transparent 70%)`,
-              filter: "blur(50px)",
-            }}
-          />
-
-          {/* Meta */}
-          <div className="relative flex items-center gap-2.5 mb-6">
-            <span
-              className="font-mono text-[10px] uppercase"
-              style={{ color: featuredColor, letterSpacing: "0.15em" }}
+          {/* Cover image */}
+          {fm.image ? (
+            <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
+              <Image
+                src={fm.image}
+                alt={fm.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 55vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(to bottom, transparent 50%, #17181b 100%)" }}
+              />
+            </div>
+          ) : (
+            /* Placeholder gradient when no image */
+            <div
+              className="relative w-full overflow-hidden"
+              style={{ aspectRatio: "16/9", background: `linear-gradient(135deg, ${featuredColor}18, #17181b)` }}
             >
-              {fm.tags?.[0] ?? "BLOG"}
-            </span>
-            <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
-            <span className="font-mono text-[10px] text-text-mute" style={{ letterSpacing: "0.1em" }}>
-              {formatDate(fm.date)}
-            </span>
-          </div>
+              <div
+                className="absolute"
+                style={{
+                  top: -40, right: -40, width: 220, height: 220,
+                  background: `radial-gradient(circle, ${featuredColor}30, transparent 70%)`,
+                  filter: "blur(40px)",
+                }}
+              />
+            </div>
+          )}
 
-          {/* Title */}
-          <div className="relative flex-1 flex items-center">
+          {/* Content */}
+          <div className="relative flex flex-col flex-1 p-8">
+            {/* Meta */}
+            <div className="flex items-center gap-2.5 mb-4">
+              <span
+                className="font-mono text-[10px] uppercase"
+                style={{ color: featuredColor, letterSpacing: "0.15em" }}
+              >
+                {fm.tags?.[0] ?? "BLOG"}
+              </span>
+              <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
+              <span className="font-mono text-[10px] text-text-mute" style={{ letterSpacing: "0.1em" }}>
+                {formatDate(fm.date)}
+              </span>
+              {fm.readTime && (
+                <>
+                  <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
+                  <span className="font-mono text-[10px] text-text-mute">{fm.readTime}</span>
+                </>
+              )}
+            </div>
+
+            {/* Title */}
             <h3
-              className="font-heading font-bold text-text"
-              style={{ fontSize: "clamp(22px,2.5vw,36px)", letterSpacing: "-0.025em", lineHeight: 1.1 }}
+              className="font-heading font-bold text-text mb-3"
+              style={{ fontSize: "clamp(20px,2.2vw,30px)", letterSpacing: "-0.025em", lineHeight: 1.15 }}
             >
               {fm.title}
             </h3>
-          </div>
 
-          {fm.excerpt && (
-            <p
-              className="relative text-[15px] text-text-dim leading-[1.55] my-5"
-              style={{ maxWidth: 560 }}
+            {fm.excerpt && (
+              <p className="text-[14px] text-text-dim leading-[1.55] mb-5 flex-1" style={{ maxWidth: 520 }}>
+                {fm.excerpt}
+              </p>
+            )}
+
+            <div
+              className="flex items-center gap-2 text-[13px] font-semibold mt-auto"
+              style={{ color: featuredColor }}
             >
-              {fm.excerpt}
-            </p>
-          )}
-
-          <div
-            className="relative flex items-center gap-2 text-[13px] font-semibold"
-            style={{ color: featuredColor }}
-          >
-            Czytaj dalej <span aria-hidden="true">→</span>
+              Czytaj dalej <span aria-hidden="true">→</span>
+            </div>
           </div>
         </Link>
 
@@ -143,30 +176,57 @@ export default function BlogPreview() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group relative block rounded-[16px] overflow-hidden no-underline text-text flex-1 flex flex-col gap-2.5 p-6 transition-all duration-200 hover:-translate-y-[3px]"
+                className="group relative flex gap-4 rounded-[16px] overflow-hidden no-underline text-text flex-1 p-5 transition-all duration-200 hover:-translate-y-[3px]"
                 style={{
                   background: "#17181b",
                   outline: "1px solid rgba(255,255,255,0.08)",
                 }}
               >
-                <div className="flex items-center gap-2.5">
-                  <span
-                    className="font-mono text-[10px] uppercase"
-                    style={{ color, letterSpacing: "0.15em" }}
+                {/* Thumbnail */}
+                {pfm.image ? (
+                  <div
+                    className="relative shrink-0 rounded-[10px] overflow-hidden"
+                    style={{ width: 88, height: 66 }}
                   >
-                    {pfm.tags?.[0] ?? "BLOG"}
-                  </span>
-                  <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
-                  <span className="font-mono text-[10px] text-text-mute">
-                    {formatDate(pfm.date)}
-                  </span>
+                    <Image
+                      src={pfm.image}
+                      alt={pfm.title}
+                      fill
+                      sizes="88px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="shrink-0 rounded-[10px]"
+                    style={{
+                      width: 88, height: 66,
+                      background: `linear-gradient(135deg, ${color}20, #1f2125)`,
+                    }}
+                  />
+                )}
+
+                {/* Text */}
+                <div className="flex flex-col justify-between min-w-0">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span
+                      className="font-mono text-[10px] uppercase"
+                      style={{ color, letterSpacing: "0.15em" }}
+                    >
+                      {pfm.tags?.[0] ?? "BLOG"}
+                    </span>
+                    <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "#78716c" }} />
+                    <span className="font-mono text-[10px] text-text-mute whitespace-nowrap">
+                      {formatDate(pfm.date)}
+                    </span>
+                  </div>
+                  <h4
+                    className="font-heading font-semibold text-text line-clamp-3"
+                    style={{ fontSize: 14, letterSpacing: "-0.01em", lineHeight: 1.35 }}
+                  >
+                    {pfm.title}
+                  </h4>
                 </div>
-                <h4
-                  className="font-heading font-semibold text-text"
-                  style={{ fontSize: 17, letterSpacing: "-0.015em", lineHeight: 1.3 }}
-                >
-                  {pfm.title}
-                </h4>
               </Link>
             );
           })}

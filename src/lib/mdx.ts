@@ -8,6 +8,7 @@ export interface PostFrontmatter {
   tags: string[];
   excerpt: string;
   readTime: string;
+  image?: string;
 }
 
 export interface Post {
