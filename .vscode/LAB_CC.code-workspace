@@ -1,9 +1,21 @@
 {
 	"folders": [
 		{
+<<<<<<< HEAD
 			"path": "../../../../../10_PROJEKTY/DYMOWSKI/DCOP"
 		},
 		{
+=======
+			"path": "../../../../LAB_CC"
+		},
+		{
+			"path": "../../../../../10_PROJEKTY/DYMOWSKI/DCOP"
+		},
+		{
+			"path": "../../../../../../../../../claude-env-manager"
+		},
+		{
+>>>>>>> fc24135552bff74b004390b0ef8efb6de2435ab7
 			"path": ".."
 		},
 		{
