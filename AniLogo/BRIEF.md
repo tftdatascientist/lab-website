@@ -223,7 +223,7 @@ Wygeneruj klatkę t=14s jako PNG 1200×630 dla `og:image` i 512×512 jako PWA ic
 ## Komenda startowa dla Claude Code
 
 ```
-Zaimplementuj animowany komponent logo z plików w `external/anilogo/` (skopiuj
+Zaimplementuj animowany komponent logo z plików w `/Anilogo/` (skopiuj
 z tego projektu) jako `app/components/Logo/AnimatedLogo.tsx`. Postępuj według
 sekcji 1–10 w `BRIEF.md`. Po implementacji uruchom `pnpm typecheck && pnpm lint`
 i napraw błędy. Hero strony głównej (`app/page.tsx`) zastąp tym komponentem
