@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "../../../../LAB_CC"
+		},
+		{
+			"path": "../../../../../10_PROJEKTY/DYMOWSKI/DCOP"
+		},
+		{
+			"path": "../../../../../../../../../claude-env-manager"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../../10_PROJEKTY/www.proathlethe.grudziadz"
+		}
+	],
+	"settings": {
+		"workbench.editor.enablePreview": true
+	}
+}

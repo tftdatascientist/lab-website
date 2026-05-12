@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Chakra_Petch, JetBrains_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Chakra_Petch, JetBrains_Mono, Orbitron } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
@@ -33,6 +33,13 @@ const chakraPetch = Chakra_Petch({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-orbitron",
   display: "swap",
 });
 
@@ -77,7 +84,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body
-        className={`${inter.variable} ${ibmPlexMono.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} font-body antialiased bg-background text-on-surface`}
+        className={`${inter.variable} ${ibmPlexMono.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} ${orbitron.variable} font-body antialiased bg-background text-on-surface`}
       >
         <SchemaOrg schema={generateLocalBusinessSchema()} />
         <Navbar />

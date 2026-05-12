@@ -1,10 +1,11 @@
-import Hero from "@/components/Hero";
+import { Suspense } from "react";
 import GeoStripe from "@/components/GeoStripe";
 import Services from "@/components/Services";
 import BlogPreview from "@/components/BlogPreview";
 import ContactSection from "@/components/ContactSection";
 import SchemaOrg from "@/components/SchemaOrg";
 import { generateFaqSchema } from "@/lib/schema";
+import AnimatedLogoWrapper, { StaticLogoFallback } from "@/components/Logo/AnimatedLogoWrapper";
 
 const faqItems = [
   {
@@ -33,7 +34,11 @@ export default function Home() {
   return (
     <>
       <SchemaOrg schema={generateFaqSchema(faqItems)} />
-      <Hero />
+      <section className="relative w-full" style={{ maxHeight: '80vh' }}>
+        <Suspense fallback={<StaticLogoFallback />}>
+          <AnimatedLogoWrapper accentStart="mint" accentEnd="gold" />
+        </Suspense>
+      </section>
       <GeoStripe />
       <Services />
       <BlogPreview />
