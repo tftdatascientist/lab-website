@@ -47,22 +47,21 @@ export default function Logo({ size = 34, showTagline = true }: LogoProps) {
           </linearGradient>
         </defs>
 
-        {/* Zębatka */}
-        <path d={gearPath} fill="url(#lg-gear)" />
-        <path d={gearPath} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.5" />
+        {/* Zębatka — tylko kontur */}
+        <path d={gearPath} fill="none" stroke="#f5c842" strokeWidth="1.8" strokeLinejoin="round" />
 
-        {/* Otwór centralny */}
-        <circle cx="20" cy="20" r="8" fill="#0b0c0e" />
+        {/* Otwór centralny — kółko wypełnione tłem */}
+        <circle cx="20" cy="20" r="7.5" fill="#0b0c0e" />
+        <circle cx="20" cy="20" r="7.5" fill="none" stroke="#f5c842" strokeWidth="1.2" />
 
-        {/* Napis LOK — duży, biały, czytelny */}
+        {/* Napis LOK */}
         <text
           x="20"
-          y="23.5"
+          y="23.6"
           textAnchor="middle"
-          dominantBaseline="auto"
           fontFamily="Inter, system-ui, sans-serif"
           fontWeight="800"
-          fontSize="8.2"
+          fontSize="8"
           letterSpacing="-0.5"
           fill="#f5c842"
         >
