@@ -2,7 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/lib/mdx";
 
-const COLOR_CYCLE = ["#f5b845", "#ef7955", "#d9b88a", "#b8542f"];
+const AMBER   = "#e8a020";
+const CORAL   = "#ef7955";
+const SAND    = "#d9b88a";
+const RUST    = "#b8542f";
+const CARD_BG = "#17181b";
+const CARD_HI = "#1f2125";
+
+const COLOR_CYCLE = [AMBER, CORAL, SAND, RUST];
 
 export default function BlogPreview() {
   const posts = getAllPosts().slice(0, 4);
@@ -10,165 +17,324 @@ export default function BlogPreview() {
 
   const featured = posts[0];
   const rest = posts.slice(1, 4);
-
-  const featuredColor = COLOR_CYCLE[0];
+  const fm = featured.frontmatter;
 
   const formatDate = (dateStr: string) => {
     try {
-      const d = new Date(dateStr);
-      return d.toLocaleDateString("pl-PL", { day: "numeric", month: "short", year: "numeric" }).toUpperCase();
+      return new Date(dateStr)
+        .toLocaleDateString("pl-PL", { day: "numeric", month: "short", year: "numeric" })
+        .toUpperCase();
     } catch {
       return dateStr;
     }
   };
 
-  const fm = featured.frontmatter;
-
   return (
-    <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
-      {/* Header */}
-      <div className="flex items-end justify-between gap-8 mb-12 flex-wrap">
+    <section
+      style={{
+        padding: "clamp(60px,8vw,100px) clamp(20px,4vw,32px)",
+        maxWidth: 1280,
+        margin: "0 auto",
+      }}
+    >
+      {/* ── Header ─────────────────────────────────────────────────── */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          gap: 24,
+          marginBottom: 48,
+          flexWrap: "wrap",
+        }}
+      >
         <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-7 h-px" style={{ background: "#ef7955" }} />
+          {/* Eyebrow */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+            <span style={{ width: 28, height: 1, background: AMBER, display: "block", flexShrink: 0 }} />
             <span
-              className="font-mono text-[11px] uppercase"
-              style={{ color: "#ef7955", letterSpacing: "0.15em" }}
+              style={{
+                fontFamily: "var(--font-ibm-plex-mono), monospace",
+                fontSize: 10,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: AMBER,
+              }}
             >
               Blog · codzienny przegląd AI
             </span>
           </div>
+          {/* Headline */}
           <h2
-            className="font-heading font-bold text-text"
             style={{
-              fontSize: "clamp(28px,4vw,48px)",
-              letterSpacing: "-0.035em",
+              fontFamily: "var(--font-inter), sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(26px,3.5vw,44px)",
+              letterSpacing: "-0.04em",
               lineHeight: 1.05,
+              color: "#ede7dc",
+              margin: 0,
             }}
           >
             Co się{" "}
-            <span
-              className="font-display font-medium italic"
-              style={{ color: "#ef7955", letterSpacing: "-0.01em" }}
+            <em
+              style={{
+                fontStyle: "italic",
+                fontFamily: "var(--font-chakra-petch), sans-serif",
+                fontWeight: 500,
+                color: AMBER,
+                letterSpacing: "-0.01em",
+              }}
             >
               naprawdę
-            </span>{" "}
+            </em>{" "}
             dzieje w&nbsp;AI w&nbsp;Polsce
           </h2>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5">
+
+        {/* Right meta */}
+        <div style={{ display: "flex", alignItems: "center", gap: 20, flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span
-              className="w-2 h-2 rounded-full"
-              style={{ background: "#f5b845", animation: "lokai-pulse 2s ease-in-out infinite" }}
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: "50%",
+                background: AMBER,
+                display: "block",
+                animation: "lokai-pulse 2s ease-in-out infinite",
+              }}
             />
             <span
-              className="font-mono text-[11px] text-text-dim uppercase"
-              style={{ letterSpacing: "0.1em" }}
+              style={{
+                fontFamily: "var(--font-ibm-plex-mono), monospace",
+                fontSize: 10,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#78716c",
+              }}
             >
               Aktualizowane 4× dziennie
             </span>
           </div>
           <Link
             href="/blog"
-            className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase transition-colors hover:text-text"
-            style={{ color: "#f5b845", letterSpacing: "0.1em" }}
+            style={{
+              fontFamily: "var(--font-ibm-plex-mono), monospace",
+              fontSize: 11,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: AMBER,
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              opacity: 0.85,
+              transition: "opacity 0.15s",
+            }}
+            className="hidden sm:inline-flex hover:opacity-100"
           >
             Wszystkie artykuły <span aria-hidden="true">→</span>
           </Link>
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid md:grid-cols-[1.3fr_1fr] gap-6">
-        {/* Featured */}
+      {/* ── Grid ───────────────────────────────────────────────────── */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: 16,
+        }}
+        className="md:grid-cols-[1.4fr_1fr]"
+      >
+        {/* Featured card */}
         <Link
           href={`/blog/${featured.slug}`}
-          className="group relative block rounded-[16px] overflow-hidden no-underline text-text flex flex-col transition-all duration-200 hover:-translate-y-[3px]"
           style={{
-            background: "#17181b",
-            outline: "1px solid rgba(255,255,255,0.08)",
+            display: "flex",
+            flexDirection: "column",
+            background: CARD_BG,
+            borderRadius: 16,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.07)",
+            textDecoration: "none",
+            color: "inherit",
+            transition: "transform 0.2s, border-color 0.2s",
           }}
+          className="group hover:-translate-y-1 hover:border-amber-500/30"
         >
-          {/* Cover image */}
-          {fm.image ? (
-            <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/9" }}>
-              <Image
-                src={fm.image}
-                alt={fm.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 55vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              />
+          {/* Image */}
+          <div style={{ position: "relative", aspectRatio: "16/9", overflow: "hidden" }}>
+            {fm.image ? (
+              <>
+                <Image
+                  src={fm.image}
+                  alt={fm.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  style={{ objectFit: "cover", transition: "transform 0.5s" }}
+                  className="group-hover:scale-[1.04]"
+                />
+                {/* Gradient overlay */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: `linear-gradient(to bottom, transparent 40%, ${CARD_BG} 100%)`,
+                  }}
+                />
+                {/* Tag badge over image */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    background: "rgba(0,0,0,0.65)",
+                    backdropFilter: "blur(8px)",
+                    border: `1px solid ${AMBER}44`,
+                    borderRadius: 6,
+                    padding: "4px 10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: "50%",
+                      background: AMBER,
+                      display: "block",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-ibm-plex-mono), monospace",
+                      fontSize: 9,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: AMBER,
+                    }}
+                  >
+                    {fm.tags?.[0] ?? "BLOG"}
+                  </span>
+                </div>
+              </>
+            ) : (
               <div
-                className="absolute inset-0"
-                style={{ background: "linear-gradient(to bottom, transparent 50%, #17181b 100%)" }}
-              />
-            </div>
-          ) : (
-            /* Placeholder gradient when no image */
-            <div
-              className="relative w-full overflow-hidden"
-              style={{ aspectRatio: "16/9", background: `linear-gradient(135deg, ${featuredColor}18, #17181b)` }}
-            >
-              <div
-                className="absolute"
                 style={{
-                  top: -40, right: -40, width: 220, height: 220,
-                  background: `radial-gradient(circle, ${featuredColor}30, transparent 70%)`,
-                  filter: "blur(40px)",
+                  position: "absolute",
+                  inset: 0,
+                  background: `linear-gradient(135deg, ${AMBER}14 0%, ${CARD_BG} 100%)`,
                 }}
-              />
-            </div>
-          )}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -60,
+                    right: -60,
+                    width: 260,
+                    height: 260,
+                    background: `radial-gradient(circle, ${AMBER}28, transparent 70%)`,
+                    filter: "blur(50px)",
+                  }}
+                />
+              </div>
+            )}
+          </div>
 
           {/* Content */}
-          <div className="relative flex flex-col flex-1 p-8">
-            {/* Meta */}
-            <div className="flex items-center gap-2.5 mb-4">
-              <span
-                className="font-mono text-[10px] uppercase"
-                style={{ color: featuredColor, letterSpacing: "0.15em" }}
-              >
-                {fm.tags?.[0] ?? "BLOG"}
-              </span>
-              <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
-              <span className="font-mono text-[10px] text-text-mute" style={{ letterSpacing: "0.1em" }}>
-                {formatDate(fm.date)}
-              </span>
+          <div style={{ padding: "24px 28px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
+            {/* Date + readtime */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                marginBottom: 14,
+                fontFamily: "var(--font-ibm-plex-mono), monospace",
+                fontSize: 10,
+                color: "#78716c",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <span>{formatDate(fm.date)}</span>
               {fm.readTime && (
                 <>
-                  <span className="w-1 h-1 rounded-full" style={{ background: "#78716c" }} />
-                  <span className="font-mono text-[10px] text-text-mute">{fm.readTime}</span>
+                  <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#4a4540", display: "block" }} />
+                  <span>{fm.readTime}</span>
                 </>
               )}
             </div>
 
             {/* Title */}
             <h3
-              className="font-heading font-bold text-text mb-3"
-              style={{ fontSize: "clamp(20px,2.2vw,30px)", letterSpacing: "-0.025em", lineHeight: 1.15 }}
+              style={{
+                fontFamily: "var(--font-inter), sans-serif",
+                fontWeight: 700,
+                fontSize: "clamp(18px,2vw,26px)",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.2,
+                color: "#ede7dc",
+                margin: "0 0 12px",
+              }}
             >
               {fm.title}
             </h3>
 
             {fm.excerpt && (
-              <p className="text-[14px] text-text-dim leading-[1.55] mb-5 flex-1" style={{ maxWidth: 520 }}>
+              <p
+                style={{
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                  color: "#a8a29e",
+                  margin: "0 0 20px",
+                  flex: 1,
+                }}
+              >
                 {fm.excerpt}
               </p>
             )}
 
+            {/* CTA */}
             <div
-              className="flex items-center gap-2 text-[13px] font-semibold mt-auto"
-              style={{ color: featuredColor }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                fontSize: 13,
+                fontWeight: 600,
+                color: AMBER,
+                marginTop: "auto",
+              }}
             >
-              Czytaj dalej <span aria-hidden="true">→</span>
+              Czytaj dalej{" "}
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  border: `1px solid ${AMBER}55`,
+                  fontSize: 12,
+                  transition: "transform 0.2s",
+                }}
+                className="group-hover:translate-x-1"
+                aria-hidden="true"
+              >
+                →
+              </span>
             </div>
           </div>
         </Link>
 
-        {/* Rest */}
-        <div className="flex flex-col gap-3">
+        {/* Side cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {rest.map((post, i) => {
             const color = COLOR_CYCLE[(i + 1) % COLOR_CYCLE.length];
             const pfm = post.frontmatter;
@@ -176,65 +342,117 @@ export default function BlogPreview() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group relative flex gap-4 rounded-[16px] overflow-hidden no-underline text-text flex-1 p-5 transition-all duration-200 hover:-translate-y-[3px]"
                 style={{
-                  background: "#17181b",
-                  outline: "1px solid rgba(255,255,255,0.08)",
+                  display: "flex",
+                  gap: 14,
+                  background: CARD_BG,
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  textDecoration: "none",
+                  color: "inherit",
+                  padding: 16,
+                  flex: 1,
+                  alignItems: "center",
+                  transition: "transform 0.2s, background 0.2s, border-color 0.2s",
                 }}
+                className="group hover:-translate-y-0.5 hover:bg-[#1f2125] hover:border-white/10"
               >
                 {/* Thumbnail */}
-                {pfm.image ? (
-                  <div
-                    className="relative shrink-0 rounded-[10px] overflow-hidden"
-                    style={{ width: 88, height: 66 }}
-                  >
+                <div
+                  style={{
+                    position: "relative",
+                    width: 96,
+                    height: 72,
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    flexShrink: 0,
+                    background: `linear-gradient(135deg, ${color}18, ${CARD_HI})`,
+                  }}
+                >
+                  {pfm.image && (
                     <Image
                       src={pfm.image}
                       alt={pfm.title}
                       fill
-                      sizes="88px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                      sizes="96px"
+                      style={{ objectFit: "cover", transition: "transform 0.4s" }}
+                      className="group-hover:scale-[1.07]"
                     />
-                  </div>
-                ) : (
-                  <div
-                    className="shrink-0 rounded-[10px]"
-                    style={{
-                      width: 88, height: 66,
-                      background: `linear-gradient(135deg, ${color}20, #1f2125)`,
-                    }}
-                  />
-                )}
+                  )}
+                </div>
 
                 {/* Text */}
-                <div className="flex flex-col justify-between min-w-0">
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span
-                      className="font-mono text-[10px] uppercase"
-                      style={{ color, letterSpacing: "0.15em" }}
-                    >
-                      {pfm.tags?.[0] ?? "BLOG"}
-                    </span>
-                    <span className="w-1 h-1 rounded-full shrink-0" style={{ background: "#78716c" }} />
-                    <span className="font-mono text-[10px] text-text-mute whitespace-nowrap">
-                      {formatDate(pfm.date)}
-                    </span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0, flex: 1 }}>
+                  {/* Meta */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 7,
+                      fontFamily: "var(--font-ibm-plex-mono), monospace",
+                      fontSize: 9,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    <span style={{ color }}>{pfm.tags?.[0] ?? "BLOG"}</span>
+                    <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#4a4540", display: "block", flexShrink: 0 }} />
+                    <span style={{ color: "#78716c", whiteSpace: "nowrap" }}>{formatDate(pfm.date)}</span>
                   </div>
+
+                  {/* Title */}
                   <h4
-                    className="font-heading font-semibold text-text line-clamp-3"
-                    style={{ fontSize: 14, letterSpacing: "-0.01em", lineHeight: 1.35 }}
+                    style={{
+                      fontFamily: "var(--font-inter), sans-serif",
+                      fontWeight: 600,
+                      fontSize: 13,
+                      letterSpacing: "-0.01em",
+                      lineHeight: 1.4,
+                      color: "#ede7dc",
+                      margin: 0,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
                   >
                     {pfm.title}
                   </h4>
                 </div>
+
+                {/* Arrow indicator */}
+                <span
+                  style={{
+                    color: "#4a4540",
+                    fontSize: 14,
+                    flexShrink: 0,
+                    transition: "color 0.2s, transform 0.2s",
+                    marginLeft: 4,
+                  }}
+                  className="group-hover:text-[#a8a29e] group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
               </Link>
             );
           })}
         </div>
       </div>
 
-      <div className="mt-8 sm:hidden">
-        <Link href="/blog" className="text-sm text-text-dim hover:text-text transition-colors">
+      {/* Mobile link */}
+      <div style={{ marginTop: 24 }} className="sm:hidden">
+        <Link
+          href="/blog"
+          style={{
+            fontFamily: "var(--font-ibm-plex-mono), monospace",
+            fontSize: 12,
+            color: "#78716c",
+            textDecoration: "none",
+            letterSpacing: "0.08em",
+          }}
+        >
           Wszystkie artykuły →
         </Link>
       </div>
