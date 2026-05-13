@@ -1,26 +1,21 @@
-// Generates a gear path centred at (cx,cy) with given radii and tooth count.
-function gearPath(
+function gear(
   cx: number, cy: number,
-  rOuter: number, rInner: number, rRoot: number,
-  teeth: number,
+  rOut: number, rIn: number,
+  teeth: number, toothFrac: number,
 ): string {
-  const pts: string[] = [];
   const step = (Math.PI * 2) / teeth;
-  const toothHalf = step * 0.18;
-  const toothWidth = step * 0.28;
+  const half = (step * toothFrac) / 2;
+  const pts: string[] = [];
   for (let i = 0; i < teeth; i++) {
-    const base = step * i - Math.PI / 2;
-    const a0 = base - toothHalf - toothWidth;
-    const a1 = base - toothHalf;
-    const a2 = base + toothHalf;
-    const a3 = base + toothHalf + toothWidth;
-    pts.push(
-      `${cx + rRoot * Math.cos(a0)},${cy + rRoot * Math.sin(a0)}`,
-      `${cx + rOuter * Math.cos(a1)},${cy + rOuter * Math.sin(a1)}`,
-      `${cx + rOuter * Math.cos(a2)},${cy + rOuter * Math.sin(a2)}`,
-      `${cx + rRoot * Math.cos(a3)},${cy + rRoot * Math.sin(a3)}`,
-      `${cx + rInner * Math.cos((a3 + step - toothHalf - toothWidth) / 2 + (a3) / 2)},${cy + rInner * Math.sin((a3 + step - toothHalf - toothWidth) / 2 + (a3) / 2)}`,
-    );
+    const mid = (Math.PI * 2 * i) / teeth - Math.PI / 2;
+    // valley before tooth
+    pts.push(`${cx + rIn * Math.cos(mid - half - step * (1 - toothFrac) / 2)},${cy + rIn * Math.sin(mid - half - step * (1 - toothFrac) / 2)}`);
+    // tooth left flank top
+    pts.push(`${cx + rOut * Math.cos(mid - half)},${cy + rOut * Math.sin(mid - half)}`);
+    // tooth right flank top
+    pts.push(`${cx + rOut * Math.cos(mid + half)},${cy + rOut * Math.sin(mid + half)}`);
+    // valley after tooth
+    pts.push(`${cx + rIn * Math.cos(mid + half + step * (1 - toothFrac) / 2)},${cy + rIn * Math.sin(mid + half + step * (1 - toothFrac) / 2)}`);
   }
   return "M " + pts.join(" L ") + " Z";
 }
@@ -32,7 +27,9 @@ interface LogoProps {
 
 export default function Logo({ size = 34, showTagline = true }: LogoProps) {
   const scale = size / 40;
-  const gear = gearPath(20, 20, 19.5, 15.5, 17.5, 14);
+  // 12 zębów, ząb zajmuje 45% kroku, rOut=19, rIn=14.5, otwór=8
+  const gearPath = gear(20, 20, 19, 14.5, 12, 0.45);
+
   return (
     <div className="flex items-center gap-[11px]">
       <svg
@@ -40,41 +37,39 @@ export default function Logo({ size = 34, showTagline = true }: LogoProps) {
         height={size}
         viewBox="0 0 40 40"
         fill="none"
-        style={{ display: "block", filter: "drop-shadow(0 2px 8px rgba(232,160,32,0.35))" }}
+        style={{ display: "block", filter: "drop-shadow(0 2px 8px rgba(232,160,32,0.30))" }}
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="lokai-logo-fill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f5b845" />
-            <stop offset="1" stopColor="#ef7955" />
+          <linearGradient id="lg-gear" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#f5c842" />
+            <stop offset="100%" stopColor="#e8821a" />
           </linearGradient>
-          <clipPath id="lokai-gear-clip">
-            <path d={gear} />
-          </clipPath>
         </defs>
 
-        {/* Gear shape — filled with gradient */}
-        <path d={gear} fill="url(#lokai-logo-fill)" />
-        {/* Subtle highlight rim */}
-        <path d={gear} fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="0.6" />
+        {/* Zębatka */}
+        <path d={gearPath} fill="url(#lg-gear)" />
+        <path d={gearPath} fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="0.5" />
 
-        {/* Centre hole */}
-        <circle cx="20" cy="20" r="7.2" fill="#1a0f00" />
+        {/* Otwór centralny */}
+        <circle cx="20" cy="20" r="8" fill="#0b0c0e" />
 
-        {/* LOK text inside centre */}
+        {/* Napis LOK — duży, biały, czytelny */}
         <text
           x="20"
-          y="23.2"
+          y="23.5"
           textAnchor="middle"
-          fontFamily="'Inter', system-ui, sans-serif"
-          fontWeight="900"
-          fontSize="7.5"
-          letterSpacing="-0.04em"
-          fill="#f5b845"
+          dominantBaseline="auto"
+          fontFamily="Inter, system-ui, sans-serif"
+          fontWeight="800"
+          fontSize="8.2"
+          letterSpacing="-0.5"
+          fill="#f5c842"
         >
           LOK
         </text>
       </svg>
+
       <div className="flex flex-col leading-none">
         <span
           className="font-heading font-bold whitespace-nowrap text-text"
