@@ -8,16 +8,39 @@ function gear(
   const pts: string[] = [];
   for (let i = 0; i < teeth; i++) {
     const mid = (Math.PI * 2 * i) / teeth - Math.PI / 2;
-    // valley before tooth
-    pts.push(`${cx + rIn * Math.cos(mid - half - step * (1 - toothFrac) / 2)},${cy + rIn * Math.sin(mid - half - step * (1 - toothFrac) / 2)}`);
-    // tooth left flank top
-    pts.push(`${cx + rOut * Math.cos(mid - half)},${cy + rOut * Math.sin(mid - half)}`);
-    // tooth right flank top
-    pts.push(`${cx + rOut * Math.cos(mid + half)},${cy + rOut * Math.sin(mid + half)}`);
-    // valley after tooth
-    pts.push(`${cx + rIn * Math.cos(mid + half + step * (1 - toothFrac) / 2)},${cy + rIn * Math.sin(mid + half + step * (1 - toothFrac) / 2)}`);
+    const gapStart = mid + half;
+    const gapEnd   = mid + step - half;
+
+    // ── Ząb prostokątny (4 narożniki pod 90°) ──────────────────
+    // dolny-lewy narożnik zęba (na promieniu rIn)
+    const a0 = mid - half;
+    const tx0 = cx + rIn  * Math.cos(a0);
+    const ty0 = cy + rIn  * Math.sin(a0);
+    // górny-lewy (rOut, ten sam kąt)
+    const tx1 = cx + rOut * Math.cos(a0);
+    const ty1 = cy + rOut * Math.sin(a0);
+    // górny-prawy (rOut)
+    const a1 = mid + half;
+    const tx2 = cx + rOut * Math.cos(a1);
+    const ty2 = cy + rOut * Math.sin(a1);
+    // dolny-prawy (rIn)
+    const tx3 = cx + rIn  * Math.cos(a1);
+    const ty3 = cy + rIn  * Math.sin(a1);
+
+    // dolina między zębami (łuk na rIn)
+    const gapMid = (gapStart + gapEnd) / 2;
+    const gx = cx + rIn * Math.cos(gapMid);
+    const gy = cy + rIn * Math.sin(gapMid);
+
+    pts.push(
+      `L ${tx0},${ty0}`,
+      `L ${tx1},${ty1}`,
+      `L ${tx2},${ty2}`,
+      `L ${tx3},${ty3}`,
+      `L ${gx},${gy}`,
+    );
   }
-  return "M " + pts.join(" L ") + " Z";
+  return "M " + pts.join(" ").replace(/^L /, "") + " Z";
 }
 
 interface LogoProps {
@@ -41,25 +64,28 @@ export default function Logo({ size = 34, showTagline = true }: LogoProps) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="lg-gear" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#f5c842" />
-            <stop offset="100%" stopColor="#e8821a" />
-          </linearGradient>
+          {/* Maska — wnętrze zębatki (przycinamy tekst do środka) */}
+          <clipPath id="lg-clip">
+            <path d={gearPath} />
+          </clipPath>
         </defs>
 
-        {/* Zębatka — tylko kontur */}
+        {/* Zębatka — tylko kontur, na wierzchu */}
         <path d={gearPath} fill="none" stroke="#f5c842" strokeWidth="1.8" strokeLinejoin="round" />
 
-        {/* Napis LOK — duży, bez kółka */}
+        {/* LOK — duży, przycięty do wnętrza zębatki, konturowy (stroke only) */}
         <text
           x="20"
-          y="24.5"
+          y="25"
           textAnchor="middle"
           fontFamily="Inter, system-ui, sans-serif"
-          fontWeight="800"
-          fontSize="11"
-          letterSpacing="-0.8"
-          fill="#f5c842"
+          fontWeight="900"
+          fontSize="14"
+          letterSpacing="-1"
+          fill="none"
+          stroke="#f5c842"
+          strokeWidth="0.8"
+          clipPath="url(#lg-clip)"
         >
           LOK
         </text>
