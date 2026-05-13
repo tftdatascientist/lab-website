@@ -127,16 +127,25 @@ export default function TechnologiePage() {
     <section className="pt-20 lg:pt-28 pb-24 px-4 sm:px-6 lg:px-12 max-w-[1600px] mx-auto">
       {/* ── Hero Header ───────────────────────────────────────── */}
       <header className="mb-24">
-        <div className="flex items-center space-x-3 mb-6">
-          <span className="font-mono text-secondary text-xs tracking-widest uppercase px-3 py-1 bg-surface-container-highest rounded-full">
-            v4.0 Obsidian Core
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-7 h-px" style={{ background: "#f5b845" }} />
+          <span
+            className="font-mono text-[11px] uppercase"
+            style={{ color: "#f5b845", letterSpacing: "0.15em" }}
+          >
+            Stack technologiczny · v4.0
           </span>
-          <div className="h-[1px] w-24 bg-outline-variant/30" />
         </div>
 
-        <h1 className="font-heading text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 max-w-4xl leading-[0.95]">
+        <h1
+          className="font-heading font-bold text-text mb-8 max-w-4xl"
+          style={{ fontSize: "clamp(32px,4.5vw,56px)", letterSpacing: "-0.035em", lineHeight: 1 }}
+        >
           Stworzone dla{" "}
-          <span className="text-primary italic">Maksymalnej</span> Wydajności.
+          <span className="font-display font-medium italic" style={{ color: "#f5b845" }}>
+            Maksymalnej
+          </span>{" "}
+          Wydajności.
         </h1>
 
         <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">

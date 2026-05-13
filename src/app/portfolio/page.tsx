@@ -19,10 +19,10 @@ export default function PortfolioPage() {
       {/* Header */}
       <div className="max-w-[720px] mb-14">
         <div className="flex items-center gap-3 mb-4">
-          <span className="w-7 h-px" style={{ background: "#b8542f" }} />
+          <span className="w-7 h-px" style={{ background: "#f5b845" }} />
           <span
             className="font-mono text-[11px] uppercase"
-            style={{ color: "#b8542f", letterSpacing: "0.15em" }}
+            style={{ color: "#f5b845", letterSpacing: "0.15em" }}
           >
             Portfolio · Strony WWW
           </span>
@@ -38,7 +38,7 @@ export default function PortfolioPage() {
           Zrealizowane{" "}
           <span
             className="font-display font-medium italic"
-            style={{ color: "#b8542f" }}
+            style={{ color: "#f5b845" }}
           >
             projekty
           </span>

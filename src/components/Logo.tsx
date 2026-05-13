@@ -23,12 +23,25 @@ function gearPath(cx: number, cy: number, rOut: number, rIn: number, teeth: numb
   return 'M ' + pts.join(' L ') + ' Z';
 }
 
-// Sylwetka Grudziądza — spichlerze, katedra ze szpilą, wiatrak
-const CITY = `M 8,17 L 8,13 L 9.5,13 L 9.5,11 L 11,11 L 11,9.5 L 12,9.5 L 12,8.5 L 13,8.5 L 13,9.5 L 14,9.5 L 14,11 L 15,11 L 15,13 L 16,13 L 16,10.5 L 17,10.5 L 17,9 L 18,9 L 18,10.5 L 19,10.5 L 19,17
-M 20.5,17 L 20.5,7 L 21.2,7 L 21.2,4.5 L 22,3.5 L 22,2 L 22.5,1 L 23,2 L 23,3.5 L 23.8,4.5 L 23.8,7 L 24.5,7 L 24.5,17
-M 26,17 L 26,11 L 27,11 L 27,9.5 L 28.5,9.5 L 28.5,9 L 29.5,9 L 29.5,9.5 L 29.5,11 L 30,11
-M 30,11 L 30,13 L 31,13 L 31,11 L 32.5,11 L 32.5,9 L 33,8 L 35,8 L 35,17
-M 8,17 L 35,17`;
+// Sylwetka miasta w viewBox 48x48, wewnątrz okręgu r=17 (środek 24,24)
+// Budynki zajmują x: 9–39, linia horyzontu y=31, szczyt najwyższy ~y=10
+const CITY = [
+  // linia horyzontu
+  'M 9,31 L 39,31',
+  // blok L — 3 niskie budynki (spichlerze)
+  'M 9,31 L 9,24 L 11,24 L 11,21 L 13,21 L 13,24 L 15,24 L 15,22 L 17,22 L 17,31',
+  // środek — wieża katedry ze szpilą
+  'M 18,31 L 18,20 L 20,20 L 20,17 L 21,17 L 21,14 L 21.5,12 L 22,10.5 L 22.5,12 L 23,14 L 23,17 L 24,17 L 24,20 L 26,20 L 26,31',
+  // prawa — wiatrak
+  'M 27,31 L 27,22 L 30,22 L 30,31',
+  // wiatrak — krzyż śmigieł
+  'M 28.5,22 L 28.5,18',  // maszt
+  'M 26.5,20 L 30.5,20',  // poziome ramię
+  'M 27.2,18.7 L 29.8,21.3', // skos
+  'M 29.8,18.7 L 27.2,21.3', // skos
+  // drobny budynek prawy
+  'M 31,31 L 31,24 L 33,24 L 33,21 L 36,21 L 36,24 L 39,24 L 39,31',
+].join(' ');
 
 interface LogoProps {
   size?: number;
@@ -47,9 +60,8 @@ function GearIcon({ variant, size }: { variant: Variant; size: number }) {
   const g = gearPath(cx, cy, rOut, rIn, 22, 1.5, 3);
   const clipId = `lgc-${variant}`;
 
-  // центруємо силует міста — він намальований у координатах 8–35 x, 1–17 y
-  // переміщуємо до середини кола rIn~17: translate(0, 5) scale(1) center
-  const cityTransform = `translate(${cx - 21.5}, ${cy - 8}) scale(0.97)`;
+  // CITY rysowany w 48x48, już wyśrodkowany względem cx=24,cy=24
+  const cityTransform = `translate(0, 0)`;
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${vb} ${vb}`} fill="none"
