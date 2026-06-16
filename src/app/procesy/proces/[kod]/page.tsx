@@ -11,6 +11,7 @@ import {
   getChildren,
   getAllProcesses,
   buildTrail,
+  isThinProcess,
   slugToCode,
   codeToSlug,
   type ProcessNode,
@@ -40,10 +41,13 @@ export function generateMetadata({ params }: Props): Metadata {
   const desc =
     p.descPl ||
     `Proces ${p.code} „${p.namePl}" według APQC PCF 7.4 — działania, zadania i opis po polsku oraz po angielsku.`;
+  // Ochrona przed thin content: proces-liść (bez działań) z krótkim opisem → noindex,follow.
+  const isThin = isThinProcess(p);
   return {
     title: `${p.namePl} — proces biznesowy (APQC PCF ${p.code})`,
     description: desc.length > 155 ? desc.slice(0, 152) + "…" : desc,
     alternates: { canonical: url },
+    robots: isThin ? { index: false, follow: true } : undefined,
     openGraph: {
       title: `${p.namePl} — APQC PCF ${p.code}`,
       description: desc.length > 155 ? desc.slice(0, 152) + "…" : desc,
@@ -151,6 +155,16 @@ export default function ProcesPage({ params }: Props) {
           </aside>
 
           <div className="min-w-0">
+            {/* Mobile/tablet: drzewo kategorii w rozwijanym panelu (rail ukryty < xl) */}
+            <details className="xl:hidden mb-8 rounded-xl border border-border bg-surface/40">
+              <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute marker:text-amber">
+                Przeglądaj kategorię
+              </summary>
+              <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto border-t border-border pt-3">
+                <CategoryTree categorySlug={p.categorySlug} activeCode={p.code} />
+              </div>
+            </details>
+
             {activities.length > 0 ? (
               <>
                 <h2 className="font-heading font-bold text-on-surface text-[22px] mb-6">

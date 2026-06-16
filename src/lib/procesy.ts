@@ -113,6 +113,14 @@ export function countByLevel(level: ProcessLevel): number {
   return DATA.nodes.reduce((acc, n) => (n.level === level ? acc + 1 : acc), 0);
 }
 
+/**
+ * Czy proces (L3) jest „cienki" — liść bez działań i z krótkim opisem.
+ * Takie strony dostają noindex,follow i nie trafiają do sitemap (ochrona domeny).
+ */
+export function isThinProcess(node: ProcessNode): boolean {
+  return node.level === "Proces" && getChildren(node.code).length === 0 && (node.descPl ?? "").trim().length < 120;
+}
+
 /** Liczba wszystkich potomków węzła (całe poddrzewo) — do podsumowań „X elementów". */
 export function countDescendants(code: string): number {
   const kids = childrenByParent.get(code);

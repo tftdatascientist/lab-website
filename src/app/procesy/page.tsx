@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SchemaOrg from "@/components/SchemaOrg";
 import { SubpageHeader, SectionDivider } from "@/components/mechanism";
-import { getCategories } from "@/lib/procesy";
+import { getCategories, totalNodeCount, countByLevel } from "@/lib/procesy";
 import {
   generateDefinedTermSetSchema,
   generateItemListSchema,
@@ -29,6 +29,13 @@ export const metadata: Metadata = {
 
 export default function ProcesyPage() {
   const categories = getCategories();
+  const stats = [
+    { value: totalNodeCount() + 13, label: "elementów" },
+    { value: categories.length, label: "kategorii" },
+    { value: countByLevel("Grupa procesów"), label: "grup procesów" },
+    { value: countByLevel("Proces"), label: "procesów" },
+    { value: 5, label: "poziomów" },
+  ];
 
   const schema = graph(
     generateDefinedTermSetSchema({
@@ -71,6 +78,21 @@ export default function ProcesyPage() {
             </>
           }
         />
+
+        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pt-10">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-2xl border border-border bg-bg-soft px-6 py-5">
+            {stats.map((s) => (
+              <div key={s.label} className="flex items-baseline gap-2">
+                <span className="font-heading font-bold text-on-surface text-[22px]">{s.value}</span>
+                <span className="text-text-mute text-[13px]">{s.label}</span>
+              </div>
+            ))}
+            <div className="ml-auto hidden sm:flex items-center gap-2 text-text-mute text-[12px]">
+              <span>Szukaj w całej bazie:</span>
+              <kbd className="font-mono text-[11px] text-text-dim border border-border rounded px-1.5 py-0.5">⌘K</kbd>
+            </div>
+          </div>
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

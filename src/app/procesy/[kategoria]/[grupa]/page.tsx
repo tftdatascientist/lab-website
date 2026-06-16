@@ -122,6 +122,16 @@ export default function GrupaProcesowPage({ params }: Props) {
           </aside>
 
           <div className="min-w-0">
+          {/* Mobile: drzewo kategorii w rozwijanym panelu (rail ukryty < lg) */}
+          <details className="lg:hidden mb-8 rounded-xl border border-border bg-surface/40">
+            <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute marker:text-amber">
+              Przeglądaj kategorię
+            </summary>
+            <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto border-t border-border pt-3">
+              <CategoryTree categorySlug={cat.slug} activeCode={g.code} />
+            </div>
+          </details>
+
           <div className="flex items-baseline gap-3 mb-6">
             <h2 className="font-heading font-bold text-on-surface text-[20px]">Procesy w tej grupie</h2>
             <span className="font-mono text-[12px] text-text-mute">{processes.length}</span>
