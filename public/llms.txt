@@ -50,6 +50,20 @@ zawierają tabele działań i zadań. 13 kategorii najwyższego poziomu:
 - [Relacje zewnętrzne](https://lok-ai.pl/procesy/relacje-zewnetrzne)
 - [Teoria zarządzania](https://lok-ai.pl/procesy/teoria-zarzadzania)
 
+## Słownik IT (1201 pojęć, hierarchia 4-poziomowa)
+
+Terminologia informatyczna uporządkowana w 4 poziomy (Kategoria → Poddziedzina → Grupa → Podgrupa),
+hasła z prostymi definicjami, typem i źródłem. Strony grup: /slownik/grupa/[grupa]. 8 kategorii:
+
+- [Teoria informatyki](https://lok-ai.pl/slownik/kategoria/teoria-cs)
+- [Systemy i architektura](https://lok-ai.pl/slownik/kategoria/systemy)
+- [Sieci](https://lok-ai.pl/slownik/kategoria/sieci)
+- [Dane i bazy danych](https://lok-ai.pl/slownik/kategoria/dane)
+- [Bezpieczeństwo](https://lok-ai.pl/slownik/kategoria/bezpieczenstwo)
+- [AI / Machine Learning](https://lok-ai.pl/slownik/kategoria/ai-ml)
+- [Chmura i DevOps](https://lok-ai.pl/slownik/kategoria/infrastruktura)
+- [Inżynieria oprogramowania](https://lok-ai.pl/slownik/kategoria/inzynieria-oprogramowania)
+
 ## Artykuły technologia
 
 - [Co to jest n8n?](https://lok-ai.pl/technologia/co-to-jest-n8n)

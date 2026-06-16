@@ -1,7 +1,12 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getAllTechPosts } from "@/lib/mdx";
 import { services } from "@/content/services";
-import { getAllTerms, getCategories as getSlownikCategories } from "@/lib/slownik";
+import {
+  getAllTerms,
+  getCategories as getSlownikCategories,
+  getAllL2Pairs,
+  getAllL3Slugs,
+} from "@/lib/slownik";
 import { getCategories, getAllGroups, getAllProcesses, isThinProcess, codeToSlug } from "@/lib/procesy";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
@@ -34,6 +39,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.6,
+  }));
+
+  const slownikL2: MetadataRoute.Sitemap = getAllL2Pairs().map(({ l1, l2 }) => ({
+    url: `${SITE_URL}/slownik/kategoria/${l1}/${l2}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  const slownikL3: MetadataRoute.Sitemap = getAllL3Slugs().map((l3) => ({
+    url: `${SITE_URL}/slownik/grupa/${l3}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
   }));
 
   const blogPages: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
@@ -87,6 +106,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...techPages,
     ...slownikPages,
     ...slownikKategorie,
+    ...slownikL2,
+    ...slownikL3,
     ...procesyPages,
     ...procesyGrupy,
     ...procesyProcesy,

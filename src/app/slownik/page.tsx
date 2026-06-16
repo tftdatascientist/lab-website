@@ -3,7 +3,7 @@ import Link from "next/link";
 import SchemaOrg from "@/components/SchemaOrg";
 import { SubpageHeader, SectionDivider } from "@/components/mechanism";
 import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
-import { getAllTerms, getCategories } from "@/lib/slownik";
+import { getAllTerms, getCategories, getAllL2Pairs, getAllL3Slugs } from "@/lib/slownik";
 import SlownikListClient from "./SlownikListClient";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
@@ -78,6 +78,27 @@ export default function SlownikPage() {
             </>
           }
         />
+
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 pt-10">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-2xl border border-border bg-bg-soft px-6 py-5">
+            {[
+              { value: terms.length, label: "haseł" },
+              { value: categories.length, label: "kategorii" },
+              { value: getAllL2Pairs().length, label: "poddziedzin" },
+              { value: getAllL3Slugs().length, label: "grup tematycznych" },
+              { value: 4, label: "poziomy" },
+            ].map((s) => (
+              <div key={s.label} className="flex items-baseline gap-2">
+                <span className="font-heading font-bold text-on-surface text-[22px]">{s.value}</span>
+                <span className="text-text-mute text-[13px]">{s.label}</span>
+              </div>
+            ))}
+            <div className="ml-auto hidden sm:flex items-center gap-2 text-text-mute text-[12px]">
+              <span>Szukaj w słowniku:</span>
+              <kbd className="font-mono text-[11px] text-text-dim border border-border rounded px-1.5 py-0.5">⌘K</kbd>
+            </div>
+          </div>
+        </div>
 
         <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-12">
           {/* Huby kategorii */}

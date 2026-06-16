@@ -8,6 +8,8 @@ import {
   getAllSlugs,
   getRelated,
   resolveTermByName,
+  buildSlownikTrail,
+  labelL3,
   L1_LABELS,
   L2_LABELS,
 } from "@/lib/slownik";
@@ -46,6 +48,7 @@ export default function TermPage({ params }: Props) {
   if (!t) notFound();
 
   const related = getRelated(t);
+  const trail = buildSlownikTrail({ l3: t.L3 });
   const schema = graph(
     generateDefinedTermSchema({
       name: t.haslo,
@@ -57,6 +60,7 @@ export default function TermPage({ params }: Props) {
     generateBreadcrumbSchema([
       { name: "Strona główna", url: "/" },
       { name: "Słownik", url: "/slownik" },
+      ...trail.map((tr) => ({ name: tr.label, url: tr.href })),
       { name: t.haslo, url: `/slownik/${t.slug}` },
     ]),
   );
@@ -74,7 +78,10 @@ export default function TermPage({ params }: Props) {
           >
             {L1_LABELS[t.L1] || t.L1}
           </Link>
-          <span className="text-text-mute"> · {L2_LABELS[t.L2] || t.L2}</span>
+          <span className="text-text-mute"> · </span>
+          <Link href={`/slownik/grupa/${t.L3}`} className="text-on-surface hover:text-amber transition-colors">
+            {labelL3(t.L3)}
+          </Link>
         </>
       ),
     },
@@ -95,6 +102,14 @@ export default function TermPage({ params }: Props) {
             <Link href="/slownik" className="hover:text-on-surface-variant transition-colors">
               Słownik
             </Link>
+            {trail.map((tr) => (
+              <span key={tr.href} className="flex items-center gap-2">
+                <span>/</span>
+                <Link href={tr.href} className="hover:text-on-surface-variant transition-colors">
+                  {tr.label}
+                </Link>
+              </span>
+            ))}
             <span>/</span>
             <span className="text-on-surface-variant truncate">{t.haslo}</span>
           </nav>
