@@ -28,7 +28,7 @@ export default function ServiceCard({ service }: { service: Service }) {
 
   return (
     <Link
-      href={`/uslugi/${service.slug}`}
+      href={`/wdrozenia/${service.slug}`}
       className="group relative block rounded-[16px] overflow-hidden text-text no-underline min-h-[260px] p-7 transition-all duration-200 hover:-translate-y-[3px]"
       style={{
         background: "#17181b",

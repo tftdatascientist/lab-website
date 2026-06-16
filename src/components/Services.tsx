@@ -10,7 +10,7 @@ const SERVICES = [
     icon: "⚙",
     color: "#d9b88a",
     metric: { v: "47", l: "aktywnych workflow" },
-    href: "/uslugi/automatyzacja-workflow",
+    href: "/wdrozenia/automatyzacja-n8n",
   },
   {
     tag: "CHATBOTY",
@@ -19,7 +19,7 @@ const SERVICES = [
     icon: "◎",
     color: "#f5b845",
     metric: { v: "12ms", l: "średni czas odpowiedzi" },
-    href: "/uslugi/chatboty-ai",
+    href: "/wdrozenia/chatboty-ai",
   },
   {
     tag: "AGENCI GŁOSOWI",
@@ -28,7 +28,7 @@ const SERVICES = [
     icon: "◐",
     color: "#b8542f",
     metric: { v: "24/7", l: "pełna obsługa" },
-    href: "/uslugi/agenci-glosowi",
+    href: "/wdrozenia/agenci-glosowi",
   },
   {
     tag: "RAG",
@@ -37,7 +37,7 @@ const SERVICES = [
     icon: "▲",
     color: "#ef7955",
     metric: { v: "98%", l: "trafność odpowiedzi" },
-    href: "/uslugi/bazy-wiedzy-rag",
+    href: "/wdrozenia/bazy-wiedzy-rag",
   },
   {
     tag: "DASHBOARDY",
@@ -46,7 +46,7 @@ const SERVICES = [
     icon: "▦",
     color: "#f5b845",
     metric: { v: "5min", l: "częstotliwość odświeżania" },
-    href: "/uslugi/dashboardy",
+    href: "/wdrozenia/dashboardy-raporty",
   },
   {
     tag: "INTEGRACJE",
@@ -55,7 +55,7 @@ const SERVICES = [
     icon: "⬡",
     color: "#d9b88a",
     metric: { v: "400+", l: "gotowych konektorów" },
-    href: "/uslugi/integracje",
+    href: "/wdrozenia/integracje-systemow",
   },
 ];
 
@@ -94,7 +94,7 @@ export default function Services() {
           </h2>
         </div>
         <Link
-          href="/uslugi"
+          href="/wdrozenia"
           className="hidden sm:block font-mono text-[12px] uppercase text-text-dim hover:text-text transition-colors whitespace-nowrap"
           style={{ letterSpacing: "0.1em" }}
         >

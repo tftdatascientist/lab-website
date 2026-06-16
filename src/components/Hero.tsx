@@ -117,7 +117,7 @@ export default function Hero() {
                 <span aria-hidden="true">→</span>
               </Link>
               <Link
-                href="/uslugi"
+                href="/wdrozenia"
                 className="inline-flex items-center justify-center gap-2 rounded-xl text-[15px] font-medium text-text transition-colors"
                 style={{
                   padding: "14px 22px",

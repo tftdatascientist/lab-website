@@ -6,7 +6,7 @@ import { Home, Puzzle, Briefcase, Mail } from "lucide-react";
 
 const tabs = [
   { icon: Home, label: "Home", href: "/" },
-  { icon: Puzzle, label: "Usługi", href: "/uslugi" },
+  { icon: Puzzle, label: "Wdrożenia", href: "/wdrozenia" },
   { icon: Briefcase, label: "Portfolio", href: "/portfolio" },
   { icon: Mail, label: "Kontakt", href: "/kontakt" },
 ];
