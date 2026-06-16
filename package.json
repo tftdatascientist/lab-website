@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/build-search-index.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync-pcf": "node scripts/sync-pcf.mjs"
   },
   "dependencies": {
+    "cmdk": "^1.1.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.7.0",
+    "minisearch": "^7.2.0",
     "next": "14.2.35",
     "next-mdx-remote": "^6.0.0",
     "react": "^18",

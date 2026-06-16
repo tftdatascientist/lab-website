@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
 import TldrBox from "@/components/TldrBox";
 import RelatedLinks from "@/components/RelatedLinks";
+import CategoryTree from "@/components/CategoryTree";
 import {
   getNode,
   getCategory,
@@ -140,8 +141,15 @@ export default function ProcesPage({ params }: Props) {
           )}
         </div>
 
-        {/* Treść + TOC */}
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-10 grid lg:grid-cols-[1fr_220px] gap-10">
+        {/* Drzewo kategorii + treść + TOC (układ docs) */}
+        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-10 grid lg:grid-cols-[1fr_220px] xl:grid-cols-[248px_1fr_220px] gap-10">
+          {/* Lewy rail — drzewo kategorii (crawlowalne, zero-JS) */}
+          <aside className="hidden xl:block">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
+              <CategoryTree categorySlug={p.categorySlug} activeCode={p.code} />
+            </div>
+          </aside>
+
           <div className="min-w-0">
             {activities.length > 0 ? (
               <>

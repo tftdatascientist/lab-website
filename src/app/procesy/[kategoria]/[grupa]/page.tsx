@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
 import { SubpageHeader } from "@/components/mechanism";
 import RelatedLinks from "@/components/RelatedLinks";
+import CategoryTree from "@/components/CategoryTree";
 import {
   getCategory,
   getNode,
@@ -113,7 +114,14 @@ export default function GrupaProcesowPage({ params }: Props) {
           </nav>
         </SubpageHeader>
 
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
+        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12 grid lg:grid-cols-[248px_1fr] gap-10">
+          <aside className="hidden lg:block">
+            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
+              <CategoryTree categorySlug={cat.slug} activeCode={g.code} />
+            </div>
+          </aside>
+
+          <div className="min-w-0">
           <div className="flex items-baseline gap-3 mb-6">
             <h2 className="font-heading font-bold text-on-surface text-[20px]">Procesy w tej grupie</h2>
             <span className="font-mono text-[12px] text-text-mute">{processes.length}</span>
@@ -163,6 +171,7 @@ export default function GrupaProcesowPage({ params }: Props) {
               }))}
             />
           )}
+          </div>
         </div>
 
         <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pb-16">
