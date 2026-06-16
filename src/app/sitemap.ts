@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts, getAllTechPosts } from "@/lib/mdx";
+import { getAllPosts } from "@/lib/mdx";
 import { services } from "@/content/services";
 import {
   getAllTerms,
@@ -62,13 +62,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const techPages: MetadataRoute.Sitemap = getAllTechPosts().map((p) => ({
-    url: `${SITE_URL}/technologia/${p.slug}`,
-    lastModified: new Date(p.frontmatter.date),
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
-
   const slownikPages: MetadataRoute.Sitemap = getAllTerms().map((t) => ({
     url: `${SITE_URL}/slownik/${t.slug}`,
     lastModified: new Date(),
@@ -103,7 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...servicePages,
     ...blogPages,
-    ...techPages,
     ...slownikPages,
     ...slownikKategorie,
     ...slownikL2,

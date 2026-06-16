@@ -64,11 +64,11 @@ hasła z prostymi definicjami, typem i źródłem. Strony grup: /slownik/grupa/[
 - [Chmura i DevOps](https://lok-ai.pl/slownik/kategoria/infrastruktura)
 - [Inżynieria oprogramowania](https://lok-ai.pl/slownik/kategoria/inzynieria-oprogramowania)
 
-## Artykuły technologia
+## Artykuły technologiczne (na blogu)
 
-- [Co to jest n8n?](https://lok-ai.pl/technologia/co-to-jest-n8n)
-- [Chatboty AI dla firm — Flowise, Typebot, własne rozwiązania](https://lok-ai.pl/technologia/chatboty-ai-dla-firm)
-- [Agenci głosowi — ElevenLabs i Twilio](https://lok-ai.pl/technologia/agenci-glosowi-elevenlabs-twilio)
+- [Co to jest n8n?](https://lok-ai.pl/blog/co-to-jest-n8n)
+- [Chatboty AI dla firm — Flowise, Typebot, własne rozwiązania](https://lok-ai.pl/blog/chatboty-ai-dla-firm)
+- [Agenci głosowi — ElevenLabs i Twilio](https://lok-ai.pl/blog/agenci-glosowi-elevenlabs-twilio)
 
 ## Technologie
 

@@ -115,9 +115,3 @@ export const getAllPosts = blogReader.getAllPosts;
 export const getPostsByTag = blogReader.getPostsByTag;
 export const getAllTags = blogReader.getAllTags;
 export const getRelatedPosts = blogReader.getRelatedPosts;
-
-const techReader = createMdxReader("src/content/technologia");
-export const getTechPostBySlug = techReader.getPostBySlug;
-export const getAllTechPosts = techReader.getAllPosts;
-export const getTechPostsByTag = techReader.getPostsByTag;
-export const getAllTechTags = techReader.getAllTags;
