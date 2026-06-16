@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import SchemaOrg from "@/components/SchemaOrg";
+import { generateFaqSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 import FaqPageClient from "./FaqPageClient";
+import { faqData } from "./faq-data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
@@ -13,5 +16,18 @@ export const metadata: Metadata = {
 };
 
 export default function FaqPage() {
-  return <FaqPageClient />;
+  return (
+    <>
+      <SchemaOrg
+        schema={graph(
+          generateFaqSchema(faqData),
+          generateBreadcrumbSchema([
+            { name: "Strona główna", url: "/" },
+            { name: "FAQ", url: "/faq" },
+          ]),
+        )}
+      />
+      <FaqPageClient />
+    </>
+  );
 }

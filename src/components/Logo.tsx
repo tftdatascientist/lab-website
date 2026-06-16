@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { MechanismLogoMark } from './mechanism';
 
 const GOLD = '#f5c842';
 const SW   = 0.55;
@@ -48,9 +49,9 @@ interface LogoProps {
   showTagline?: boolean;
 }
 
-type Variant = 'city' | 'lok-filled' | 'lok-outline' | 'city-lok';
+type Variant = 'city' | 'lok-filled' | 'lok-outline' | 'city-lok' | 'gear';
 
-const VARIANTS: Variant[] = ['city', 'lok-filled', 'lok-outline', 'city-lok'];
+const VARIANTS: Variant[] = ['city', 'lok-filled', 'lok-outline', 'city-lok', 'gear'];
 const KEY = 'lokai-logo-variant';
 
 function GearIcon({ variant, size }: { variant: Variant; size: number }) {
@@ -74,8 +75,10 @@ function GearIcon({ variant, size }: { variant: Variant; size: number }) {
         </clipPath>
       </defs>
 
-      {/* Zębatka */}
-      <path d={g} fill="none" stroke={GOLD} strokeWidth="0.75" strokeLinejoin="miter" />
+      {/* Zębatka — wolno obraca się (motyw mechanizmu) */}
+      <g className="logo-gear-spin">
+        <path d={g} fill="none" stroke={GOLD} strokeWidth="0.75" strokeLinejoin="miter" />
+      </g>
       {/* Pierścień wewnętrzny */}
       <circle cx={cx} cy={cy} r={rIn} fill="none" stroke={GOLD} strokeWidth={SW} />
 
@@ -128,7 +131,11 @@ export default function Logo({ size = 42, showTagline = true }: LogoProps) {
 
   return (
     <div className="flex items-center gap-[11px]">
-      <GearIcon variant={variant} size={size} />
+      {variant === 'gear' ? (
+        <MechanismLogoMark size={size} color={GOLD} />
+      ) : (
+        <GearIcon variant={variant} size={size} />
+      )}
       <div className="flex flex-col leading-none">
         <span
           className="font-heading font-bold whitespace-nowrap text-text"

@@ -1,0 +1,20 @@
+{
+  "syncedAt": null,
+  "source": "APQC Process Classification Framework® (PCF) 7.4 — tłumaczenie PL (Notion)",
+  "categories": [
+    { "num": 1, "code": "1.0", "slug": "strategia-i-misja", "namePl": "Strategia i misja", "nameEng": "Develop Vision and Strategy", "descPl": "Definiowanie wizji, misji i strategii organizacji: analiza otoczenia rynkowego, wyznaczanie kierunków rozwoju, modeli biznesowych i celów długoterminowych." },
+    { "num": 2, "code": "2.0", "slug": "produkty-i-uslugi", "namePl": "Produkty i usługi", "nameEng": "Develop and Manage Products and Services", "descPl": "Projektowanie, rozwój i zarządzanie cyklem życia produktów oraz usług — od koncepcji i badań, przez wdrożenie, po wycofanie." },
+    { "num": 3, "code": "3.0", "slug": "sprzedaz-i-marketing", "namePl": "Sprzedaż i marketing", "nameEng": "Market and Sell Products and Services", "descPl": "Procesy marketingu i sprzedaży: segmentacja rynku, budowa marki, generowanie popytu, zarządzanie relacjami i realizacja sprzedaży." },
+    { "num": 4, "code": "4.0", "slug": "lancuch-dostaw", "namePl": "Łańcuch dostaw", "nameEng": "Manage Supply Chain (Physical Products)", "descPl": "Planowanie i realizacja łańcucha dostaw produktów fizycznych: zaopatrzenie, produkcja, logistyka i zarządzanie zapasami." },
+    { "num": 5, "code": "5.0", "slug": "dostarczanie-uslug", "namePl": "Dostarczanie usług", "nameEng": "Deliver Services", "descPl": "Planowanie i świadczenie usług: zarządzanie zasobami usługowymi, realizacja zamówień usługowych i zapewnienie jakości." },
+    { "num": 6, "code": "6.0", "slug": "obsluga-klienta", "namePl": "Obsługa klienta", "nameEng": "Manage Customer Service", "descPl": "Obsługa klienta we wszystkich kanałach: zapytania, zgłoszenia, reklamacje oraz pomiar i poprawa satysfakcji klienta." },
+    { "num": 7, "code": "7.0", "slug": "kadry-i-zasoby-ludzkie", "namePl": "Kadry i zasoby ludzkie", "nameEng": "Develop and Manage Human Capital", "descPl": "Zarządzanie kapitałem ludzkim: rekrutacja, rozwój, wynagradzanie, ocena oraz utrzymanie i zaangażowanie pracowników." },
+    { "num": 8, "code": "8.0", "slug": "technologie-informacyjne", "namePl": "Technologie informacyjne", "nameEng": "Manage Information Technology (IT)", "descPl": "Zarządzanie IT: strategia technologiczna, rozwój i utrzymanie rozwiązań, bezpieczeństwo informacji oraz usługi i infrastruktura." },
+    { "num": 9, "code": "9.0", "slug": "finanse-i-rachunkowosc", "namePl": "Finanse i rachunkowość", "nameEng": "Manage Financial Resources", "descPl": "Zarządzanie zasobami finansowymi: księgowość, planowanie i budżetowanie, rozliczenia, sprawozdawczość i kontrola finansowa." },
+    { "num": 10, "code": "10.0", "slug": "obsluga-aktywow", "namePl": "Obsługa aktywów", "nameEng": "Acquire, Construct, and Manage Assets", "descPl": "Pozyskiwanie, budowa i utrzymanie aktywów: nieruchomości, sprzętu i infrastruktury wraz z planowaniem ich cyklu życia." },
+    { "num": 11, "code": "11.0", "slug": "zarzadzanie-ryzykiem", "namePl": "Zarządzanie ryzykiem", "nameEng": "Manage Enterprise Risk, Compliance, Remediation, and Resiliency", "descPl": "Zarządzanie ryzykiem przedsiębiorstwa, zgodnością (compliance), działaniami naprawczymi i odpornością operacyjną." },
+    { "num": 12, "code": "12.0", "slug": "relacje-zewnetrzne", "namePl": "Relacje zewnętrzne", "nameEng": "Manage External Relationships", "descPl": "Zarządzanie relacjami zewnętrznymi: z inwestorami, regulatorami, partnerami, społecznością i mediami." },
+    { "num": 13, "code": "13.0", "slug": "teoria-zarzadzania", "namePl": "Teoria zarządzania", "nameEng": "Management Theory", "descPl": "Wiedza i ramy teoretyczne dotyczące zarządzania procesami biznesowymi — kontekst i podstawy metodyczne klasyfikacji PCF." }
+  ],
+  "nodes": []
+}

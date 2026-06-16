@@ -137,8 +137,16 @@
   to   { stroke-dashoffset: 0; }
 }
 
+/* ── Mechanizm (motyw zębatek — Claude Design) ──────────────────────────── */
+@keyframes mech-spin { to { transform: rotate(360deg); } }
+.mech-spin { transform-box: fill-box; transform-origin: center; }
+.mech-cw  { transform-box: fill-box; transform-origin: center; animation: mech-spin var(--mech-d, 40s) linear infinite; }
+.mech-ccw { transform-box: fill-box; transform-origin: center; animation: mech-spin var(--mech-d, 40s) linear infinite reverse; }
+.logo-gear-spin { transform-box: fill-box; transform-origin: center; animation: mech-spin 24s linear infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .lokai-grid-bg { animation: none; }
   [style*="lokai-aurora"] { animation: none !important; }
   [style*="lokai-ticker"] { animation: none !important; }
+  .mech-cw, .mech-ccw, .logo-gear-spin { animation: none !important; }
 }

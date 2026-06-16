@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
+import { generateDefinedTermSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 import {
   getTerm,
   getAllSlugs,
@@ -45,16 +46,20 @@ export default function TermPage({ params }: Props) {
   if (!t) notFound();
 
   const related = getRelated(t);
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "DefinedTerm",
-    name: t.haslo,
-    alternateName: t.skrot || undefined,
-    description: t.definicja,
-    url: `${SITE_URL}/slownik/${t.slug}`,
-    inDefinedTermSet: `${SITE_URL}/slownik`,
-    termCode: t.typ,
-  };
+  const schema = graph(
+    generateDefinedTermSchema({
+      name: t.haslo,
+      description: t.definicja,
+      url: `/slownik/${t.slug}`,
+      inSetUrl: "/slownik",
+      alternateName: t.skrot || undefined,
+    }),
+    generateBreadcrumbSchema([
+      { name: "Strona główna", url: "/" },
+      { name: "Słownik", url: "/slownik" },
+      { name: t.haslo, url: `/slownik/${t.slug}` },
+    ]),
+  );
 
   const meta: { label: string; value: React.ReactNode }[] = [
     { label: "Typ", value: t.typ },
@@ -63,7 +68,12 @@ export default function TermPage({ params }: Props) {
       label: "Kategoria",
       value: (
         <>
-          {L1_LABELS[t.L1] || t.L1}
+          <Link
+            href={`/slownik/kategoria/${t.L1}`}
+            className="text-on-surface hover:text-amber transition-colors"
+          >
+            {L1_LABELS[t.L1] || t.L1}
+          </Link>
           <span className="text-text-mute"> · {L2_LABELS[t.L2] || t.L2}</span>
         </>
       ),

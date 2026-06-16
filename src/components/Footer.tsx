@@ -2,15 +2,15 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 const productLinks = [
-  { label: "Usługi", href: "/uslugi" },
+  { label: "Wdrożenia", href: "/wdrozenia" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "FAQ", href: "/faq" },
 ];
 
 const resourceLinks = [
   { label: "Blog", href: "/blog" },
-  { label: "Technologia", href: "/technologia" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Procesy", href: "/procesy" },
+  { label: "Słownik", href: "/slownik" },
 ];
 
 const companyLinks = [

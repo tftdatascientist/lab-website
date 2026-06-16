@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
+import SchemaOrg from "@/components/SchemaOrg";
+import {
+  generateWebPageSchema,
+  generateBreadcrumbSchema,
+  generateFaqSchema,
+  graph,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Cennik — lok-ai | Plany automatyzacji AI dla firm",
@@ -112,9 +119,27 @@ const faqItems: FaqItem[] = [
   },
 ];
 
+const schema = graph(
+  generateWebPageSchema({
+    type: "WebPage",
+    name: "Cennik",
+    path: "/cennik",
+    description:
+      "Elastyczne plany cenowe lok-ai — od darmowej konsultacji po dedykowane wdrożenia enterprise.",
+  }),
+  generateFaqSchema(
+    faqItems.map((f) => ({ question: f.question, answer: f.answer })),
+  ),
+  generateBreadcrumbSchema([
+    { name: "Strona główna", url: "/" },
+    { name: "Cennik", url: "/cennik" },
+  ]),
+);
+
 export default function CennikPage() {
   return (
     <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+      <SchemaOrg schema={schema} />
       {/* Hero Section */}
       <section className="max-w-5xl mx-auto text-center mb-24">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-surface-container-high ghost-border mb-6">

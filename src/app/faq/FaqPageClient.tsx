@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { faqData } from "./faq-data";
 
 interface FaqItem {
   protocol: string;
@@ -9,10 +10,9 @@ interface FaqItem {
   content: React.ReactNode;
 }
 
-const faqItems: FaqItem[] = [
+const faqContent: { protocol: string; content: React.ReactNode }[] = [
   {
     protocol: "Protokół 01",
-    title: "Czas wdrożenia",
     content: (
       <>
         <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
@@ -49,7 +49,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 02",
-    title: "Model cenowy",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         lok-ai oferuje elastyczny model cenowy. Darmowa konsultacja na start.
@@ -68,7 +67,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 03",
-    title: "Bezpieczeństwo danych i AI",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Stosujemy szyfrowanie end-to-end, lokalne instancje modeli AI oraz pełną
@@ -83,7 +81,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 04",
-    title: "Integracja z istniejącymi systemami",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Integrujemy się z popularnymi narzędziami:{" "}
@@ -108,7 +105,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 05",
-    title: "Wsparcie po wdrożeniu",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Zapewniamy pełne wsparcie techniczne po wdrożeniu. Monitoring 24/7, szybkie
@@ -122,7 +118,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 06",
-    title: "Dla jakich firm działamy?",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Specjalizujemy się w małych i średnich firmach z województwa
@@ -138,7 +133,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 07",
-    title: "Czy potrzebuję działu IT w firmie?",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Nie. Nasze wdrożenia są &ldquo;done-for-you&rdquo; — zajmujemy się całą
@@ -154,7 +148,6 @@ const faqItems: FaqItem[] = [
   },
   {
     protocol: "Protokół 08",
-    title: "Co się dzieje po zakończeniu projektu?",
     content: (
       <p className="text-text-dim leading-relaxed max-w-4xl text-[15px]">
         Po wdrożeniu otrzymujesz kompletną dokumentację projektu i szkolenie dla
@@ -169,6 +162,13 @@ const faqItems: FaqItem[] = [
     ),
   },
 ];
+
+// Tytuły pochodzą z faq-data.ts (jedno źródło prawdy dla schematu JSON-LD i UI).
+const faqItems: FaqItem[] = faqContent.map((c, i) => ({
+  protocol: c.protocol,
+  title: faqData[i].question,
+  content: c.content,
+}));
 
 export default function FaqPageClient() {
   const [openIndex, setOpenIndex] = useState<number>(0);

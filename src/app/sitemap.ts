@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getAllTechPosts } from "@/lib/mdx";
 import { services } from "@/content/services";
-import { getAllTerms } from "@/lib/slownik";
+import { getAllTerms, getCategories as getSlownikCategories } from "@/lib/slownik";
+import { getCategories } from "@/lib/procesy";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE_URL}/uslugi`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/technologia`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/wdrozenia`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/procesy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/slownik`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/portfolio`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE_URL}/faq`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -22,10 +23,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const servicePages: MetadataRoute.Sitemap = services.map((s) => ({
-    url: `${SITE_URL}/uslugi/${s.slug}`,
+    url: `${SITE_URL}/wdrozenia/${s.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.7,
+  }));
+
+  const slownikKategorie: MetadataRoute.Sitemap = getSlownikCategories().map((c) => ({
+    url: `${SITE_URL}/slownik/kategoria/${c.key}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
   }));
 
   const blogPages: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
@@ -49,5 +57,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.4,
   }));
 
-  return [...staticPages, ...servicePages, ...blogPages, ...techPages, ...slownikPages];
+  const procesyPages: MetadataRoute.Sitemap = getCategories().map((c) => ({
+    url: `${SITE_URL}/procesy/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [
+    ...staticPages,
+    ...servicePages,
+    ...blogPages,
+    ...techPages,
+    ...slownikPages,
+    ...slownikKategorie,
+    ...procesyPages,
+  ];
 }

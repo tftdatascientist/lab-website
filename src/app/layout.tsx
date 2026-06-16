@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import SchemaOrg from "@/components/SchemaOrg";
-import { generateLocalBusinessSchema } from "@/lib/schema";
+import { generateLocalBusinessSchema, generateWebSiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
@@ -86,7 +86,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${ibmPlexMono.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} ${orbitron.variable} font-body antialiased bg-background text-on-surface`}
       >
-        <SchemaOrg schema={generateLocalBusinessSchema()} />
+        <SchemaOrg schema={graph(generateLocalBusinessSchema(), generateWebSiteSchema())} />
         <Navbar />
         <main className="pt-16">{children}</main>
         <Footer />

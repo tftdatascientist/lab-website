@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import SchemaOrg from "@/components/SchemaOrg";
 import ContactForm from "@/components/ContactForm";
+import {
+  generateWebPageSchema,
+  generateBreadcrumbSchema,
+  graph,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Kontakt — lok-ai | Automatyzacja i AI dla firm",
@@ -32,6 +37,21 @@ const contactSchema = {
   },
 };
 
+const schema = graph(
+  contactSchema,
+  generateWebPageSchema({
+    type: "ContactPage",
+    name: "Kontakt",
+    path: "/kontakt",
+    description:
+      "Skontaktuj się z lok-ai — bezpłatna konsultacja automatyzacji procesów i AI dla Twojej firmy.",
+  }),
+  generateBreadcrumbSchema([
+    { name: "Strona główna", url: "/" },
+    { name: "Kontakt", url: "/kontakt" },
+  ]),
+);
+
 const BENEFITS = [
   "Audyt procesów — pokazujemy co można zautomatyzować",
   "Szybkie wygrane — gdzie zysk jest natychmiastowy",
@@ -42,7 +62,7 @@ const BENEFITS = [
 export default function KontaktPage() {
   return (
     <>
-      <SchemaOrg schema={contactSchema} />
+      <SchemaOrg schema={schema} />
 
       <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
         <div

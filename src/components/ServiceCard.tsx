@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { Service } from "@/content/services";
+import { ServiceIconBySlug } from "@/components/mechanism";
 
 const COLOR_MAP: Record<string, string> = {
   "automatyzacja-n8n": "#d9b88a",
@@ -10,15 +11,6 @@ const COLOR_MAP: Record<string, string> = {
   "bazy-wiedzy-rag": "#ef7955",
   "dashboardy-raporty": "#f5b845",
   "integracje-systemow": "#d9b88a",
-};
-
-const ICON_MAP: Record<string, string> = {
-  "automatyzacja-n8n": "⚙",
-  "chatboty-ai": "◎",
-  "agenci-glosowi": "◐",
-  "bazy-wiedzy-rag": "▲",
-  "dashboardy-raporty": "▦",
-  "integracje-systemow": "⬡",
 };
 
 const METRIC_MAP: Record<string, { v: string; l: string }> = {
@@ -32,7 +24,6 @@ const METRIC_MAP: Record<string, { v: string; l: string }> = {
 
 export default function ServiceCard({ service }: { service: Service }) {
   const c = COLOR_MAP[service.slug] ?? "#f5b845";
-  const icon = ICON_MAP[service.slug] ?? "◆";
   const metric = METRIC_MAP[service.slug] ?? { v: "—", l: "" };
 
   return (
@@ -80,7 +71,9 @@ export default function ServiceCard({ service }: { service: Service }) {
         >
           {service.tags[0]}
         </span>
-        <span style={{ fontSize: 22, color: c, opacity: 0.7 }}>{icon}</span>
+        <span style={{ color: c, opacity: 0.85, display: "inline-flex" }}>
+          <ServiceIconBySlug slug={service.slug} size={30} />
+        </span>
       </div>
 
       <h3

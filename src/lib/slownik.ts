@@ -106,3 +106,16 @@ export function getCategories(): { key: string; label: string; count: number }[]
 export function getRelated(term: Term, n = 6): Term[] {
   return TERMS.filter((t) => t.L2 === term.L2 && t.slug !== term.slug).slice(0, n);
 }
+
+/** Wszystkie hasła danej kategorii L1, alfabetycznie. */
+export function getTermsByL1(l1: string): Term[] {
+  return TERMS.filter((t) => t.L1 === l1).sort((a, b) =>
+    a.haslo.localeCompare(b.haslo, "pl"),
+  );
+}
+
+/** Slugi kategorii L1 (w kolejności L1_ORDER), które mają przynajmniej jedno hasło. */
+export function getL1Slugs(): string[] {
+  const present = new Set(TERMS.map((t) => t.L1));
+  return L1_ORDER.filter((k) => present.has(k));
+}

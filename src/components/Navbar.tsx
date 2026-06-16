@@ -5,8 +5,8 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 const navLinks = [
-  { label: "Usługi", href: "/uslugi" },
-  { label: "Technologia", href: "/technologia" },
+  { label: "Wdrożenia", href: "/wdrozenia" },
+  { label: "Procesy", href: "/procesy" },
   { label: "Blog", href: "/blog" },
   { label: "Słownik", href: "/slownik" },
   { label: "Portfolio", href: "/portfolio" },

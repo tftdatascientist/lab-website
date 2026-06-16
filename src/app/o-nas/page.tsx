@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SchemaOrg from "@/components/SchemaOrg";
+import {
+  generateWebPageSchema,
+  generateBreadcrumbSchema,
+  graph,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "O nas — lok-ai | Automatyzacja i AI dla firm",
@@ -30,9 +36,24 @@ const VALUES = [
 
 const STACK = ["n8n", "Flowise", "Typebot", "OpenAI", "ElevenLabs", "Claude"];
 
+const schema = graph(
+  generateWebPageSchema({
+    type: "AboutPage",
+    name: "O nas",
+    path: "/o-nas",
+    description:
+      "lok-ai — Lokalna Automatyzacja Biznesu. Wdrażamy automatyzacje procesów i AI dla MŚP z regionu kujawsko-pomorskiego.",
+  }),
+  generateBreadcrumbSchema([
+    { name: "Strona główna", url: "/" },
+    { name: "O nas", url: "/o-nas" },
+  ]),
+);
+
 export default function ONasPage() {
   return (
     <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
+      <SchemaOrg schema={schema} />
       {/* Header */}
       <div className="max-w-[720px] mb-16">
         <div className="flex items-center gap-3 mb-4">

@@ -2,13 +2,28 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+export interface PostFaq {
+  q: string;
+  a: string;
+}
+
 export interface PostFrontmatter {
   title: string;
   date: string;
+  dateModified?: string; // świeżość; fallback = date
   tags: string[];
   excerpt: string;
+  description?: string; // meta description; fallback = excerpt
   readTime: string;
   image?: string;
+  author?: string; // E-E-A-T; fallback w schema
+  section?: string; // filar: Chatboty / Agenci głosowi / Automatyzacja procesów / AI w biznesie
+  tldr?: string; // 1-2 zdania do TldrBox
+  takeaways?: string[]; // 3-5 punktów do KeyTakeaways
+  faq?: PostFaq[]; // 2-4 Q&A do ArticleFaq + FAQPage schema
+  related?: string[]; // slugi powiązanych wpisów
+  wordCount?: number;
+  noindex?: boolean; // dla cienkich/duplikatów
 }
 
 export interface Post {
@@ -27,9 +42,14 @@ function createMdxReader(contentDir: string) {
     const raw = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(raw);
 
+    const fm = data as PostFrontmatter;
+    if (fm.wordCount == null) {
+      fm.wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+    }
+
     return {
       slug,
-      frontmatter: data as PostFrontmatter,
+      frontmatter: fm,
       content,
     };
   }
@@ -66,7 +86,27 @@ function createMdxReader(contentDir: string) {
     return Array.from(tags).sort();
   }
 
-  return { getPostBySlug, getAllPosts, getPostsByTag, getAllTags };
+  function getRelatedPosts(slug: string, limit = 3): Post[] {
+    const all = getAllPosts();
+    const cur = all.find((p) => p.slug === slug);
+    if (!cur) return [];
+    const explicit = (cur.frontmatter.related ?? [])
+      .map((s) => all.find((p) => p.slug === s))
+      .filter((p): p is Post => p != null);
+    if (explicit.length >= limit) return explicit.slice(0, limit);
+    const scored = all
+      .filter((p) => p.slug !== slug && !explicit.includes(p))
+      .map((p) => ({
+        p,
+        score:
+          (p.frontmatter.section && p.frontmatter.section === cur.frontmatter.section ? 2 : 0) +
+          p.frontmatter.tags.filter((t) => cur.frontmatter.tags.includes(t)).length,
+      }))
+      .sort((a, b) => b.score - a.score);
+    return [...explicit, ...scored.map((s) => s.p)].slice(0, limit);
+  }
+
+  return { getPostBySlug, getAllPosts, getPostsByTag, getAllTags, getRelatedPosts };
 }
 
 const blogReader = createMdxReader("src/content/blog");
@@ -74,6 +114,7 @@ export const getPostBySlug = blogReader.getPostBySlug;
 export const getAllPosts = blogReader.getAllPosts;
 export const getPostsByTag = blogReader.getPostsByTag;
 export const getAllTags = blogReader.getAllTags;
+export const getRelatedPosts = blogReader.getRelatedPosts;
 
 const techReader = createMdxReader("src/content/technologia");
 export const getTechPostBySlug = techReader.getPostBySlug;

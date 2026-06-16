@@ -21,11 +21,31 @@ Lokalizacja: Grudziądz, kujawsko-pomorskie, Polska
 - [Strona główna](https://lok-ai.pl)
 - [Usługi](https://lok-ai.pl/uslugi)
 - [Technologia](https://lok-ai.pl/technologia)
-- [Blog](https://lok-ai.pl/blog)
+- [Blog](https://lok-ai.pl/blog) — artykuły o AI, automatyzacji i wdrożeniach dla MŚP
+- [Procesy](https://lok-ai.pl/procesy) — klasyfikacja procesów biznesowych APQC PCF 7.4 po polsku (13 kategorii, 5 poziomów)
+- [Słownik IT](https://lok-ai.pl/slownik) — ponad 1200 pojęć z informatyki, AI i automatyzacji z definicjami
 - [Portfolio](https://lok-ai.pl/portfolio)
 - [FAQ](https://lok-ai.pl/faq)
 - [O nas](https://lok-ai.pl/o-nas)
 - [Kontakt](https://lok-ai.pl/kontakt)
+
+## Procesy biznesowe (APQC PCF 7.4 — tłumaczenie PL)
+
+Hierarchiczna, otwarta klasyfikacja procesów biznesowych. 13 kategorii najwyższego poziomu:
+
+- [Strategia i misja](https://lok-ai.pl/procesy/strategia-i-misja)
+- [Produkty i usługi](https://lok-ai.pl/procesy/produkty-i-uslugi)
+- [Sprzedaż i marketing](https://lok-ai.pl/procesy/sprzedaz-i-marketing)
+- [Łańcuch dostaw](https://lok-ai.pl/procesy/lancuch-dostaw)
+- [Dostarczanie usług](https://lok-ai.pl/procesy/dostarczanie-uslug)
+- [Obsługa klienta](https://lok-ai.pl/procesy/obsluga-klienta)
+- [Kadry i zasoby ludzkie](https://lok-ai.pl/procesy/kadry-i-zasoby-ludzkie)
+- [Technologie informacyjne](https://lok-ai.pl/procesy/technologie-informacyjne)
+- [Finanse i rachunkowość](https://lok-ai.pl/procesy/finanse-i-rachunkowosc)
+- [Obsługa aktywów](https://lok-ai.pl/procesy/obsluga-aktywow)
+- [Zarządzanie ryzykiem](https://lok-ai.pl/procesy/zarzadzanie-ryzykiem)
+- [Relacje zewnętrzne](https://lok-ai.pl/procesy/relacje-zewnetrzne)
+- [Teoria zarządzania](https://lok-ai.pl/procesy/teoria-zarzadzania)
 
 ## Artykuły technologia
 

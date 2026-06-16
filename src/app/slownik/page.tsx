@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SchemaOrg from "@/components/SchemaOrg";
+import { SubpageHeader, SectionDivider } from "@/components/mechanism";
+import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 import { getAllTerms, getCategories } from "@/lib/slownik";
 import SlownikListClient from "./SlownikListClient";
 
@@ -24,19 +27,28 @@ export default function SlownikPage() {
   const terms = getAllTerms();
   const categories = getCategories();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "DefinedTermSet",
-    name: "Słownik IT lok-ai",
-    description:
-      "Słownik terminologii informatycznej: algorytmy, systemy, sieci, dane, bezpieczeństwo, AI/ML, chmura i inżynieria oprogramowania.",
-    url: `${SITE_URL}/slownik`,
-    hasDefinedTerm: terms.slice(0, 50).map((t) => ({
-      "@type": "DefinedTerm",
-      name: t.haslo,
-      url: `${SITE_URL}/slownik/${t.slug}`,
-    })),
-  };
+  const schema = graph(
+    generateDefinedTermSetSchema({
+      name: "Słownik IT lok-ai",
+      description:
+        "Słownik terminologii informatycznej: algorytmy, systemy, sieci, dane, bezpieczeństwo, AI/ML, chmura i inżynieria oprogramowania.",
+      url: "/slownik",
+      terms: terms.slice(0, 40).map((t) => ({
+        name: t.haslo,
+        url: `/slownik/${t.slug}`,
+        description: t.definicja,
+      })),
+    }),
+    generateItemListSchema(
+      "Kategorie słownika IT",
+      categories.map((c) => ({ name: c.label, url: `/slownik?kat=${c.key}` })),
+      "Główne dziedziny terminologii IT w słowniku lok-ai.",
+    ),
+    generateBreadcrumbSchema([
+      { name: "Strona główna", url: "/" },
+      { name: "Słownik", url: "/slownik" },
+    ]),
+  );
 
   // lekki payload dla klienta
   const items = terms.map((t) => ({
@@ -51,30 +63,48 @@ export default function SlownikPage() {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <section className="py-[100px] px-6 sm:px-8 max-w-[1280px] mx-auto">
-        {/* Header */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="w-7 h-px bg-amber" />
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-amber">
-              Słownik · {terms.length}&nbsp;pojęć
-            </span>
-          </div>
-          <h1
-            className="font-heading font-bold text-on-surface mb-5"
-            style={{ fontSize: "clamp(28px,5vw,64px)", letterSpacing: "-0.04em", lineHeight: 0.95, maxWidth: 1000 }}
-          >
-            Słownik{" "}
-            <span className="font-display font-medium italic text-amber">terminologii IT</span>.
-          </h1>
-          <p className="text-text-dim" style={{ fontSize: 17, maxWidth: 640, lineHeight: 1.55 }}>
-            Ponad {terms.length} pojęć z informatyki — od algorytmów i sieci po AI/ML i&nbsp;chmurę. Każde hasło ma
-            prostą definicję, kategorię i&nbsp;źródło. Bez żargonu, po&nbsp;ludzku.
-          </p>
-        </div>
+      <div className="pt-13" style={{ paddingTop: 52 }}>
+        <SubpageHeader
+          eyebrow={`Słownik · ${terms.length} pojęć`}
+          title="Słownik"
+          accent="terminologii"
+          titleAfter="IT."
+          cluster="slownik"
+          description={
+            <>
+              Ponad {terms.length} pojęć z informatyki — od algorytmów i&nbsp;sieci po AI/ML
+              i&nbsp;chmurę. Każde hasło ma prostą definicję, kategorię i&nbsp;źródło. Bez żargonu,
+              po&nbsp;ludzku.
+            </>
+          }
+        />
 
-        <SlownikListClient items={items} categories={categories} />
-      </section>
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-12">
+          {/* Huby kategorii */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
+            {categories.map((c) => (
+              <Link
+                key={c.key}
+                href={`/slownik/kategoria/${c.key}`}
+                className="group relative block rounded-xl border border-border bg-surface hover:border-amber/40 transition-all px-4 py-4 overflow-hidden"
+              >
+                <h2 className="font-heading font-semibold text-on-surface text-[15px] leading-snug group-hover:text-amber transition-colors">
+                  {c.label}
+                </h2>
+                <div className="mt-2 font-mono text-[11px] tracking-[0.1em] text-text-mute">
+                  {c.count} pojęć
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <SectionDivider label="Wszystkie hasła" />
+
+          <div className="pt-12">
+            <SlownikListClient items={items} categories={categories} />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { getAllPosts, getAllTags } from "@/lib/mdx";
 import BlogListClient from "./BlogListClient";
+import SchemaOrg from "@/components/SchemaOrg";
+import { SubpageHeader } from "@/components/mechanism";
+import {
+  generateItemListSchema,
+  generateWebPageSchema,
+  generateBreadcrumbSchema,
+  graph,
+} from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Blog — lok-ai | Automatyzacja i AI dla firm",
@@ -12,49 +20,45 @@ export default function BlogPage() {
   const posts = getAllPosts();
   const tags = getAllTags();
 
-  return (
-    <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
-      {/* Header */}
-      <div className="mb-12">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="w-7 h-px" style={{ background: "#f5b845" }} />
-          <span
-            className="font-mono text-[11px] uppercase"
-            style={{ color: "#f5b845", letterSpacing: "0.15em" }}
-          >
-            Blog · 14&nbsp;szablonów
-          </span>
-        </div>
-        <h1
-          className="font-heading font-bold text-text mb-5"
-          style={{
-            fontSize: "clamp(28px,5vw,64px)",
-            letterSpacing: "-0.04em",
-            lineHeight: 0.95,
-            maxWidth: 1000,
-          }}
-        >
-          News z&nbsp;polskiej i&nbsp;światowej{" "}
-          <span
-            className="font-display font-medium italic"
-            style={{ color: "#f5b845" }}
-          >
-            sceny AI
-          </span>
-          .
-        </h1>
-        <p
-          className="text-text-dim"
-          style={{ fontSize: 17, maxWidth: 620, lineHeight: 1.55 }}
-        >
-          Każda kategoria ma własny ręcznie rysowany neon line-art w&nbsp;cieple amber/coral. Bez stockowych grafik, bez chłodnych niebieskości — wszystko trzyma się palety Amber&nbsp;&amp;&nbsp;Ash.
-        </p>
-      </div>
+  const schema = graph(
+    generateItemListSchema(
+      "Blog lok-ai",
+      posts.map((p) => ({
+        name: p.frontmatter.title,
+        url: `/blog/${p.slug}`,
+      })),
+      "Artykuły o automatyzacji procesów, AI i rozwiązaniach low-code dla MŚP.",
+    ),
+    generateWebPageSchema({
+      type: "CollectionPage",
+      name: "Blog",
+      path: "/blog",
+      description:
+        "Artykuły o automatyzacji procesów, chatbotach AI, agentach głosowych i rozwiązaniach low-code dla MŚP.",
+    }),
+    generateBreadcrumbSchema([
+      { name: "Strona główna", url: "/" },
+      { name: "Blog", url: "/blog" },
+    ]),
+  );
 
-      <BlogListClient
-        posts={posts.map((p) => ({ slug: p.slug, frontmatter: p.frontmatter }))}
-        tags={tags}
+  return (
+    <>
+      <SchemaOrg schema={schema} />
+      <SubpageHeader
+        eyebrow="Blog · AI dla biznesu"
+        title="News z polskiej i światowej"
+        accent="sceny AI"
+        cluster="blog"
+        description="Praktyczna wiedza o automatyzacji procesów, chatbotach i agentach AI oraz rozwiązaniach low-code dla małych i średnich firm — bez żargonu, z konkretami dla MŚP."
       />
-    </section>
+
+      <section className="py-12 px-8 max-w-[1280px] mx-auto">
+        <BlogListClient
+          posts={posts.map((p) => ({ slug: p.slug, frontmatter: p.frontmatter }))}
+          tags={tags}
+        />
+      </section>
+    </>
   );
 }
