@@ -7,16 +7,17 @@ Zakończone sprinty → [CHANGELOG.md](./CHANGELOG.md)
 
 ## AKTUALNY CEL
 
-> Brak aktywnego sprintu. Ostatni sprint (21.04.2026) zakończony — zob. CHANGELOG.
+> Brak aktywnego sprintu. Ostatni sprint (16.06.2026) zakończony — baza procesów PCF (1908 węzłów), ujednolicenie słownika ze schematem procesów, domknięcie scalenia Usługi/Technologia. Zob. CHANGELOG.
 
 ---
 
 ## NASTĘPNY SPRINT (do ustalenia)
 
 - [ ] Weryfikacja DNS lok-ai.pl → Vercel
-- [ ] SEO/LLM audit (llms.txt, Schema.org, sitemap)
-- [ ] Integracja chatbota Typebot w `/demo` (~07.05)
+- [x] ~~SEO/LLM audit (llms.txt, Schema.org, sitemap)~~ — zaliczony 16.06 (Schema @graph, canonical/OG, robots boty AI, sitemap ~2300 URL)
+- [ ] Integracja chatbota Typebot w `/demo`
 - [ ] Portfolio — wypełnienie po zakończeniu negocjacji (Creato/Tomek)
+- [ ] (opcjonalnie) okresowy `npm run sync-pcf` gdy zmieni się baza Notion PCF
 
 ---
 

@@ -5,6 +5,31 @@ Format: `## [data] — tytuł`
 
 ---
 
+## [2026-06-16] — Sprint: baza procesów PCF + ujednolicenie słownika + domknięcie scalenia
+
+**Procesy (APQC PCF 7.4) — z wizytówki do realnej bazy wiedzy:**
+- Import pełnej taksonomii z Notion: **1908 węzłów** (nie 9k — tyle liczy PCF 7.4), 100% pokrycia PL+EN (nazwy i opisy) + hierarchia `parentCode`. Skrypt `scripts/sync-pcf.mjs` + `npm run sync-pcf`.
+- Deep research (workflow, 6 sub-agentów) → rekomendacja architektury (hybryda strony L1–L3 + anchory L4/L5).
+- **Faza 1:** strony SSG `/procesy/[kategoria]/[grupa]` (72) i `/procesy/proces/[kod]` (330) z sekcjami Działań + tabelami Zadań, breadcrumby, JSON-LD (DefinedTerm/Breadcrumb/ItemList/HowTo).
+- **Faza 2:** wyszukiwarka **Cmd+K** (cmdk + MiniSearch, indeks lazy ~750 KB, normalizacja PL) + crawlowalne drzewo kategorii (`CategoryTree`, zero-JS `<details>`).
+- **Faza 3:** ochrona thin content (31 procesów-liści → `noindex,follow` + poza sitemap), mobilne drzewo, statystyki na hubie.
+
+**Słownik IT — ujednolicony ze schematem procesów:**
+- Uruchomiona pełna hierarchia 4-poziomowa (dotąd UI używał tylko L1/L2): **8 kat. → 11 poddziedzin → 71 grup → 595 podgrup → 1201 haseł**.
+- Nowe trasy: `/slownik/kategoria/[l1]/[l2]` (L2) i `/slownik/grupa/[l3]` (pillar — sekcje L4 + karty haseł). Strona kategorii przebudowana (sekcje L2 → karty L3). Strona hasła: breadcrumb z pełnym trailem.
+- Bliźniacze komponenty: `SlownikSearch` (Cmd+K, indeks ~300 KB) + `SlownikTree`. L4 jako anchory (slug nie jest globalnie unikalny → klucz `L3|L4`).
+
+**Domknięcie scalenia Usługi/Technologia:**
+- Menu: kolejność Blog · Procesy · Słownik · Portfolio · Wdrożenia · FAQ.
+- Usunięto martwe `src/app/uslugi/*`; naprawiono żywe linki `/uslugi/*` → `/wdrozenia/*` (Hero, MobileBottomNav, ServiceCard, Services — w tym nieaktualne slugi).
+- Artykuły `/technologia/[slug]` (3) **zmigrowane do `/blog`** (git mv, slug zachowany); 301: `/technologia/:slug`→`/blog/:slug`, `/technologia`→`/blog`, `/uslugi(/:slug)`→`/wdrozenia(/:slug)`.
+
+**SEO/GEO (audit zaliczony):** Schema.org `@graph` na każdej stronie, canonical + OG, robots dopuszcza boty AI, sitemap (~2300 URL) + llms.txt zaktualizowane. Indeksy search regenerowane w `prebuild`.
+
+Weryfikacja: `npx tsc --noEmit` → 0 błędów · `next build` → 1821 stron, exit 0 · push → Vercel. Commity: e062513, 6df73e6, b8acda8, e48e245, 850b6f2, b124686, 2859383, 3accb24, ed4f1b8.
+
+---
+
 ## [2026-04-28] — Auto-blog pipeline aktywny + fixes
 
 - Blog: automatyczna publikacja artykułów z LinkedIn przez n8n (pipeline aktywny)
