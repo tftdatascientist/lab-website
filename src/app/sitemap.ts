@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllPosts, getAllTechPosts } from "@/lib/mdx";
 import { services } from "@/content/services";
 import { getAllTerms, getCategories as getSlownikCategories } from "@/lib/slownik";
-import { getCategories } from "@/lib/procesy";
+import { getCategories, getAllGroups, getAllProcesses, codeToSlug } from "@/lib/procesy";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
 
@@ -64,6 +64,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const procesyGrupy: MetadataRoute.Sitemap = getAllGroups().map((g) => ({
+    url: `${SITE_URL}/procesy/${g.categorySlug}/${codeToSlug(g.code)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  const procesyProcesy: MetadataRoute.Sitemap = getAllProcesses().map((p) => ({
+    url: `${SITE_URL}/procesy/proces/${codeToSlug(p.code)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
   return [
     ...staticPages,
     ...servicePages,
@@ -72,5 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...slownikPages,
     ...slownikKategorie,
     ...procesyPages,
+    ...procesyGrupy,
+    ...procesyProcesy,
   ];
 }

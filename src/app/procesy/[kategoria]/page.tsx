@@ -8,6 +8,7 @@ import {
   getCategorySlugs,
   getNodesByCategory,
   getChildren,
+  codeToSlug,
   type ProcessNode,
 } from "@/lib/procesy";
 import {
@@ -64,7 +65,7 @@ export default function ProcesKategoriaPage({ params }: Props) {
       ? [
           generateItemListSchema(
             `Grupy procesów — ${c.namePl}`,
-            groups.map((g) => ({ name: `${g.code} ${g.namePl}`, url: `/procesy/${c.slug}#${g.code}` })),
+            groups.map((g) => ({ name: `${g.code} ${g.namePl}`, url: `/procesy/${c.slug}/${codeToSlug(g.code)}` })),
           ),
         ]
       : []),
@@ -123,19 +124,33 @@ export default function ProcesKategoriaPage({ params }: Props) {
 
 function ProcessGroup({ group }: { group: ProcessNode }) {
   const processes = getChildren(group.code);
+  const groupHref = `/procesy/${group.categorySlug}/${codeToSlug(group.code)}`;
   return (
     <section id={group.code} className="scroll-mt-24">
       <div className="flex items-baseline gap-3 mb-3">
         <span className="font-mono text-[12px] text-amber">{group.code}</span>
-        <h2 className="font-heading font-bold text-on-surface text-[20px]">{group.namePl}</h2>
+        <h2 className="font-heading font-bold text-on-surface text-[20px]">
+          <Link href={groupHref} className="hover:text-amber transition-colors">
+            {group.namePl}
+          </Link>
+        </h2>
       </div>
       {group.descPl && <p className="text-text-dim text-[14px] leading-relaxed mb-4 max-w-2xl">{group.descPl}</p>}
       {processes.length > 0 && (
         <ul className="grid sm:grid-cols-2 gap-2">
           {processes.map((p) => (
-            <li key={p.code} className="rounded-lg border border-border bg-surface px-4 py-3">
-              <span className="font-mono text-[11px] text-text-mute">{p.code}</span>{" "}
-              <span className="text-on-surface text-[14px]">{p.namePl}</span>
+            <li key={p.code}>
+              <Link
+                href={`/procesy/proces/${codeToSlug(p.code)}`}
+                className="group flex items-baseline gap-2 rounded-lg border border-border bg-surface px-4 py-3 hover:border-amber/40 transition-colors"
+              >
+                <span className="font-mono text-[11px] text-text-mute group-hover:text-amber transition-colors">
+                  {p.code}
+                </span>
+                <span className="text-on-surface text-[14px] group-hover:text-amber transition-colors">
+                  {p.namePl}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

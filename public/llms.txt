@@ -31,7 +31,10 @@ Lokalizacja: Grudziądz, kujawsko-pomorskie, Polska
 
 ## Procesy biznesowe (APQC PCF 7.4 — tłumaczenie PL)
 
-Hierarchiczna, otwarta klasyfikacja procesów biznesowych. 13 kategorii najwyższego poziomu:
+Hierarchiczna, otwarta klasyfikacja procesów biznesowych: 1908 elementów w 5 poziomach
+(Kategoria → Grupa procesów → Proces → Działanie → Zadanie), każdy z nazwą i opisem po polsku
+i po angielsku. Strony grup (/procesy/[kategoria]/[kod]) i procesów (/procesy/proces/[kod])
+zawierają tabele działań i zadań. 13 kategorii najwyższego poziomu:
 
 - [Strategia i misja](https://lok-ai.pl/procesy/strategia-i-misja)
 - [Produkty i usługi](https://lok-ai.pl/procesy/produkty-i-uslugi)
