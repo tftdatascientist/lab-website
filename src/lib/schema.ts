@@ -1,7 +1,7 @@
 import type { Service } from "@/content/services";
 import type { Post } from "@/lib/mdx";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 const LOGO_URL = `${SITE_URL}/favicon.svg`;
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;

@@ -9,7 +9,7 @@ import {
 } from "@/lib/slownik";
 import { getCategories, getAllGroups, getAllProcesses, isThinProcess, codeToSlug } from "@/lib/procesy";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [

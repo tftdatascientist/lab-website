@@ -4,7 +4,7 @@ import { generateFaqSchema, generateBreadcrumbSchema, graph } from "@/lib/schema
 import FaqPageClient from "./FaqPageClient";
 import { faqData } from "./faq-data";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 export const metadata: Metadata = {
   title: "FAQ — lok-ai | Najczęściej Zadawane Pytania",

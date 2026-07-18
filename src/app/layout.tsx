@@ -7,7 +7,7 @@ import SchemaOrg from "@/components/SchemaOrg";
 import { generateLocalBusinessSchema, generateWebSiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],

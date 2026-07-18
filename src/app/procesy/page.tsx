@@ -10,7 +10,7 @@ import {
   graph,
 } from "@/lib/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 export const metadata: Metadata = {
   title: "Procesy biznesowe — APQC PCF 7.4 po polsku (13 kategorii)",

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 // Boty AI/LLM — świadomie dopuszczone (cel: cytowalność w ChatGPT, Claude,
 // Perplexity, Gemini/AI Overviews). Wymienione jawnie, by nie zależeć od reguły *.

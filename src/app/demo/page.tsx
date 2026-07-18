@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Zautomatyzuj procesy w czasie rzeczywistym dzięki naszym gotowym rozwiązaniom AI. Przetestuj demo agenta.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/demo`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl"}/demo`,
   },
 };
 

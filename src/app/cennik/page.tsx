@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Elastyczne plany cenowe lok-ai — od darmowej konsultacji po dedykowane wdrożenia enterprise. Automatyzacja i AI dla MŚP.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/cennik`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl"}/cennik`,
   },
 };
 

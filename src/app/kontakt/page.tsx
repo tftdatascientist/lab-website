@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "Skontaktuj się z lok-ai — bezpłatna konsultacja automatyzacji procesów i AI dla Twojej firmy. Grudziądz, kujawsko-pomorskie.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/kontakt`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl"}/kontakt`,
   },
 };
 

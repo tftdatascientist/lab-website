@@ -14,7 +14,7 @@ import {
   L2_LABELS,
 } from "@/lib/slownik";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 interface Props {
   params: { slug: string };

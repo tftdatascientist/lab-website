@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     "lok-ai — Lokalna Automatyzacja Biznesu. Wdrażamy automatyzacje procesów i AI dla MŚP z regionu kujawsko-pomorskiego.",
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl"}/o-nas`,
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl"}/o-nas`,
   },
 };
 

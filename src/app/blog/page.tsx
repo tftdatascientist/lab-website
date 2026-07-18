@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Blog — lok-ai | Automatyzacja i AI dla firm",
   description:
     "Artykuły o automatyzacji procesów, chatbotach AI, agentach głosowych i rozwiązaniach low-code dla MŚP.",
+  alternates: {
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl"}/blog`,
+  },
 };
 
 export default function BlogPage() {

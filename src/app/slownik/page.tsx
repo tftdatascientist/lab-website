@@ -6,7 +6,7 @@ import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrum
 import { getAllTerms, getCategories, getAllL2Pairs, getAllL3Slugs } from "@/lib/slownik";
 import SlownikListClient from "./SlownikListClient";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 export const metadata: Metadata = {
   title: "Słownik IT — 1200+ pojęć z informatyki, AI i automatyzacji",

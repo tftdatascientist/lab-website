@@ -10,7 +10,7 @@ import {
   graph,
 } from "@/lib/schema";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://lok-ai.pl";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 // Lista realizacji (zsynchronizowana z PortfolioGrid) — dla ItemList schema.
 const PORTFOLIO_ITEMS = [
