@@ -45,6 +45,9 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  verification: {
+    google: "S-rDHe6vhS9dWdnhwsugkrTTa3o6rmPSoI8OfyYANWM",
+  },
   title: {
     default: "lok-ai — Automatyzacja i AI dla firm | Grudziądz, Toruń, Bydgoszcz",
     template: "%s | lok-ai",
