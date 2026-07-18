@@ -87,10 +87,6 @@ const PROJECTS = [
   },
 ];
 
-function screenshotUrl(url: string) {
-  return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
-}
-
 export default function PortfolioGrid() {
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[18px] mb-14">
@@ -122,11 +118,12 @@ export default function PortfolioGrid() {
               style={{ aspectRatio: "16/9", background: "#1f2125" }}
             >
               <Image
-                src={screenshotUrl(project.url)}
+                src={`/portfolio/portfolio-${String(i + 1).padStart(2, "0")}.webp`}
                 alt={project.name}
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                priority={i < 4}
                 className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                unoptimized
               />
               {/* Overlay gradient */}
               <div
