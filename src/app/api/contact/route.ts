@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Domena lok-ai.pl jest zweryfikowana w Resend (DKIM resend._domainkey + send.lok-ai.pl).
+// kontakt@lok-ai.pl to przekierowanie MX Plan w OVH.
+const CONTACT_TO = process.env.CONTACT_TO ?? "kontakt@lok-ai.pl";
+const CONTACT_FROM =
+  process.env.CONTACT_FROM ?? "Formularz lok-ai <formularz@lok-ai.pl>";
+
 export async function POST(req: Request) {
   const { name, company, email, phone, message } = await req.json();
 
@@ -11,8 +17,8 @@ export async function POST(req: Request) {
   }
 
   const { error } = await resend.emails.send({
-    from: "Formularz lok-ai <onboarding@resend.dev>",
-    to: "serekrazd@gmail.com",
+    from: CONTACT_FROM,
+    to: CONTACT_TO,
     replyTo: email,
     subject: `Nowa wiadomość od ${name}${company ? ` (${company})` : ""}`,
     text: [
