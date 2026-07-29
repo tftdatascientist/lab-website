@@ -50,8 +50,8 @@ export default function BlogPage() {
       <SchemaOrg schema={schema} />
       <SubpageHeader
         eyebrow="Blog · AI dla biznesu"
-        title="News z polskiej i światowej"
-        accent="sceny AI"
+        title="Polska w dobie"
+        accent="cyfrowej rewolucji"
         cluster="blog"
         description="Praktyczna wiedza o automatyzacji procesów, chatbotach i agentach AI oraz rozwiązaniach low-code dla małych i średnich firm — bez żargonu, z konkretami dla MŚP."
       />
