@@ -109,21 +109,21 @@ export default function TermPage({ params }: Props) {
           <h2 className="label">Karta hasła</h2>
           <ul className="rows">
             <li>
-              <span className="n">Typ</span>
+              <span className="n">typ</span>
               <span className="t" style={{ fontWeight: 400 }}>
                 {t.typ}
               </span>
               <span className="v" />
             </li>
             <li>
-              <span className="n">Nadrz.</span>
+              <span className="n">nadrz</span>
               <span className="t" style={{ fontWeight: 400 }}>
                 {t.hiperonim || "—"}
               </span>
               <span className="v" />
             </li>
             <li>
-              <span className="n">Kateg.</span>
+              <span className="n">kat.</span>
               <span className="t" style={{ fontWeight: 400 }}>
                 {trail.map((tr, i) => (
                   <span key={tr.href}>
@@ -135,7 +135,7 @@ export default function TermPage({ params }: Props) {
               <span className="v" />
             </li>
             <li>
-              <span className="n">Grupa</span>
+              <span className="n">grupa</span>
               <span className="t" style={{ fontWeight: 400 }}>
                 <Link href={`/slownik/grupa/${t.L3}`}>{labelL3(t.L3)}</Link>
               </span>
@@ -155,11 +155,16 @@ export default function TermPage({ params }: Props) {
           <section className="ruled" aria-label="Powiązane pojęcia">
             <h2 className="label">Powiązane pojęcia · {L2_LABELS[t.L2] || t.L2}</h2>
             <ul className="rows">
-              {related.map((r) => (
+              {related.map((r, i) => (
                 <li key={r.slug}>
-                  <span className="n">{r.skrot || ""}</span>
+                  <span className="n">{String(i + 1).padStart(2, "0")}</span>
                   <span className="t">
                     <Link href={`/slownik/${r.slug}`}>{r.haslo}</Link>
+                    {r.skrot && (
+                      <span className="mono" style={{ color: "var(--ink-3)", marginLeft: 8, fontWeight: 400 }}>
+                        {r.skrot}
+                      </span>
+                    )}
                     <span className="d">{r.definicja}</span>
                   </span>
                   <span className="v" />

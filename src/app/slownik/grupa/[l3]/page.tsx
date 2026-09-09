@@ -123,11 +123,16 @@ export default function SlownikGrupaPage({ params }: Props) {
                 {labelL4(l4)} · {items.length}
               </h2>
               <ul className="rows">
-                {items.map((t) => (
+                {items.map((t, i) => (
                   <li key={t.slug}>
-                    <span className="n">{t.skrot || ""}</span>
+                    <span className="n">{String(i + 1).padStart(2, "0")}</span>
                     <span className="t">
                       <Link href={`/slownik/${t.slug}`}>{t.haslo}</Link>
+                      {t.skrot && (
+                        <span className="mono" style={{ color: "var(--ink-3)", marginLeft: 8, fontWeight: 400 }}>
+                          {t.skrot}
+                        </span>
+                      )}
                       <span className="d">{t.definicja}</span>
                     </span>
                     <span className="v" />

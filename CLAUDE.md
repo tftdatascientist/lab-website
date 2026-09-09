@@ -114,6 +114,57 @@ URUCHOMIENIE: skrót LOKAI.lnk (oba serwery) · `scripts\lokai-dual.ps1 -TylkoNo
             „Jest worker encountered 2 child process exceptions" (OOM, nie kod) — zamknij 3300.
 ```
 
+### ETAP3 (2026-09-09, gałąź `redesign-ccud`) — migracja WSZYSTKICH podstron poza /demo
+
+```
+WZORZEC:    każda podstrona = tabliczka czytania (kol. 1–8, `.s-read`) + `KolumnaBoczna`
+            (kol. 9–12: Miejsce skrócona + Skąd > dokąd + sloty + CTA) — warunek odróżnialności
+            z DESIGN.md (Miejsce + Skąd > dokąd na KAŻDEJ podstronie) siedzi w komponencie,
+            nie w dyscyplinie per strona. Jedyny sygnał na podstronie = pole CTA (hub nie dokłada).
+ZROBIONE:   /blog = gęsta tabela 123 wierszy (data | tytuł | tagi | czas), bez miniatur; tagi jako
+            STRONY STATYCZNE /blog/tag/[tag] (generateStaticParams, noindex/follow, poza sitemap) —
+            NIE ?tag=, bo searchParams zrobiłoby z /blog trasę dynamiczną i czytanie MDX z dysku
+            poszłoby na request na Vercelu. /procesy hub = tabela 13 kategorii z opisem; kategoria,
+            grupa, proces = wiersze `.rows` + tabele zadań z zachowanymi kotwicami `#a-…`;
+            drzewo CategoryTree w tabliczce grafitowej w kolumnie bocznej (`.tree`, <details> bez JS),
+            spis „Na tej stronie" jako tabliczka wierszy. /slownik hub = JEDNA tabela 1201 haseł
+            z wierszami-literami i indeksem liter, filtr kategorii = linki na istniejące
+            /slownik/kategoria/[l1] (bez stanu klienta); hasło = podstrona treści (karta hasła,
+            Zobacz też jako A > B, powiązane jako wiersze); kategoria / poddziedzina / grupa z drzewem.
+            /wdrozenia + [slug], /kontakt (formularz na papierze, bez CTA — formularz JEST celem),
+            /o-nas, /faq (serwerowe, faq-data.ts = jedno źródło UI i JSON-LD, „Protokół NN" wypadł),
+            /cennik (jedna tabela), /portfolio (tabela 16 linków), /polityka, /regulamin (prose-paper).
+            PALETA Ctrl+K: wspólna `sciana/Paleta` (tabliczka na płycie, zasłona rgba płyty .88,
+            BEZ backdrop-blur), otwierana skrótem albo zdarzeniem `lokai:search` z `SzukajPrzycisk`
+            w polu prawym nagłówka tabliczki — pływający przycisk zniknął ze ściany. Znak logo
+            = `sciana/Znak` (mechanism.tsx USUNIĘTY). scripts/e2e-paleta.mjs: 12/12.
+USUNIĘTE:   BlogListClient, SlownikListClient, FaqPageClient, PortfolioGrid, NewsCard, BlogCard,
+            BlogTagFilter, ChatDemo, ChatWindow, ChatbotDemo, CtaSection, FaqAccordion,
+            FeatureSpotlight, GeoGrid, LinkedInCopyButton, ProcessSteps, ServiceCard, TechStack,
+            blog-illustrations.ts, news-illustrations/ (123 SVG), mechanism.tsx, Logo.tsx.
+            Zostaje: Logo/ (animowane logo, złoto hardkodowane — nieużywane, dług).
+POMIAR:     shots-live 1440/375 na 20 trasach: sygnał 0–3,8 % (CTA w kolumnie), 0 błędów JS,
+            0 overlay; slop_scan na 30 nowych plikach: 0 twardych / 0 miękkich.
+ZOSTAJE:    /demo — stary układ (lucide, makieta agenta), aliasy legacy w tailwind.config.ts zostają
+            dopóki /demo żyje. Sitemap, robots, schema.ts, metadata — NIE ruszane.
+```
+
+⚠️ ETAP3 — TREŚĆ, decyzje właściciela (układ zmieniony, twierdzenia nie):
+- **/cennik**: trzy plany z wyróżnionym środkiem i odznaką „Najpopularniejszy" to nazwana
+  anty-referencja (warstwa 2) — teraz jedna tabela bez wyróżnienia. Blok „Analiza porównawcza"
+  (99.9 % uptime, <20 ms, 24/7 + zdjęcie stockowe) WYPADŁ jako liczniki bez źródła (warstwa 1).
+  Same ceny (0 / 199 zł / indywidualnie) i „SLA 99.99%" w Enterprise przeniesione 1:1 —
+  do potwierdzenia albo skasowania przez właściciela.
+- **Nazwy narzędzi**: z tabliczek usług wypadły `tags` (n8n, Flowise, ElevenLabs…), z /wdrozenia
+  TECH_PILLS, z /o-nas pasek „Nasz stack". `longDesc` i `benefits` w services.ts nadal nazywają
+  narzędzia w prozie („używając n8n…", „ElevenLabs TTS") — copy do przepisania.
+- **/portfolio**: 16 zrzutów ekranu zeszło ze strony (dewiacja #3: jedyny obraz to rysunek
+  urządzenia); WebP zostają w public/portfolio/. Odwracalne: Fig w tabliczce grafitowej.
+- **/faq**: etykiety „Protokół 01–08" (rejestr militarny, warstwa 1) → numeracja tabliczki;
+  treść z faq-data.ts bez zmian.
+- **/demo**: makieta z ikonami lucide i fikcyjnym agentem, w sitemap — rekomendacja: usunąć.
+- **Blog H1** „Polska w dobie cyfrowej rewolucji" i lead przeniesione ze starej strony bez zmian.
+
 Rozbieżności ETAP2 wobec `design/DESIGN.md` (kontrakt read-only, nie poprawiamy go):
 - ⚠️ Strona wpisu ma **H1 40 px** jak hero (kontrakt: „jeden na stronę, w tabliczce hero”);
   tytuły wpisów są długie, więc H1 łamie się na 2–3 linie przy `max-width: 20ch`.

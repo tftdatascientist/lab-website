@@ -4,7 +4,7 @@
  * Paleta — wspólna wyszukiwarka Ctrl+K nad indeksem MiniSearch (procesy / słownik).
  * Indeks JSON ładowany leniwie przy pierwszym otwarciu. Otwiera ją skrót klawiszowy
  * albo zdarzenie `lokai:search` z SzukajPrzycisk (w nagłówku tabliczki huba).
- * Wygląd: tabliczka na płycie (`.palette` w globals.css) — bez rozmycia, bez #000.
+ * Wygląd: tabliczka na płycie (`.palette` w globals.css) — bez rozmycia, zasłona z płyty.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";

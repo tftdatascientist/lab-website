@@ -671,7 +671,7 @@
     border-bottom-color: var(--ink);
   }
 
-  /* paleta wyszukiwania (cmdk): tabliczka na płycie, bez rozmycia i bez #000 */
+  /* paleta wyszukiwania (cmdk): tabliczka na płycie, bez rozmycia; zasłona = płyta z alfą */
   .palette {
     position: fixed;
     inset: 0;
