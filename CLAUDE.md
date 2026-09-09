@@ -71,6 +71,54 @@ Zasada 1 („Design — tylko ze Stitch”) od tej wersji brzmi: **tokeny z `des
 Stitch i Claude Design generują układy i assety w jego granicach. `DESIGN-SYSTEM.md` (grafit +
 bursztyn) jest nieaktualny i zostaje jako historia.
 
+### ETAP2 (2026-09-09, gałąź `redesign-ccud`, worktree `../lab-website-redesign`)
+
+```
+ZROBIONE:   tokeny (tailwind.config.ts = jedyne źródło heksów → :root przez plugin addBase;
+            globals.css: .rail/.wall/.tag/.rows/.routes/.readout/.cta/.prose-paper),
+            kroje Chakra Petch + Archivo + JetBrains Mono (Inter/Orbitron/IBM Plex WYPADŁY),
+            powłoka: Szyna (56 px z lewej, ≤760 px pasek dolny) + <main class="wall"> + StopkaSciany,
+            komponenty src/components/sciana/: Tabliczka (header/body/footer obowiązkowe),
+            Miejsce, WierszeAB, Odczyt, KomputerLokalny (SVG), CtaPole, Szyna, StopkaSciany;
+            STRONA GŁÓWNA = 7 tabliczek jak proof B, każda liczba liczona z treści przy buildzie
+            (1908 węzłów PCF, 1201 haseł, 123 wpisy, 13 kategorii z liczbą węzłów);
+            WZORZEC PODSTRONY TREŚCI = /blog/[slug]: kol. 1–8 tabliczka czytania (prose-paper),
+            kol. 9–12 <aside class="s-side"> Miejsce (skrócona) + Skąd > dokąd + CTA;
+            TldrBox / KeyTakeaways / ArticleFaq / RelatedLinks przepisane na reguły i wiersze
+            (bez kart, chipów, zębatek). USUNIĘTE: AuroraBg, Counter, Ticker, ScrollReveal,
+            StatsGrid, Hero, Navbar, Footer, MobileBottomNav, GeoStripe, Services, BlogPreview,
+            ContactSection.
+POMIAR:     scripts/shots-live.mjs (ten sam algorytm co design/proof/measure.mjs, na żywym 3301):
+            / 1440×900 papier 66,0 · płyta 21,8 · sygnał 8,6 (kontrakt: 66,0 / 21,8 / 8,7);
+            / 375×812 50,0 / 43,2 / 0; wpis 1440: 62,0 / 29,5 / 3,2. slop_scan: 0 twardych, 0 miękkich
+            (skrypt leży w CREAITO/.claude/skills/ccud/scripts/, NIE w tym repo).
+LEGACY:     strony nieprzeniesione (/procesy, /slownik, /wdrozenia, /kontakt, /blog lista, /o-nas,
+            /portfolio, /faq, /cennik, hasła, procesy) renderują się wewnątrz ściany na całą
+            szerokość (`.wall > * { grid-column: 1/-1 }`) z aliasami kolorów przemapowanymi na
+            płytę/kość (dawne amber/sand/rust/coral → bone-2, NIE sygnał), rounded-* → 0,
+            dawne zmienne --font-inter/--font-ibm-plex-mono/--font-orbitron → nowe kroje.
+            Aliasy do usunięcia po migracji ostatniej podstrony.
+DŁUG:       (1) meta description „automatyzacje n8n" w layout.tsx — chronione SEO, nie ruszane;
+            (2) lista /blog, /procesy, /slownik i reszta podstron — stary układ (kafle, SubpageHeader
+            z zębatkami mechanism.tsx w starej palecie hex); (3) 123 ilustracje wpisów w starej
+            palecie (widoczne tylko w OG); (4) kropka stanu w szynie STOI — migotanie dopiero,
+            gdy stoi za nią realny stan; (5) ContactForm woła --font-ibm-plex-mono (alias działa).
+URUCHOMIENIE: skrót LOKAI.lnk (oba serwery) · `scripts\lokai-dual.ps1 -TylkoNowy` (tylko 3301, do
+            kodowania) · `-BezPrzegladarki` (bez otwierania kart). Dev 3301 i `next build` dzielą
+            `.next` — build tylko po zabiciu 3301 (po porcie, `taskkill //PID`), potem restart.
+            Przy 7,5 GB RAM i dwóch devach jest ~400 MB wolnych: wtedy /blog/[slug] w dev daje 500
+            „Jest worker encountered 2 child process exceptions" (OOM, nie kod) — zamknij 3300.
+```
+
+Rozbieżności ETAP2 wobec `design/DESIGN.md` (kontrakt read-only, nie poprawiamy go):
+- ⚠️ Strona wpisu ma **H1 40 px** jak hero (kontrakt: „jeden na stronę, w tabliczce hero”);
+  tytuły wpisów są długie, więc H1 łamie się na 2–3 linie przy `max-width: 20ch`.
+- ⚠️ Kolumna metadanych podstrony to jeden element siatki (`<aside class="s-side">`, własna
+  siatka 1 kolumny) — inaczej `grid-row: span` rozciągałby Miejsce i CTA do wysokości artykułu.
+  Tabliczki NIE są zagnieżdżone w tabliczce (aside to nie tabliczka).
+- ⚠️ `.s-cta` na tablecie (761–1023 px) idzie na pełną szerokość (kontrakt: „pola łączą się
+  parami”, bez wskazania, z czym łączy się CTA).
+
 ---
 
 ## MAPA PLIKÓW

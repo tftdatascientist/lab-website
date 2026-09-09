@@ -1,4 +1,28 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+
+/**
+ * Tokeny z design/DESIGN.md (CCUD, locked v1, kierunek B „Ściana tabliczek”).
+ * Jedno źródło heksów: stąd idą klasy Tailwinda ORAZ zmienne CSS `:root`
+ * (plugin `addBase` niżej), więc komponenty mogą pisać `bg-paper` albo `var(--paper)`.
+ */
+export const tokens = {
+  paper: "#e8e5de",
+  "paper-2": "#dcd8cf",
+  "paper-3": "#cfcabf",
+  plate: "#26282b",
+  "plate-2": "#323538",
+  "plate-3": "#3e4246",
+  ink: "#171614",
+  "ink-2": "#4f4c47",
+  "ink-3": "#66625b",
+  bone: "#e8e5de",
+  "bone-2": "#a8a49c",
+  accent: "#ec3d0a",
+  "accent-ink": "#1a0c07",
+  "rule-paper": "#171614",
+  "rule-plate": "rgba(232,229,222,.18)",
+} as const;
 
 const config: Config = {
   content: [
@@ -9,105 +33,104 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Backgrounds ──────────────────────────────────────────────────
-        background: "#0b0c0e",
-        "bg-soft": "#121315",
+        ...tokens,
+
+        // ── Aliasy LEGACY (strony nieprzeniesione w ETAP2) ───────────────
+        // Mapowane na nowe podłoża, żeby stare strony były czytelne na płycie.
+        // Dawne akcenty (amber/sand/rust/coral/primary) idą na NEUTRALNY bone-2,
+        // NIE na sygnał — inaczej każda stara strona rozsadza budżet ≤10 % sygnału.
+        // Do usunięcia po migracji wszystkich podstron (DESIGN.md §Wdrożenie).
+        background: tokens.plate,
+        "bg-soft": tokens["plate-2"],
         surface: {
-          DEFAULT: "#17181b",
-          warm: "#1E1B18",
-          hi: "#1f2125",
-          "hi-hi": "#2a2d32",
-          // legacy aliases (keep for unused pages during migration)
-          dim: "#121315",
-          bright: "#2a2d32",
-          lowest: "#0b0c0e",
-          low: "#17181b",
-          container: "#1f2125",
-          "container-high": "#2a2d32",
-          "container-highest": "#2a2d32",
-          variant: "#2a2d32",
-          tint: "#f5b845",
+          DEFAULT: tokens["plate-2"],
+          warm: tokens["plate-2"],
+          hi: tokens["plate-3"],
+          "hi-hi": tokens["plate-3"],
+          dim: tokens["plate-2"],
+          bright: tokens["plate-3"],
+          lowest: tokens.plate,
+          low: tokens["plate-2"],
+          container: tokens["plate-3"],
+          "container-high": tokens["plate-3"],
+          "container-highest": tokens["plate-3"],
+          variant: tokens["plate-3"],
+          tint: tokens["bone-2"],
         },
-        // ── Accents — warm amber/coral/sand/rust ─────────────────────────
-        amber: {
-          DEFAULT: "#f5b845",
-          deep: "#c48a1c",
-        },
-        coral: {
-          DEFAULT: "#ef7955",
-          deep: "#b84a2a",
-        },
-        sand: {
-          DEFAULT: "#d9b88a",
-          deep: "#8a6a3c",
-        },
-        rust: {
-          DEFAULT: "#b8542f",
-          deep: "#7a3018",
-        },
-        // ── Legacy aliases (map to warm palette, keep until full migration) ─
-        primary: {
-          DEFAULT: "#f5b845",
-          container: "#c48a1c",
-        },
-        secondary: {
-          DEFAULT: "#d9b88a",
-          container: "#8a6a3c",
-        },
-        tertiary: {
-          DEFAULT: "#ef7955",
-          container: "#b84a2a",
-        },
-        error: {
-          DEFAULT: "#ffb4ab",
-          container: "#93000a",
-        },
-        // ── Text ─────────────────────────────────────────────────────────
-        "on-surface": {
-          DEFAULT: "#ede7dc",
-          variant: "#a8a29e",
-        },
-        "on-primary": {
-          DEFAULT: "#1a0f00",
-          container: "#1a0f00",
-        },
-        "on-secondary": {
-          DEFAULT: "#1a0f00",
-          container: "#1a0f00",
-        },
-        "on-background": "#ede7dc",
-        text: {
-          DEFAULT: "#ede7dc",
-          dim: "#a8a29e",
-          mute: "#78716c",
-        },
-        outline: {
-          DEFAULT: "#78716c",
-          variant: "rgba(255,255,255,0.08)",
-        },
-        "inverse-surface": "#ede7dc",
-        "inverse-primary": "#c48a1c",
-        border: {
-          DEFAULT: "rgba(255,255,255,0.08)",
-          strong: "rgba(255,255,255,0.14)",
-        },
+        amber: { DEFAULT: tokens["bone-2"], deep: tokens["bone-2"] },
+        coral: { DEFAULT: tokens["bone-2"], deep: tokens["bone-2"] },
+        sand: { DEFAULT: tokens["bone-2"], deep: tokens["bone-2"] },
+        rust: { DEFAULT: tokens["bone-2"], deep: tokens["bone-2"] },
+        primary: { DEFAULT: tokens["bone-2"], container: tokens["plate-3"] },
+        secondary: { DEFAULT: tokens["bone-2"], container: tokens["plate-3"] },
+        tertiary: { DEFAULT: tokens["bone-2"], container: tokens["plate-3"] },
+        error: { DEFAULT: tokens.accent, container: tokens["plate-3"] },
+        "on-surface": { DEFAULT: tokens.bone, variant: tokens["bone-2"] },
+        "on-primary": { DEFAULT: tokens.ink, container: tokens.bone },
+        "on-secondary": { DEFAULT: tokens.ink, container: tokens.bone },
+        "on-background": tokens.bone,
+        text: { DEFAULT: tokens.bone, dim: tokens["bone-2"], mute: tokens["bone-2"] },
+        outline: { DEFAULT: tokens["bone-2"], variant: tokens["rule-plate"] },
+        "inverse-surface": tokens.bone,
+        "inverse-primary": tokens["bone-2"],
+        border: { DEFAULT: tokens["rule-plate"], strong: tokens["rule-plate"] },
       },
       fontFamily: {
-        heading: ["var(--font-inter)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
-        mono: ["var(--font-ibm-plex-mono)", "var(--font-jetbrains-mono)", "monospace"],
-        display: ["var(--font-chakra-petch)", "var(--font-inter)", "sans-serif"],
+        display: ["var(--font-chakra-petch)", "sans-serif"],
+        text: ["var(--font-archivo)", "sans-serif"],
+        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        // legacy
+        heading: ["var(--font-archivo)", "sans-serif"],
+        body: ["var(--font-archivo)", "sans-serif"],
       },
+      fontSize: {
+        "step--1": ["13px", { lineHeight: "1.4" }],
+        "step-0": ["17px", { lineHeight: "1.5" }],
+        "step-1": ["22px", { lineHeight: "1.1" }],
+        "step-2": ["30px", { lineHeight: "1.1" }],
+        "step-3": ["40px", { lineHeight: "1" }],
+        "step-4": ["54px", { lineHeight: "1.1" }],
+      },
+      spacing: {
+        s1: "8px",
+        s2: "16px",
+        s3: "32px",
+        s4: "64px",
+      },
+      // tabliczka ma kanty — także na stronach legacy (rounded-* daje 0)
       borderRadius: {
-        DEFAULT: "0.25rem",
-        lg: "0.5rem",
-        xl: "0.75rem",
-        "2xl": "1rem",
-        "3xl": "1.5rem",
-        full: "9999px",
+        none: "0",
+        DEFAULT: "0",
+        sm: "0",
+        md: "0",
+        lg: "0",
+        xl: "0",
+        "2xl": "0",
+        "3xl": "0",
+        full: "0",
+      },
+      boxShadow: {
+        none: "none",
+        DEFAULT: "none",
+        sm: "none",
+        md: "none",
+        lg: "none",
+        xl: "none",
+        "2xl": "none",
+      },
+      transitionDuration: {
+        state: "140ms",
+        context: "220ms",
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(({ addBase }) => {
+      const vars: Record<string, string> = {};
+      for (const [k, v] of Object.entries(tokens)) vars[`--${k}`] = v;
+      addBase({ ":root": vars });
+    }),
+  ],
 };
 export default config;
