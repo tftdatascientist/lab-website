@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
-import { SubpageHeader, SectionDivider } from "@/components/mechanism";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import SzukajPrzycisk from "@/components/sciana/SzukajPrzycisk";
 import SlownikTree from "@/components/SlownikTree";
 import {
   getTermsByL1,
@@ -11,16 +13,13 @@ import {
   getL3sByL2,
   getTermsByL3,
   getTermsByL2Count,
+  getAllTerms,
+  getCategories,
   L1_LABELS,
   labelL2,
   labelL3,
 } from "@/lib/slownik";
-import {
-  generateDefinedTermSetSchema,
-  generateItemListSchema,
-  generateBreadcrumbSchema,
-  graph,
-} from "@/lib/schema";
+import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
@@ -60,6 +59,7 @@ export default function SlownikKategoriaPage({ params }: Props) {
 
   const l2s = getL2sByL1(params.l1);
   const allL3 = l2s.flatMap((l2) => getL3sByL2(l2));
+  const categories = getCategories();
 
   const schema = graph(
     generateDefinedTermSetSchema({
@@ -82,96 +82,78 @@ export default function SlownikKategoriaPage({ params }: Props) {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <div className="pt-13" style={{ paddingTop: 52 }}>
-        <SubpageHeader
-          eyebrow="Słownik · kategoria"
-          title={label}
-          cluster="slownik"
-          description={
-            <>
-              {terms.length} pojęć z dziedziny{" "}
-              <strong className="text-on-surface">{label.toLowerCase()}</strong> — uporządkowanych w grupy
-              tematyczne, każde z&nbsp;prostą definicją i&nbsp;źródłem.
-            </>
-          }
-        >
-          <nav className="mt-5 flex items-center gap-2 text-[12px] text-text-mute flex-wrap font-mono">
-            <Link href="/slownik" className="hover:text-amber transition-colors">
-              ← Cały słownik
+      <Tabliczka
+        nr="01"
+        title={
+          <>
+            <Link href="/slownik">Słownik</Link> · kategoria
+          </>
+        }
+        right={<SzukajPrzycisk />}
+        footer="Poddziedzina > Grupa > Hasło"
+        footerRight={`${terms.length} haseł`}
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          {label}
+        </h1>
+        <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)", marginBottom: "var(--space-2)" }}>
+          {terms.length} pojęć z dziedziny {label.toLowerCase()} — uporządkowanych w grupy tematyczne, każde z prostą
+          definicją i źródłem.
+        </p>
+
+        <nav className="filters" aria-label="kategorie">
+          <Link href="/slownik">
+            Wszystkie <span className="n">{getAllTerms().length}</span>
+          </Link>
+          {categories.map((c) => (
+            <Link key={c.key} href={`/slownik/kategoria/${c.key}`} aria-current={c.key === params.l1 ? "page" : undefined}>
+              {c.label} <span className="n">{c.count}</span>
             </Link>
-          </nav>
-        </SubpageHeader>
+          ))}
+        </nav>
 
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12 grid lg:grid-cols-[248px_1fr] gap-10">
-          <aside className="hidden lg:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
-              <SlownikTree l1={params.l1} />
-            </div>
-          </aside>
+        {l2s.map((l2) => {
+          const l3s = getL3sByL2(l2);
+          return (
+            <section key={l2} className="ruled" style={{ marginTop: 0 }}>
+              <h2 className="label" style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
+                <Link href={`/slownik/kategoria/${params.l1}/${l2}`} style={{ color: "var(--ink)", fontWeight: 700 }}>
+                  {labelL2(l2)}
+                </Link>
+                <span>{getTermsByL2Count(l2)} pojęć</span>
+              </h2>
+              <ul className="rows">
+                {l3s.map((l3) => {
+                  const n = getTermsByL3(l3).length;
+                  return (
+                    <li key={l3}>
+                      <span className="n">{n}</span>
+                      <span className="t" style={{ fontWeight: 400 }}>
+                        <Link href={`/slownik/grupa/${l3}`}>{labelL3(l3)}</Link>
+                      </span>
+                      <span className="v" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
+      </Tabliczka>
 
-          <div className="min-w-0 space-y-12">
-            <details className="lg:hidden rounded-xl border border-border bg-surface/40">
-              <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute marker:text-amber">
-                Przeglądaj kategorię
-              </summary>
-              <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto border-t border-border pt-3">
-                <SlownikTree l1={params.l1} />
-              </div>
-            </details>
-
-            {l2s.map((l2) => {
-              const l3s = getL3sByL2(l2);
-              return (
-                <section key={l2}>
-                  <div className="flex items-baseline gap-3 mb-4">
-                    <h2 className="font-heading font-bold text-on-surface text-[20px]">
-                      <Link href={`/slownik/kategoria/${params.l1}/${l2}`} className="hover:text-amber transition-colors">
-                        {labelL2(l2)}
-                      </Link>
-                    </h2>
-                    <span className="font-mono text-[12px] text-text-mute">{getTermsByL2Count(l2)} pojęć</span>
-                  </div>
-                  <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {l3s.map((l3) => {
-                      const n = getTermsByL3(l3).length;
-                      return (
-                        <li key={l3}>
-                          <Link
-                            href={`/slownik/grupa/${l3}`}
-                            className="group block rounded-xl border border-border bg-surface hover:border-amber/40 transition-all px-4 py-3 h-full"
-                          >
-                            <span className="font-heading font-semibold text-on-surface text-[14px] group-hover:text-amber transition-colors leading-snug">
-                              {labelL3(l3)}
-                            </span>
-                            <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.12em] text-text-mute">
-                              {n} {n === 1 ? "pojęcie" : "pojęć"}
-                            </div>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              );
-            })}
-          </div>
-        </div>
-
-        <SectionDivider label="Automatyzacja z AI" />
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
-          <div className="rounded-2xl border border-border bg-bg-soft px-6 py-8 sm:px-10 sm:py-10 text-center">
-            <h2 className="font-heading text-[clamp(20px,2.5vw,28px)] font-bold text-on-surface mb-3">
-              Chcesz wykorzystać AI w&nbsp;swojej firmie?
-            </h2>
-            <p className="text-text-dim text-[15px] max-w-md mx-auto mb-6">
-              Wdrażamy chatboty, agentów głosowych i&nbsp;automatyzacje dla MŚP. Pierwsza konsultacja jest bezpłatna.
-            </p>
-            <Link href="/kontakt" className="btn-primary inline-flex items-center rounded-[10px] px-6 py-3 text-[15px]">
-              Bezpłatna konsultacja
-            </Link>
-          </div>
-        </div>
-      </div>
+      <KolumnaBoczna
+        routes={[
+          { from: "Ta dziedzina", to: `${terms.length} haseł`, href: `/slownik/kategoria/${params.l1}` },
+          { from: "Cały słownik", to: `${getAllTerms().length} haseł`, href: "/slownik" },
+          { from: "AI w Twojej firmie", to: "Rozmowa", href: "/kontakt" },
+        ]}
+        routesFooter="/slownik"
+      >
+        <Tabliczka nr="04" title="Drzewo dziedziny" right={l2s.length} footer="Poddziedzina > Grupa > Podgrupa" plate>
+          <SlownikTree l1={params.l1} />
+        </Tabliczka>
+      </KolumnaBoczna>
     </>
   );
 }

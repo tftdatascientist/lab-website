@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import SzukajPrzycisk from "@/components/sciana/SzukajPrzycisk";
 import RelatedLinks from "@/components/RelatedLinks";
 import SlownikTree from "@/components/SlownikTree";
 import {
@@ -12,19 +15,14 @@ import {
   getL4sByL3,
   getTermsByL3,
   getTermsByL4,
+  getAllTerms,
   buildSlownikTrail,
   labelL1,
   labelL2,
   labelL3,
   labelL4,
-  type Term,
 } from "@/lib/slownik";
-import {
-  generateDefinedTermSetSchema,
-  generateItemListSchema,
-  generateBreadcrumbSchema,
-  graph,
-} from "@/lib/schema";
+import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
@@ -90,138 +88,91 @@ export default function SlownikGrupaPage({ params }: Props) {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <article className="pt-13" style={{ paddingTop: 52 }}>
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pt-12">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[12px] text-text-mute flex-wrap font-mono mb-8">
-            <Link href="/slownik" className="hover:text-amber transition-colors">
-              Słownik
-            </Link>
+      <Tabliczka
+        as="article"
+        nr="01"
+        title={
+          <>
+            <Link href="/slownik">Słownik</Link>
             {trail.slice(0, -1).map((t) => (
-              <span key={t.href} className="flex items-center gap-2">
-                <span>/</span>
-                <Link href={t.href} className="hover:text-amber transition-colors">
-                  {t.label}
-                </Link>
+              <span key={t.href}>
+                {" "}
+                · <Link href={t.href}>{t.label}</Link>
               </span>
             ))}
-            <span>/</span>
-            <span className="text-text-dim">{label}</span>
-          </nav>
+          </>
+        }
+        right={<SzukajPrzycisk />}
+        footer={`Grupa pojęć · ${labelL2(l2)}`}
+        footerRight={`${terms.length} haseł`}
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          {label}
+        </h1>
+        <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)", marginBottom: "var(--space-3)" }}>
+          {terms.length} pojęć w {l4s.length} {l4s.length === 1 ? "podgrupie" : "podgrupach"}, z prostymi definicjami i
+          źródłami.
+        </p>
 
-          <header className="mb-2 max-w-3xl">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-amber border border-amber/25 rounded-full px-2.5 py-0.5">
-                Grupa pojęć
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-mute">{labelL2(l2)}</span>
-            </div>
-            <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-extrabold tracking-[-0.03em] text-on-surface leading-tight">
-              {label}
-            </h1>
-            <p className="mt-3 text-text-dim text-[15px] leading-relaxed">
-              {terms.length} pojęć w {l4s.length} {l4s.length === 1 ? "podgrupie" : "podgrupach"}, z prostymi
-              definicjami i źródłami.
-            </p>
-          </header>
-        </div>
+        {l4s.map((l4) => {
+          const items = getTermsByL4(params.l3, l4);
+          return (
+            <section key={l4} id={`g-${l4}`} className="ruled" style={{ marginTop: 0, scrollMarginTop: 16 }}>
+              <h2 className="label">
+                {labelL4(l4)} · {items.length}
+              </h2>
+              <ul className="rows">
+                {items.map((t) => (
+                  <li key={t.slug}>
+                    <span className="n">{t.skrot || ""}</span>
+                    <span className="t">
+                      <Link href={`/slownik/${t.slug}`}>{t.haslo}</Link>
+                      <span className="d">{t.definicja}</span>
+                    </span>
+                    <span className="v" />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
 
-        {/* Drzewo + treść + TOC */}
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-10 grid lg:grid-cols-[1fr_220px] xl:grid-cols-[248px_1fr_220px] gap-10">
-          <aside className="hidden xl:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
-              <SlownikTree l1={l1} activeL3={params.l3} />
-            </div>
-          </aside>
+        {siblings.length > 0 && (
+          <RelatedLinks
+            title={`Pozostałe grupy — ${labelL2(l2)}`}
+            items={siblings.map((s) => ({ label: labelL3(s), href: `/slownik/grupa/${s}`, kind: "slownik" }))}
+          />
+        )}
+      </Tabliczka>
 
-          <div className="min-w-0">
-            {/* Mobile/tablet: drzewo w rozwijanym panelu */}
-            <details className="xl:hidden mb-8 rounded-xl border border-border bg-surface/40">
-              <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute marker:text-amber">
-                Przeglądaj kategorię
-              </summary>
-              <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto border-t border-border pt-3">
-                <SlownikTree l1={l1} activeL3={params.l3} />
-              </div>
-            </details>
-
-            <div className="space-y-12">
+      <KolumnaBoczna
+        routes={[
+          { from: "Ta grupa", to: `${terms.length} haseł`, href: `/slownik/grupa/${params.l3}` },
+          { from: "Poddziedzina", to: labelL2(l2), href: `/slownik/kategoria/${l1}/${l2}` },
+          { from: "Cały słownik", to: `${getAllTerms().length} haseł`, href: "/slownik" },
+        ]}
+        routesFooter="/slownik"
+      >
+        {l4s.length > 1 && (
+          <Tabliczka nr="04" title="Na tej stronie" right={l4s.length} footer="Podgrupy">
+            <ul className="rows">
               {l4s.map((l4) => (
-                <L4Section key={l4} l3={params.l3} l4={l4} />
+                <li key={l4}>
+                  <span className="n">{getTermsByL4(params.l3, l4).length}</span>
+                  <span className="t" style={{ fontWeight: 400, fontSize: 14 }}>
+                    <a href={`#g-${l4}`}>{labelL4(l4)}</a>
+                  </span>
+                  <span className="v" />
+                </li>
               ))}
-            </div>
-
-            {siblings.length > 0 && (
-              <RelatedLinks
-                title={`Pozostałe grupy — ${labelL2(l2)}`}
-                items={siblings.map((s) => ({ label: labelL3(s), href: `/slownik/grupa/${s}`, kind: "slownik" }))}
-              />
-            )}
-          </div>
-
-          {/* TOC L4 */}
-          {l4s.length > 1 && (
-            <aside className="hidden lg:block">
-              <div className="sticky top-24">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-mute mb-3">Na tej stronie</p>
-                <nav className="space-y-1.5 border-l border-border">
-                  {l4s.map((l4) => (
-                    <a
-                      key={l4}
-                      href={`#g-${l4}`}
-                      className="block -ml-px border-l border-transparent hover:border-amber pl-3 py-0.5 text-[12.5px] text-text-dim hover:text-amber transition-colors leading-snug"
-                    >
-                      {labelL4(l4)}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </aside>
-          )}
-        </div>
-
-        {/* CTA */}
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pb-16">
-          <div className="rounded-2xl border border-border bg-bg-soft px-6 py-8 sm:px-10 sm:py-10 text-center">
-            <h2 className="font-heading text-[clamp(20px,2.5vw,28px)] font-bold text-on-surface mb-3">
-              Chcesz wykorzystać AI w&nbsp;swojej firmie?
-            </h2>
-            <p className="text-text-dim text-[15px] max-w-md mx-auto mb-6">
-              Wdrażamy chatboty, agentów głosowych i&nbsp;automatyzacje dla MŚP. Pierwsza konsultacja jest bezpłatna.
-            </p>
-            <Link href="/kontakt" className="btn-primary inline-flex items-center rounded-[10px] px-6 py-3 text-[15px]">
-              Bezpłatna konsultacja
-            </Link>
-          </div>
-        </div>
-      </article>
+            </ul>
+          </Tabliczka>
+        )}
+        <Tabliczka nr={l4s.length > 1 ? "05" : "04"} title="Drzewo dziedziny" right={labelL1(l1)} footer="Poddziedzina > Grupa > Podgrupa" plate>
+          <SlownikTree l1={l1} activeL3={params.l3} />
+        </Tabliczka>
+      </KolumnaBoczna>
     </>
-  );
-}
-
-/** Sekcja podgrupy L4 z kartami haseł (linki do stron haseł). */
-function L4Section({ l3, l4 }: { l3: string; l4: string }) {
-  const terms = getTermsByL4(l3, l4);
-  return (
-    <section id={`g-${l4}`} className="scroll-mt-24">
-      <h2 className="font-heading font-bold text-on-surface text-[18px] leading-snug mb-4">{labelL4(l4)}</h2>
-      <div className="grid sm:grid-cols-2 gap-3">
-        {terms.map((t: Term) => (
-          <Link
-            key={t.slug}
-            href={`/slownik/${t.slug}`}
-            className="group block rounded-xl border border-border bg-surface hover:border-amber/40 transition-all p-4 h-full"
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <span className="font-heading font-semibold text-on-surface group-hover:text-amber transition-colors leading-snug">
-                {t.haslo}
-              </span>
-              {t.skrot && <span className="font-mono text-[11px] text-text-mute">{t.skrot}</span>}
-            </div>
-            <p className="text-text-dim text-[13px] leading-snug line-clamp-2">{t.definicja}</p>
-          </Link>
-        ))}
-      </div>
-    </section>
   );
 }
