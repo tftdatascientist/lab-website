@@ -37,6 +37,12 @@ export default function SlownikPage() {
     if (g && g.letter === L) g.items.push(t);
     else groups.push({ letter: L, items: [t] });
   }
+  // hasła od cyfry/znaku („#”) na koniec — wiersz liter czyta się A–Z, potem #
+  const hash = groups.filter((g) => g.letter === "#");
+  if (hash.length) {
+    const rest = groups.filter((g) => g.letter !== "#");
+    groups.splice(0, groups.length, ...rest, { letter: "#", items: hash.flatMap((g) => g.items) });
+  }
 
   const schema = graph(
     generateDefinedTermSetSchema({

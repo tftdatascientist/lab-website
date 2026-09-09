@@ -166,8 +166,9 @@ ZOSTAJE:    /demo — stary układ (lucide, makieta agenta), aliasy legacy w tai
 - **Blog H1** „Polska w dobie cyfrowej rewolucji" i lead przeniesione ze starej strony bez zmian.
 
 Rozbieżności ETAP2 wobec `design/DESIGN.md` (kontrakt read-only, nie poprawiamy go):
-- ⚠️ Strona wpisu ma **H1 40 px** jak hero (kontrakt: „jeden na stronę, w tabliczce hero”);
-  tytuły wpisów są długie, więc H1 łamie się na 2–3 linie przy `max-width: 20ch`.
+- ⚠️ Każda podstrona (wpis, proces, hasło, wdrożenie, kontakt…) ma **H1 40 px** w tabliczce
+  czytania, nie w hero (kontrakt: „jeden na stronę, w tabliczce hero”); tytuły wpisów są
+  długie, więc H1 łamie się na 2–3 linie przy `max-width: 20ch`.
 - ⚠️ Kolumna metadanych podstrony to jeden element siatki (`<aside class="s-side">`, własna
   siatka 1 kolumny) — inaczej `grid-row: span` rozciągałby Miejsce i CTA do wysokości artykułu.
   Tabliczki NIE są zagnieżdżone w tabliczce (aside to nie tabliczka).

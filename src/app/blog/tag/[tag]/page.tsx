@@ -26,7 +26,9 @@ export function generateMetadata({ params }: Props): Metadata {
     title: `${info.label} — wpisy | Blog lok-ai`,
     description: `Wpisy z tagiem „${info.label}” (${info.count}) — automatyzacja i AI dla firm z regionu.`,
     robots: { index: false, follow: true },
-    alternates: { canonical: `${SITE_URL}/blog` },
+    // self-canonical: noindex + canonical na inny adres to sprzeczny sygnał dla Google;
+    // bez własnego wpisu strona odziedziczyłaby canonical strony głównej z layoutu.
+    alternates: { canonical: `${SITE_URL}/blog/tag/${params.tag}` },
   };
 }
 
