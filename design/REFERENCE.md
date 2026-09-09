@@ -20,7 +20,7 @@ więcej niż dziewięć stron z mojej listy — tak samo jak przy LAB247.
 | **dwubiegunowa** | W każdym widoku **dwa podłoża**: ciepła jasna etykieta (papier, biegun „lokalnie / tradycja") i grafitowa płyta (biegun „świat / technologia"). Ta sama tabliczka istnieje w obu wariantach (R2). Przekaz „lokalne × globalne" niesie zestawienie materiałów, nie hasło. |
 | **strzałkowa** | Główny element hero to **wiersze `A > B`**: `Grudziądz > świat`, `faktura ręczna > 0 min`, `sprawdzona technologia > prosta rzecz` (R1: `POLAND > MEXICO`). To jest „konwerter" z briefu narysowany, nie opisany. Znak `>` jest jedynym symbolem strzałki w serwisie. |
 | **monospace'owa** | Wszystkie dane, etykiety, metadane i nawigacja pomocnicza w **mono**; display w **rozszerzonym kroju technicznym** (Chakra Petch zostaje — to jest zachowany „charakter"); proza w grotesku z realnym kontrastem klasy wobec mono. Hierarchia z wielkości i wagi, nie z koloru. |
-| **sygnałowa** | **Jeden gorący kolor** (pomarańcz sygnałowy, rodowód: obecny `coral #ef7955` podgrzany do ~`#ff4a1c`) i **żaden inny akcent**. Występuje wyłącznie jako sygnał: CTA, aktywny stan, wartość w wierszu danych, pasek ostrzegawczy. ≤ 10 % powierzchni ekranu. |
+| **sygnałowa** | **Jeden gorący kolor** (pomarańcz sygnałowy, rodowód: obecny `coral #ef7955` podgrzany do ~`#ec3d0a`) i **żaden inny akcent**. Występuje wyłącznie jako sygnał: CTA, aktywny stan, wartość w wierszu danych, pasek ostrzegawczy. ≤ 10 % powierzchni ekranu. |
 | **płaska** | Zero cieni, zero gradientów, zero poświat (`AuroraBg` wylatuje). Rozdzielanie regułami 1 px i zmianą podłoża. Promień 0 lub 2 px systemowo. |
 | **odczytowa** | Ruch istnieje tylko jako **odczyt**: zmiana statusu, licznik liczony z danych, pasek przesuwu z realnymi pozycjami, migotanie kursora w polu. Zero fade-in na scroll, zero parallaxu. „Energia" strony = coś tu pracuje, nie coś tu lata. |
 
@@ -108,7 +108,7 @@ Pełna lista z kontrposunięciami: `references/anti-slop.md` (skill CCUD).
 - **DLACZEGO DZIAŁA:** treść jest **zorganizowana jak dokument przewozowy**, więc oko czyta
   strukturę zanim przeczyta słowa. Pary `A > B` niosą relację (skąd → dokąd) bez jednego zdania —
   dokładnie warunek „hasła niepotrzebne".
-- **TOKENY:** podłoże ciepłe `#e6e4de` · akcent `#ff4a1c` · mono 11/14/18 px · reguła 1 px `#1a1a1a` ·
+- **TOKENY:** podłoże ciepłe `#e6e4de` · akcent `#ec3d0a` · mono 11/14/18 px · reguła 1 px `#1a1a1a` ·
   wiersz danych 48 px · pole wartości = akcent + tekst ciemny.
 
 ### R2 — wrzut użytkownika: tabliczka „B22 / Retrodynamics" w dwóch wariantach (Pinterest)

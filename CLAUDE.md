@@ -44,6 +44,35 @@ Każda nowa podstrona musi mieć: `export metadata` + wywołanie `lib/schema.ts`
 
 ---
 
+## Kontrakt wizualny (CCUD)
+
+```
+DESIGN:        locked
+WERSJA:        1  (2026-09-09)
+KIERUNEK:      B — „Ściana tabliczek”
+ESTETYKA:      tabliczkowa, dwubiegunowa, strzałkowa, monospace'owa, sygnałowa, płaska, odczytowa
+KROJE:         Chakra Petch (display, ZOSTAJE) + Archivo (proza; Inter WYPADA) + JetBrains Mono (dane)
+PODŁOŻA:       papier #e8e5de (lokalnie) na płycie #26282b (świat) · jeden sygnał #ec3d0a
+POKRĘTŁA:      VARIANCE 7 · MOTION 5 · DENSITY 7
+ARTEFAKTY:     design/DESIGN-BRIEF.md · design/REFERENCE.md · design/DESIGN.md
+PROOF:         design/proof/B-sciana-tabliczek.html  (trzy kierunki: design/proof/index.html)
+KORPUS GUSTU:  ../../../../korpus-gustu.md  (korzeń SER, wspólny dla projektów)
+TRYB:          autonomiczny (CCUD zamknięty bramką 3 · 2026-09-09)
+```
+
+⛔ `design/DESIGN.md` jest read-only dla ETAP1–ETAP6. Zmiana wymaga ponownego CCUD ETAP C
+i podniesienia wersji. Rozbieżności oznaczaj `⚠️`, nie poprawiaj kontraktu.
+
+**Produkcja zostaje na obecnym designie** (decyzja właściciela 2026-09-09): redesign powstaje
+wyłącznie na gałęzi `redesign-ccud`; `main` (auto-deploy Vercel) nie dostaje go, dopóki właściciel
+nie uzna nowej szaty za lepszą. Gałąź rebase'uje się na `main` (dzienny blog), nie odwrotnie.
+
+Zasada 1 („Design — tylko ze Stitch”) od tej wersji brzmi: **tokeny z `design/DESIGN.md`**,
+Stitch i Claude Design generują układy i assety w jego granicach. `DESIGN-SYSTEM.md` (grafit +
+bursztyn) jest nieaktualny i zostaje jako historia.
+
+---
+
 ## MAPA PLIKÓW
 
 | Co zmieniasz | Plik |
