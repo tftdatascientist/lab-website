@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lok-ai — trzy kierunki CCUD (1440 + 375)</title>
+<style>
+:root{--paper:#e8e5de;--ink:#171614;--ink-3:#7d7972;--accent:#ff4a1c;--plate:#26282b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#dcd8cf;color:var(--ink);font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;padding:24px}
+h1{font-size:18px;margin-bottom:6px}
+p.lead{color:var(--ink-3);margin-bottom:24px;max-width:90ch}
+.dir{margin-bottom:40px;border:1px solid var(--ink);background:var(--paper)}
+.dir header{display:flex;justify-content:space-between;padding:8px 12px;background:var(--plate);color:var(--paper)}
+.dir header a{color:var(--accent)}
+.dir .teza{padding:10px 12px;border-bottom:1px solid var(--ink);line-height:1.5}
+.frames{display:flex;gap:16px;padding:16px;align-items:flex-start;overflow-x:auto}
+.frame{flex:none}
+.frame .cap{margin-bottom:6px;color:var(--ink-3)}
+.frame iframe{border:1px solid var(--ink);}
+.desk{width:1440px;height:1000px;transform:scale(.6);transform-origin:top left}
+.desk-wrap{width:864px;height:600px}
+.mob{width:375px;height:812px;transform:scale(.74);transform-origin:top left}
+.mob-wrap{width:278px;height:600px}
+</style>
+</head>
+<body>
+<h1>lok-ai · ETAP C · trzy kierunki</h1>
+<p class="lead">Te same tokeny (papier #e8e5de · płyta #26282b · sygnał #ff4a1c · Chakra Petch / Archivo / JetBrains Mono). Różnią się strukturą: organizacją treści, nośnikiem hierarchii, nawigacją i rolą obrazu. Każdy plik otwiera się też osobno. Lewy podgląd = 1440 px w skali 0,6, prawy = 375 px w skali 0,74.</p>
+
+<section class="dir">
+  <header><span>A · „List przewozowy”</span><a href="A-list-przewozowy.html" target="_blank">otwórz osobno &gt;</a></header>
+  <div class="teza"><b>Teza:</b> jedna kolumna tabliczek czytana z góry na dół jak dokument przewozowy; hierarchię niesie skala kroju; grafit tylko jako pieczęć (pasek nagłówka każdej tabliczki); zero obrazów. <b>Stawia na:</b> czytelność z telefonu, wejście z LLM na dowolną tabliczkę. <b>Poświęca:</b> wrażenie „ściany” i przestrzeń — na desktopie zostaje dużo pustego marginesu.</div>
+  <div class="frames">
+    <div class="frame"><div class="cap">1440</div><div class="desk-wrap"><iframe class="desk" src="A-list-przewozowy.html" title="A 1440"></iframe></div></div>
+    <div class="frame"><div class="cap">375</div><div class="mob-wrap"><iframe class="mob" src="A-list-przewozowy.html" title="A 375"></iframe></div></div>
+  </div>
+</section>
+
+<section class="dir">
+  <header><span>B · „Ściana tabliczek”</span><a href="B-sciana-tabliczek.html" target="_blank">otwórz osobno &gt;</a></header>
+  <div class="teza"><b>Teza:</b> grafitowa ściana, na niej papierowe tabliczki w nierównej siatce 12 kolumn; hierarchię niesie wielkość pola, nie krój; nawigacja jako pionowa szyna z lewej (pasek dolny na telefonie); jedyny obraz to rysunek techniczny komputera lokalnego. <b>Stawia na:</b> energię „coś tu wisi i pracuje”, przedmiot jako dowód. <b>Poświęca:</b> prostotę dodawania sekcji — każda nowa tabliczka wymaga decyzji o rozmiarze pola.</div>
+  <div class="frames">
+    <div class="frame"><div class="cap">1440</div><div class="desk-wrap"><iframe class="desk" src="B-sciana-tabliczek.html" title="B 1440"></iframe></div></div>
+    <div class="frame"><div class="cap">375</div><div class="mob-wrap"><iframe class="mob" src="B-sciana-tabliczek.html" title="B 375"></iframe></div></div>
+  </div>
+</section>
+
+<section class="dir">
+  <header><span>C · „Dwa bieguny”</span><a href="C-dwa-bieguny.html" target="_blank">otwórz osobno &gt;</a></header>
+  <div class="teza"><b>Teza:</b> ekran przecięty na pół — papier (lokalnie) | grafit (świat); wiersze <code>A &gt; B</code> fizycznie przechodzą przez szew; hierarchię niesie przestrzeń; nawigacja jako pasek dolny w obu biegunach; jedynym obrazem są odczyty (liczby, które istnieją). <b>Stawia na:</b> przekaz „lokalne × światowe” bez jednego słowa. <b>Poświęca:</b> gęstość na desktopie (dwie kolumny = połowa szerokości na tabelę) i wymaga, by każda podstrona miała treść na oba bieguny.</div>
+  <div class="frames">
+    <div class="frame"><div class="cap">1440</div><div class="desk-wrap"><iframe class="desk" src="C-dwa-bieguny.html" title="C 1440"></iframe></div></div>
+    <div class="frame"><div class="cap">375</div><div class="mob-wrap"><iframe class="mob" src="C-dwa-bieguny.html" title="C 375"></iframe></div></div>
+  </div>
+</section>
+</body>
+</html>

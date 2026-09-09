@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lok-ai — kierunek B „Ściana tabliczek” (proof CCUD)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* TOKENY — identyczne z A i C */
+:root{
+  --paper:#e8e5de;   --paper-2:#dcd8cf;  --paper-3:#cfcabf;
+  --plate:#26282b;   --plate-2:#323538;  --plate-3:#3e4246;
+  --ink:#171614;     --ink-2:#4f4c47;    --ink-3:#7d7972;
+  --bone:#e8e5de;    --bone-2:#a8a49c;
+  --accent:#ff4a1c;  --accent-ink:#1a0c07;
+  --rule-paper:#171614;  --rule-plate:rgba(232,229,222,.18);
+  --font-display:"Chakra Petch",sans-serif;
+  --font-text:"Archivo",sans-serif;
+  --font-mono:"JetBrains Mono",monospace;
+  --step--1:13px; --step-0:17px; --step-1:22px; --step-2:30px; --step-3:40px; --step-4:54px;
+  --measure:66ch;
+  --space-1:8px; --space-2:16px; --space-3:32px; --space-4:64px;
+  --radius:0;
+  --dur-state:140ms; --ease-out:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--plate);color:var(--bone);font-family:var(--font-text);font-size:var(--step-0);line-height:1.5}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.04em;text-transform:uppercase}
+.display{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;line-height:1}
+
+/* ---------- KIERUNEK B: płyta + nierówna siatka tabliczek, nawigacja boczna ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:56px;border-right:1px solid var(--rule-plate);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:var(--space-2) 0;background:var(--plate)}
+.rail .brand{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--font-display);font-weight:700;font-size:var(--step-1);letter-spacing:.06em;white-space:nowrap}
+.rail ul{list-style:none;display:flex;flex-direction:row;gap:var(--space-3);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.rail ul a{color:var(--bone-2);transition:color var(--dur-state) var(--ease-out)}
+.rail ul a:hover,.rail ul a[aria-current]{color:var(--bone)}
+.rail .dot{width:10px;height:10px;background:var(--accent)}
+
+.wall{margin-left:56px;padding:var(--space-2);display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(48px,auto);gap:var(--space-2)}
+
+/* tabliczka na ścianie */
+.tag{background:var(--paper);color:var(--ink);border:1px solid var(--paper-3);display:flex;flex-direction:column}
+.tag>header{display:flex;justify-content:space-between;gap:var(--space-2);padding:6px 12px;border-bottom:1px solid var(--rule-paper)}
+.tag>header .r{color:var(--ink-3)}
+.tag>.body{padding:var(--space-2) 12px;flex:1}
+.tag>footer{display:flex;justify-content:space-between;padding:6px 12px;border-top:1px solid var(--paper-3);color:var(--ink-3)}
+.tag.plate{background:var(--plate-2);color:var(--bone);border-color:var(--plate-3)}
+.tag.plate>header{border-color:var(--rule-plate)}
+.tag.plate>header .r,.tag.plate>footer{color:var(--bone-2);border-color:var(--rule-plate)}
+
+/* rozmiary pól — nierówne, celowo */
+.s-hero{grid-column:1/9}
+.s-geo{grid-column:9/13}
+.s-routes{grid-column:1/6}
+.s-device{grid-column:6/10}
+.s-cta{grid-column:10/13}
+.s-services{grid-column:1/8}
+.s-pcf{grid-column:8/13;grid-row:span 2}
+.s-blog{grid-column:1/8}
+.s-foot{grid-column:1/13}
+
+/* hero: mniejszy H1 — hierarchię niesie wielkość pola, nie krój */
+.s-hero h1{font-size:var(--step-3);max-width:16ch;margin-bottom:var(--space-2)}
+.s-hero p{max-width:var(--measure);color:var(--ink-2)}
+.s-geo .big{font-family:var(--font-mono);font-size:var(--step-2);font-weight:700;line-height:1.1;margin:var(--space-1) 0}
+.s-geo .big small{display:block;font-size:var(--step--1);font-weight:400;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+
+/* wiersze A > B */
+.routes{list-style:none}
+.routes li{display:grid;grid-template-columns:1fr 20px 1fr;gap:var(--space-1);align-items:center;min-height:40px;border-bottom:1px solid var(--paper-3);font-family:var(--font-mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.routes li:last-child{border-bottom:0}
+.routes .arrow{color:var(--accent);font-weight:700;text-align:center}
+.routes .to{font-weight:700}
+
+/* urządzenie — jedyny obraz */
+.device{display:block;width:100%;height:auto}
+.s-device .cap{margin-top:var(--space-1);color:var(--ink-2);font-size:15px}
+
+.cta{display:flex;align-items:center;justify-content:space-between;height:100%;min-height:96px;padding:var(--space-2);background:var(--accent);color:var(--accent-ink);font-family:var(--font-mono);font-size:var(--step-0);font-weight:700;text-transform:uppercase;letter-spacing:.06em;transition:background var(--dur-state) var(--ease-out)}
+.cta:hover{background:var(--ink);color:var(--paper)}
+
+/* wiersze danych */
+.rows{list-style:none}
+.rows li{display:grid;grid-template-columns:40px 1fr auto;gap:var(--space-2);align-items:baseline;padding:8px 0;border-bottom:1px solid var(--paper-3)}
+.rows li:last-child{border-bottom:0}
+.rows .n{font-family:var(--font-mono);font-size:var(--step--1);color:var(--ink-3)}
+.rows .t{font-weight:600}
+.rows .d{color:var(--ink-2);display:block;font-weight:400;font-size:15px}
+.rows .v{font-family:var(--font-mono);font-size:var(--step--1);text-align:right;color:var(--ink-2)}
+.plate .rows li{border-color:var(--rule-plate)}
+.plate .rows .n,.plate .rows .v{color:var(--bone-2)}
+.plate .rows .d{color:var(--bone-2)}
+
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;text-align:left;color:var(--ink-3);padding:6px 0;border-bottom:1px solid var(--rule-paper)}
+td{padding:5px 0;border-bottom:1px solid var(--paper-3)}
+td.c{font-family:var(--font-mono);font-size:var(--step--1);width:52px;color:var(--ink-2)}
+td.k{font-family:var(--font-mono);font-size:var(--step--1);text-align:right;width:56px}
+tr:hover td{background:var(--paper-2)}
+
+.s-foot{display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-2) 12px;border:1px solid var(--rule-plate);color:var(--bone-2)}
+.s-foot ul{list-style:none;display:flex;gap:var(--space-2)}
+
+/* telefon: szyna staje się paskiem dolnym, siatka jedną kolumną */
+@media (max-width:760px){
+  .rail{top:auto;bottom:0;left:0;right:0;width:auto;height:52px;flex-direction:row;border-right:0;border-top:1px solid var(--rule-plate);padding:0 var(--space-2)}
+  .rail .brand,.rail ul{writing-mode:horizontal-tb;transform:none}
+  .rail ul{flex-direction:row;gap:10px;font-size:11px;overflow-x:auto}
+  .rail .dot{display:none}
+  .rail .brand{font-size:var(--step-0)}
+  .wall{margin-left:0;padding-bottom:72px;grid-template-columns:1fr}
+  .wall>*{grid-column:1/-1!important;grid-row:auto!important}
+  .s-foot{flex-direction:column;gap:var(--space-1)}
+  .s-foot ul{flex-wrap:wrap}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="główna">
+  <a class="brand" href="#">lok-ai</a>
+  <ul class="mono">
+    <li><a href="#" aria-current="page">Wdrożenia</a></li><li><a href="#">Procesy</a></li><li><a href="#">Słownik</a></li><li><a href="#">Blog</a></li><li><a href="#">Kontakt</a></li>
+  </ul>
+  <span class="dot" title="Grudziądz"></span>
+</nav>
+
+<main class="wall">
+
+  <section class="tag s-hero">
+    <header class="mono"><span>Nr 01 · Lokalna Automatyzacja Biznesu</span><span class="r">2026-09</span></header>
+    <div class="body">
+      <h1 class="display">Twoja firma. Mądrzejsza o AI.</h1>
+      <p>Wdrażamy chatboty, agentów głosowych i integracje procesów dla małych i średnich firm z regionu kujawsko-pomorskiego.</p>
+    </div>
+    <footer class="mono"><span>Audyt &gt; Projekt &gt; Wdrożenie &gt; Wsparcie</span><span>01</span></footer>
+  </section>
+
+  <section class="tag plate s-geo">
+    <header class="mono"><span>Nr 02 · Miejsce</span><span class="r">PL</span></header>
+    <div class="body">
+      <div class="big">53°29′N<br>18°45′E<small>Grudziądz · kujawsko-pomorskie</small></div>
+      <p class="mono" style="color:var(--bone-2)">Toruń 60 km · Bydgoszcz 100 km</p>
+    </div>
+    <footer class="mono"><span>Spotykamy się na żywo</span><span>02</span></footer>
+  </section>
+
+  <section class="tag s-routes">
+    <header class="mono"><span>Nr 03 · Skąd &gt; dokąd</span><span class="r">5</span></header>
+    <div class="body">
+      <ul class="routes">
+        <li><span>Grudziądz</span><span class="arrow">&gt;</span><span class="to">Region</span></li>
+        <li><span>Sprawdzona technologia</span><span class="arrow">&gt;</span><span class="to">Prosta rzecz</span></li>
+        <li><span>Procesy w firmie</span><span class="arrow">&gt;</span><span class="to">1908 w bazie</span></li>
+        <li><span>Trudne pojęcia</span><span class="arrow">&gt;</span><span class="to">1201 haseł</span></li>
+        <li><span>Świat AI</span><span class="arrow">&gt;</span><span class="to">Przegląd dnia</span></li>
+      </ul>
+    </div>
+    <footer class="mono"><span>/procesy · /slownik · /blog</span><span>03</span></footer>
+  </section>
+
+  <section class="tag s-device">
+    <header class="mono"><span>Nr 04 · Komputer lokalny</span><span class="r">u klienta</span></header>
+    <div class="body">
+      <!-- jedyny obraz w kierunku B: rysunek techniczny urządzenia, docelowo zdjęcie własne na płaskim tle -->
+      <svg class="device" viewBox="0 0 320 150" role="img" aria-label="rysunek komputera lokalnego">
+        <g fill="none" stroke="#171614" stroke-width="1.5">
+          <rect x="20" y="30" width="200" height="90"/>
+          <rect x="20" y="30" width="200" height="14" fill="#26282b"/>
+          <line x1="20" y1="120" x2="220" y2="120"/>
+          <rect x="232" y="30" width="68" height="90"/>
+          <line x1="232" y1="52" x2="300" y2="52"/><line x1="232" y1="74" x2="300" y2="74"/><line x1="232" y1="96" x2="300" y2="96"/>
+          <circle cx="205" cy="105" r="4" fill="#ff4a1c" stroke="none"/>
+          <line x1="20" y1="135" x2="220" y2="135" stroke-dasharray="2 4"/>
+        </g>
+        <g font-family="JetBrains Mono,monospace" font-size="8" fill="#4f4c47">
+          <text x="30" y="40" fill="#e8e5de">MODEL JĘZYKOWY · NA MIEJSCU</text>
+          <text x="238" y="47">ZASILANIE</text><text x="238" y="69">SIEĆ LOKALNA</text><text x="238" y="91">DYSK</text>
+          <text x="20" y="146">DANE NIE OPUSZCZAJĄ FIRMY</text>
+        </g>
+      </svg>
+      <p class="cap">Sprzedawany razem ze sprzętem. Proste automatyzacje na lokalnym komputerze i lokalnych modelach.</p>
+    </div>
+    <footer class="mono"><span>Rys. 1</span><span>04</span></footer>
+  </section>
+
+  <a class="cta s-cta" href="#"><span>Umów rozmowę</span><span>&gt;</span></a>
+
+  <section class="tag s-services">
+    <header class="mono"><span>Nr 05 · Co wdrażamy</span><span class="r">6</span></header>
+    <div class="body">
+      <ul class="rows">
+        <li><span class="n">01</span><span class="t">Automatyzacja procesów<span class="d">Workflow i integracje API eliminujące powtarzalną pracę.</span></span><span class="v">u klienta</span></li>
+        <li><span class="n">02</span><span class="t">Chatboty AI<span class="d">Inteligentni asystenci na www obsługujący klientów 24/7.</span></span><span class="v">www</span></li>
+        <li><span class="n">03</span><span class="t">Agenci głosowi<span class="d">Voiceboty obsługujące połączenia telefoniczne.</span></span><span class="v">telefon</span></li>
+        <li><span class="n">04</span><span class="t">Bazy wiedzy<span class="d">Systemy odpowiedzi oparte na dokumentach firmy.</span></span><span class="v">lokalnie</span></li>
+        <li><span class="n">05</span><span class="t">Dashboardy i raporty<span class="d">Automatyczne raporty i KPI z rozproszonych danych.</span></span><span class="v">co rano</span></li>
+        <li><span class="n">06</span><span class="t">Integracje systemów<span class="d">Łączymy CRM, ERP, e-commerce w jeden ekosystem.</span></span><span class="v">CRM · ERP</span></li>
+      </ul>
+    </div>
+    <footer class="mono"><span>Technologia jest środkiem</span><span>05</span></footer>
+  </section>
+
+  <section class="tag s-pcf">
+    <header class="mono"><span>Nr 06 · Baza procesów APQC PCF</span><span class="r">1908</span></header>
+    <div class="body">
+      <table>
+        <thead><tr><th>Kod</th><th>Kategoria</th><th style="text-align:right">Węzłów</th></tr></thead>
+        <tbody>
+          <tr><td class="c">1.0</td><td>Strategia i misja</td><td class="k">129</td></tr>
+          <tr><td class="c">2.0</td><td>Produkty i usługi</td><td class="k">99</td></tr>
+          <tr><td class="c">3.0</td><td>Sprzedaż i marketing</td><td class="k">204</td></tr>
+          <tr><td class="c">4.0</td><td>Łańcuch dostaw</td><td class="k">146</td></tr>
+          <tr><td class="c">5.0</td><td>Dostarczanie usług</td><td class="k">66</td></tr>
+          <tr><td class="c">6.0</td><td>Obsługa klienta</td><td class="k">103</td></tr>
+          <tr><td class="c">7.0</td><td>Kadry i zasoby ludzkie</td><td class="k">152</td></tr>
+          <tr><td class="c">8.0</td><td>Technologie informacyjne</td><td class="k">320</td></tr>
+          <tr><td class="c">9.0</td><td>Finanse i rachunkowość</td><td class="k">265</td></tr>
+          <tr><td class="c">10.0</td><td>Obsługa aktywów</td><td class="k">88</td></tr>
+          <tr><td class="c">11.0</td><td>Zarządzanie ryzykiem</td><td class="k">55</td></tr>
+          <tr><td class="c">12.0</td><td>Relacje zewnętrzne</td><td class="k">53</td></tr>
+          <tr><td class="c">13.0</td><td>Teoria zarządzania</td><td class="k">228</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <footer class="mono"><span>Źródło: APQC PCF, tłum. własne</span><span>06</span></footer>
+  </section>
+
+  <section class="tag plate s-blog">
+    <header class="mono"><span>Nr 07 · Przegląd dnia</span><span class="r">ostatnie 6 z 123</span></header>
+    <div class="body">
+      <ul class="rows">
+        <li><span class="n">09-08</span><span class="t">Moc przyłączeniowa warunkiem inwestycji w centra danych</span><span class="v">1 min</span></li>
+        <li><span class="n">09-07</span><span class="t">Polska 4. w wiedzy o AI, 11. w gotowości</span><span class="v">1 min</span></li>
+        <li><span class="n">09-06</span><span class="t">Meta uruchamia w Polsce AI przeciw podszywaniu</span><span class="v">1 min</span></li>
+        <li><span class="n">09-05</span><span class="t">UKE wysyła bezpłatnie miernik łącza Whitebox 8+</span><span class="v">1 min</span></li>
+        <li><span class="n">09-03</span><span class="t">Mniej niż 1 na 3 firmy liczy (na) zwrot inwestycji w AI</span><span class="v">1 min</span></li>
+        <li><span class="n">09-02</span><span class="t">Sejm powoła komisję do nadzoru nad AI</span><span class="v">1 min</span></li>
+      </ul>
+    </div>
+    <footer class="mono"><span>Codziennie, ze źródłami</span><span>07</span></footer>
+  </section>
+
+  <footer class="s-foot mono">
+    <span>lok-ai · Lokalna Automatyzacja Biznesu · Grudziądz</span>
+    <ul><li><a href="#">Wdrożenia</a></li><li><a href="#">Procesy</a></li><li><a href="#">Słownik</a></li><li><a href="#">Blog</a></li><li><a href="#">O nas</a></li><li><a href="#">Kontakt</a></li></ul>
+    <span>© 2026</span>
+  </footer>
+
+</main>
+</body>
+</html>
