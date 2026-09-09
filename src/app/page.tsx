@@ -4,6 +4,7 @@ import Miejsce from "@/components/sciana/Miejsce";
 import WierszeAB from "@/components/sciana/WierszeAB";
 import KomputerLokalny from "@/components/sciana/KomputerLokalny";
 import CtaPole from "@/components/sciana/CtaPole";
+import Mapa from "@/components/sciana/Mapa";
 import { services } from "@/content/services";
 import { getCategories, getNodesByCategory, totalNodeCount } from "@/lib/procesy";
 import { getAllTerms } from "@/lib/slownik";
@@ -48,27 +49,34 @@ export default function Home() {
 
   return (
     <>
-      <Tabliczka
-        nr="01"
-        title="Lokalna Automatyzacja Biznesu"
-        right={stamp}
-        footer="Audyt > Projekt > Wdrożenie > Wsparcie"
-        className="s-hero"
-      >
-        <h1 className="display">Twoja firma. Mądrzejsza o AI.</h1>
-        <p>
-          Wdrażamy chatboty, agentów głosowych i integracje procesów dla małych i średnich firm z regionu
-          kujawsko-pomorskiego.
-        </p>
+      {/* ⚠️ animacja mapy w hero — decyzja właściciela 2026-09-10 (kontrakt: animowane logo poza hero) */}
+      <Tabliczka nr="01" title="Mapa · Grudziądz" right="PL" footer="Kraj > Region > Miasto > Mechanizm" footerRight="Rys. 1" plate className="s-mapa">
+        <Mapa />
       </Tabliczka>
 
-      <Miejsce nr="02" />
+      <div className="s-side">
+        <Tabliczka
+          nr="02"
+          title="Lokalna Automatyzacja Biznesu"
+          right={stamp}
+          footer="Audyt > Projekt > Wdrożenie > Wsparcie"
+          className="s-hero"
+        >
+          <h1 className="display">Twoja firma. Mądrzejsza o AI.</h1>
+          <p>
+            Wdrażamy chatboty, agentów głosowych i integracje procesów dla małych i średnich firm z regionu
+            kujawsko-pomorskiego.
+          </p>
+        </Tabliczka>
 
-      <Tabliczka nr="03" title="Skąd > dokąd" right={routes.length} footer="/procesy · /slownik · /blog" className="s-routes">
+        <Miejsce nr="03" />
+      </div>
+
+      <Tabliczka nr="04" title="Skąd > dokąd" right={routes.length} footer="/procesy · /slownik · /blog" className="s-routes">
         <WierszeAB rows={routes} />
       </Tabliczka>
 
-      <Tabliczka nr="04" title="Komputer lokalny" right="u klienta" footer="Rys. 1" className="s-device">
+      <Tabliczka nr="05" title="Komputer lokalny" right="u klienta" footer="Rys. 2" className="s-device">
         <KomputerLokalny />
         <p className="cap">
           Sprzedawany razem ze sprzętem. Proste automatyzacje na lokalnym komputerze i lokalnych modelach.
@@ -78,7 +86,7 @@ export default function Home() {
       <CtaPole />
 
       <Tabliczka
-        nr="05"
+        nr="06"
         title="Co wdrażamy"
         right={services.length}
         footer="Technologia jest środkiem"
@@ -99,7 +107,7 @@ export default function Home() {
       </Tabliczka>
 
       <Tabliczka
-        nr="06"
+        nr="07"
         title="Baza procesów APQC PCF"
         right={nodeCount}
         footer="Źródło: APQC PCF 7.4, tłum. własne"
@@ -130,7 +138,7 @@ export default function Home() {
       </Tabliczka>
 
       <Tabliczka
-        nr="07"
+        nr="08"
         title="Przegląd dnia"
         right={`ostatnie ${latest.length} z ${postCount}`}
         footer="Codziennie, ze źródłami"

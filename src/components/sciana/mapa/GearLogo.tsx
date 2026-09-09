@@ -126,8 +126,8 @@ export default function GearLogo({
   circuitProgress = 1,
   particleProgress = 1,
   pulseT = 0,
-  color = '#f5c542',
-  glow = 1,
+  color = 'currentColor',
+  glow = 0,
   opacity = 1,
 }: GearLogoProps) {
   const gearInv = 100 - 100 * gearProgress;

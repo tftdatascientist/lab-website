@@ -174,6 +174,21 @@ Rozbieżności ETAP2 wobec `design/DESIGN.md` (kontrakt read-only, nie poprawiam
   Tabliczki NIE są zagnieżdżone w tabliczce (aside to nie tabliczka).
 - ⚠️ `.s-cta` na tablecie (761–1023 px) idzie na pełną szerokość (kontrakt: „pola łączą się
   parami”, bez wskazania, z czym łączy się CTA).
+- ⚠️ **Animacja mapy w hero strony głównej** (2026-09-10, decyzja właściciela: „chodziło mi
+  o obecną animację, która pokazuje się po otwarciu strony głównej, mapa Polski itd. — nic innego
+  nie wchodzi w grę"; „to moja decyzja, masz to na piśmie"). Kontrakt §Ruch: „animowane logo
+  zostaje tylko na /o-nas albo jako mały znak w szynie, w hero nieobecne". Teraz tabliczka 01
+  „Mapa · Grudziądz" (płyta, kol. 1–8) niesie `sciana/mapa/MapaGrudziadz` — z dawnego pakietu
+  `Logo/` zostały TYLKO mapa Polski z najazdem na Grudziądz i koło zębate z panoramą miasta
+  (PolandMap, GearLogo, animations przeniesione do `sciana/mapa/`, reszta `Logo/` USUNIĘTA).
+  WYPADŁY: poświata i gwiazdy (NIE CHCĘ warstwa 2), wordmark / adres / tagline (dublują szynę
+  i H1), paski statusu z procentami i odczyty w rogach (liczniki bez źródła, nazwy narzędzi),
+  ramki narożne. Kreska = `currentColor` (kość na płycie), sygnał tylko celownik + punkt
+  Grudziądza; pętla 9,5 s z wygaszeniem, 30 fps rAF, stoi poza ekranem (IntersectionObserver),
+  `prefers-reduced-motion` = jedna klatka (koło z miastem). H1 i Miejsce przeszły do kolumny
+  9–12 (`.s-side`). SKUTEK POMIAROWY: pierwszy ekran 1440 = papier 29 % / płyta 60 % / sygnał
+  7 % — kontrakt CHCĘ 2 żąda papieru ≥ 40 % (przed mapą: 66 / 22 / 9). Wariant na papierze
+  (kreska atramentem) = zdjąć `plate` z tabliczki 01. Test: `scripts/e2e-mapa.mjs` (9 checków).
 
 ---
 

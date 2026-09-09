@@ -23,9 +23,11 @@ const GRID_LINES = [
   { x1: 1000, y1: 30, x2: 1000, y2: 620 },
 ];
 
-const CITIES = [
+const CITIES: {
+  x: number; y: number; name: string; primary: boolean; labelDx: number; labelAlign: 'start' | 'end'; highlight?: boolean;
+}[] = [
   { x: 470, y: 200, name: 'BYDGOSZCZ', primary: true, labelDx: -150, labelAlign: 'end' as const },
-  { x: 525, y: 151, name: 'GRUDZIĄDZ', primary: true, labelDx: 66, labelAlign: 'start' as const },
+  { x: 525, y: 151, name: 'GRUDZIĄDZ', primary: true, labelDx: 66, labelAlign: 'start' as const, highlight: true },
   { x: 540, y: 200, name: 'TORUŃ', primary: true, labelDx: 66, labelAlign: 'start' as const },
   { x: 510, y: 110, name: 'Gdańsk', primary: false, labelDx: 66, labelAlign: 'start' as const },
   { x: 600, y: 280, name: 'Warszawa', primary: false, labelDx: 66, labelAlign: 'start' as const },
@@ -47,14 +49,15 @@ interface PolandMapProps {
   glow?: number;
 }
 
+/** Kreska bierze `currentColor` z tabliczki; punkt `highlight` (Grudziądz) dostaje `--accent` przez CSS. */
 export default function PolandMap({
   drawProgress = 1,
   gridProgress = 1,
   cityProgress = 1,
   regionProgress = 0,
   fadeOpacity = 1,
-  color = '#f5c542',
-  glow = 1,
+  color = 'currentColor',
+  glow = 0,
 }: PolandMapProps) {
   const inv = 100 - 100 * drawProgress;
   const glowFilter =
@@ -126,8 +129,8 @@ export default function PolandMap({
             fillOpacity={(regionProgress - 0.6) / 0.4 * 0.8}
             fontSize={9}
             textAnchor="middle"
-            fontFamily="JetBrains Mono, ui-monospace, monospace"
             letterSpacing={2}
+            style={{ fontFamily: 'var(--font-mono)' }}
           >
             KUJAWSKO-POMORSKIE
           </text>
@@ -142,7 +145,7 @@ export default function PolandMap({
         const dx = c.labelDx ?? 66;
         const anchor = c.labelAlign || 'start';
         return (
-          <g key={i} style={{ opacity: p }}>
+          <g key={i} style={{ opacity: p, color: c.highlight ? 'var(--accent)' : undefined }}>
             <circle
               cx={c.x} cy={c.y}
               r={isP ? 4 : 2.5}
@@ -161,9 +164,8 @@ export default function PolandMap({
                   fill={color}
                   fontSize={11}
                   textAnchor={anchor}
-                  fontFamily="JetBrains Mono, ui-monospace, monospace"
                   letterSpacing={1.5}
-                  style={{ filter: `drop-shadow(0 0 3px ${color})` }}
+                  style={{ fontFamily: 'var(--font-mono)', filter: glow > 0 ? `drop-shadow(0 0 3px ${color})` : 'none' }}
                 >
                   {c.name}
                 </text>

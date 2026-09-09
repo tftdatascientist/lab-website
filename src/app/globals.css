@@ -204,8 +204,12 @@
   }
 
   /* pola na ścianie (desktop) — nierówne, celowo */
+  .s-mapa { grid-column: 1 / 9; }
   .s-hero { grid-column: 1 / 9; }
   .s-geo { grid-column: 9 / 13; }
+  /* strona główna: hero i Miejsce stoją w kolumnie obok mapy */
+  .s-side > .s-hero,
+  .s-side > .s-geo { grid-column: auto; }
   .s-routes { grid-column: 1 / 6; }
   .s-device { grid-column: 6 / 10; }
   .s-cta { grid-column: 10 / 13; }
@@ -224,6 +228,11 @@
   }
   .s-side > * {
     min-width: 0;
+  }
+
+  /* mapa: rysunek do krawędzi tabliczki, bez wewnętrznego marginesu */
+  .s-mapa > .body {
+    padding: 0;
   }
 
   /* hero: H1 40 px — hierarchię niesie wielkość pola */
@@ -897,8 +906,11 @@
 
 /* ── Tablet: pola łączą się parami, szyna zostaje ────────────────────────── */
 @media (min-width: 761px) and (max-width: 1023px) {
+  .s-mapa { grid-column: 1 / 13; }
   .s-hero { grid-column: 1 / 8; }
   .s-geo { grid-column: 8 / 13; }
+  .s-side > .s-hero,
+  .s-side > .s-geo { grid-column: auto; }
   .s-routes { grid-column: 1 / 7; }
   .s-device { grid-column: 7 / 13; }
   .s-cta { grid-column: 1 / 13; }
