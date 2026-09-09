@@ -22,6 +22,8 @@ proof: design/proof/B-sciana-tabliczek.html
 
 **Nazwa:** B — „Ściana tabliczek”
 
+**Powód wyboru (użytkownik):** „najbardziej odróżnia się od standardowego designu Claude Code”.
+
 **Teza:** grafitowa ściana, na niej papierowe tabliczki znamionowe w nierównej siatce
 12 kolumn; hierarchię niesie **wielkość pola**, nie krój; nawigacja to pionowa szyna z lewej
 (pasek dolny na telefonie); jedyny obraz to rysunek techniczny komputera lokalnego.
@@ -277,12 +279,15 @@ Zrzuty: `design/proof/shots/B-1440.png`, `design/proof/shots/B-375.png`.
 
 ## Odrzucone kierunki
 
-Użytkownik wybrał „opcja B” bez uzasadnienia. Powody odrzucenia to domysł z delty.
+Powód wyboru `[UŻYTKOWNIK]`: B „najbardziej odróżnia się od standardowego designu Claude Code”. To jest kryterium
+operacyjne na resztę pipeline'u: przy każdej decyzji ETAP2–ETAP5 pytanie brzmi „czy tak zrobiłby
+domyślny generator?” — jeśli tak, decyzja jest podejrzana. Powody odrzucenia A i C poniżej to
+domysł z delty wobec tego kryterium.
 
 | Kierunek | Teza | Powód odrzucenia |
 |----------|------|------------------|
-| A — „List przewozowy” | jedna kolumna tabliczek, hierarchia ze skali kroju, grafit jako pieczęć, zero obrazów | `[domysł]` za spokojny: czyta się jak dokument, a użytkownik chciał, żeby strona „emanowała energią”; pusty margines na desktopie |
-| C — „Dwa bieguny” | ekran przecięty na pół papier | grafit, wiersze przez szew, hierarchia z przestrzeni, pasek dolny | `[domysł]` za dosłowny: dwa bieguny jako dwie połówki to ilustracja hasła, nie ściana; połowa szerokości na tabelę; pusta płyta czyta się jako niedokończona |
+| A — „List przewozowy” | jedna kolumna tabliczek, hierarchia ze skali kroju, grafit jako pieczęć, zero obrazów | `[domysł]` za blisko domyślnika: jedna wycentrowana kolumna z nagłówkiem u góry to szkielet każdej wygenerowanej strony, tabliczki tylko go przebierają; czyta się jak dokument |
+| C — „Dwa bieguny” | ekran przecięty na pół papier | grafit, wiersze przez szew, hierarchia z przestrzeni, pasek dolny | `[domysł]` split-screen hero to rozpoznawalny wzorzec z galerii szablonów; dwa bieguny jako połówki = ilustracja hasła; pusta płyta czyta się jako niedokończona |
 
 Materiał do korpusu gustu: `../../korpus-gustu.md` (SER, wspólny) — wpis „automatyzacja lokalna / brand”.
 
