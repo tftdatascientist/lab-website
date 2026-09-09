@@ -5,6 +5,9 @@ import SchemaOrg from "@/components/SchemaOrg";
 import TldrBox from "@/components/TldrBox";
 import RelatedLinks from "@/components/RelatedLinks";
 import CategoryTree from "@/components/CategoryTree";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import SzukajPrzycisk from "@/components/sciana/SzukajPrzycisk";
 import {
   getNode,
   getCategory,
@@ -39,8 +42,7 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!p || p.level !== "Proces") return {};
   const url = `${SITE_URL}/procesy/proces/${params.kod}`;
   const desc =
-    p.descPl ||
-    `Proces ${p.code} „${p.namePl}" według APQC PCF 7.4 — działania, zadania i opis po polsku oraz po angielsku.`;
+    p.descPl || `Proces ${p.code} „${p.namePl}" według APQC PCF 7.4 — działania, zadania i opis po polsku oraz po angielsku.`;
   // Ochrona przed thin content: proces-liść (bez działań) z krótkim opisem → noindex,follow.
   const isThin = isThinProcess(p);
   return {
@@ -81,10 +83,7 @@ export default function ProcesPage({ params }: Props) {
       ? [
           generateItemListSchema(
             `Działania w procesie ${p.namePl}`,
-            activities.map((a) => ({
-              name: `${a.code} ${a.namePl}`,
-              url: `/procesy/proces/${params.kod}#a-${codeToSlug(a.code)}`,
-            })),
+            activities.map((a) => ({ name: `${a.code} ${a.namePl}`, url: `/procesy/proces/${params.kod}#a-${codeToSlug(a.code)}` })),
           ),
           generateHowToSchema({
             name: p.namePl,
@@ -103,139 +102,96 @@ export default function ProcesPage({ params }: Props) {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <article className="pt-13" style={{ paddingTop: 52 }}>
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pt-12">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[12px] text-text-mute flex-wrap font-mono mb-8">
-            <Link href="/procesy" className="hover:text-amber transition-colors">
-              Procesy
-            </Link>
+      <Tabliczka
+        as="article"
+        nr="01"
+        title={
+          <>
+            <Link href="/procesy">Procesy</Link>
             {trail.slice(0, -1).map((t) => (
-              <span key={t.code} className="flex items-center gap-2">
-                <span>/</span>
-                <Link href={t.href} className="hover:text-amber transition-colors">
-                  {t.name}
-                </Link>
+              <span key={t.code}>
+                {" "}
+                · <Link href={t.href}>{t.code}</Link>
               </span>
-            ))}
-            <span>/</span>
-            <span className="text-text-dim">{p.code}</span>
-          </nav>
+            ))}{" "}
+            · PCF {p.code}
+          </>
+        }
+        right={<SzukajPrzycisk />}
+        footer={`${p.nameEng ?? "Process"} · APQC PCF 7.4, tłum. własne`}
+        footerRight={`${activities.length} działań`}
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          {p.namePl}
+        </h1>
+        {p.nameEng && (
+          <p className="mono" style={{ color: "var(--ink-3)" }} lang="en">
+            {p.nameEng}
+          </p>
+        )}
 
-          {/* Header */}
-          <header className="mb-2 max-w-3xl">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-amber border border-amber/25 rounded-full px-2.5 py-0.5">
-                PCF {p.code}
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-mute">Proces</span>
-            </div>
-            <h1 className="font-heading text-[clamp(28px,4vw,42px)] font-extrabold tracking-[-0.03em] text-on-surface leading-tight">
-              {p.namePl}
-            </h1>
-            {p.nameEng && <p className="mt-2 font-mono text-[13px] text-text-dim">{p.nameEng}</p>}
-          </header>
+        <TldrBox>{p.descPl}</TldrBox>
+        {p.descEng && (
+          <p style={{ color: "var(--ink-3)", fontSize: 14, maxWidth: "var(--measure)", marginTop: "calc(-1 * var(--space-2))" }} lang="en">
+            <span className="mono">EN</span> {p.descEng}
+          </p>
+        )}
 
-          <TldrBox>{p.descPl}</TldrBox>
-          {p.descEng && (
-            <p className="text-text-mute text-[14px] leading-relaxed max-w-3xl -mt-3 mb-2" lang="en">
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-mute/70 mr-2">EN</span>
-              {p.descEng}
-            </p>
-          )}
-        </div>
-
-        {/* Drzewo kategorii + treść + TOC (układ docs) */}
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-10 grid lg:grid-cols-[1fr_220px] xl:grid-cols-[248px_1fr_220px] gap-10">
-          {/* Lewy rail — drzewo kategorii (crawlowalne, zero-JS) */}
-          <aside className="hidden xl:block">
-            <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2">
-              <CategoryTree categorySlug={p.categorySlug} activeCode={p.code} />
-            </div>
-          </aside>
-
-          <div className="min-w-0">
-            {/* Mobile/tablet: drzewo kategorii w rozwijanym panelu (rail ukryty < xl) */}
-            <details className="xl:hidden mb-8 rounded-xl border border-border bg-surface/40">
-              <summary className="cursor-pointer px-4 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute marker:text-amber">
-                Przeglądaj kategorię
-              </summary>
-              <div className="px-4 pb-4 max-h-[60vh] overflow-y-auto border-t border-border pt-3">
-                <CategoryTree categorySlug={p.categorySlug} activeCode={p.code} />
-              </div>
-            </details>
-
-            {activities.length > 0 ? (
-              <>
-                <h2 className="font-heading font-bold text-on-surface text-[22px] mb-6">
-                  Działania w tym procesie
-                  <span className="ml-3 font-mono text-[13px] text-text-mute font-normal">{activities.length}</span>
-                </h2>
-                <div className="space-y-12">
-                  {activities.map((a) => (
-                    <ActivitySection key={a.code} activity={a} />
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="rounded-2xl border border-border bg-surface px-6 py-8">
-                <p className="text-text-dim leading-relaxed">
-                  Ten proces (<strong className="text-on-surface">APQC PCF {p.code}</strong>) jest elementem
-                  liściowym taksonomii — nie ma zdefiniowanych pod-działań. Jego opis znajduje się powyżej.
-                </p>
-              </div>
-            )}
-
-            {siblings.length > 0 && (
-              <RelatedLinks
-                title={group ? `Pozostałe procesy — ${group.name}` : "Pozostałe procesy"}
-                items={siblings.map((s) => ({
-                  label: `${s.code} ${s.namePl}`,
-                  href: `/procesy/proces/${codeToSlug(s.code)}`,
-                  kind: "proces",
-                }))}
-              />
-            )}
-          </div>
-
-          {/* TOC — statyczne, crawlowalne (podświetlanie aktywnej sekcji: faza 2) */}
-          {activities.length > 1 && (
-            <aside className="hidden lg:block">
-              <div className="sticky top-24">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-mute mb-3">Na tej stronie</p>
-                <nav className="space-y-1.5 border-l border-border">
-                  {activities.map((a) => (
-                    <a
-                      key={a.code}
-                      href={`#a-${codeToSlug(a.code)}`}
-                      className="block -ml-px border-l border-transparent hover:border-amber pl-3 py-0.5 text-[12.5px] text-text-dim hover:text-amber transition-colors leading-snug"
-                    >
-                      <span className="font-mono text-[10px] text-text-mute mr-1.5">{a.code}</span>
-                      {a.namePl}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </aside>
-          )}
-        </div>
-
-        {/* CTA */}
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 pb-16">
-          <div className="rounded-2xl border border-border bg-bg-soft px-6 py-8 sm:px-10 sm:py-10 text-center">
-            <h2 className="font-heading text-[clamp(20px,2.5vw,28px)] font-bold text-on-surface mb-3">
-              Ten proces zjada Wam czas?
+        {activities.length > 0 ? (
+          <>
+            <h2 className="label mono" style={{ color: "var(--ink-3)", margin: "var(--space-3) 0 var(--space-1)" }}>
+              Działania w tym procesie · {activities.length}
             </h2>
-            <p className="text-text-dim text-[15px] max-w-xl mx-auto mb-6">
-              {cat ? `Automatyzujemy procesy z obszaru „${cat.namePl}".` : "Automatyzujemy procesy biznesowe."}{" "}
-              Pokażemy, gdzie AI i automatyzacja dają najszybszy zwrot.
-            </p>
-            <Link href="/kontakt" className="btn-primary inline-flex items-center rounded-[10px] px-6 py-3 text-[15px]">
-              Bezpłatna konsultacja
-            </Link>
-          </div>
-        </div>
-      </article>
+            {activities.map((a) => (
+              <ActivitySection key={a.code} activity={a} />
+            ))}
+          </>
+        ) : (
+          <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>
+            Ten proces (APQC PCF {p.code}) jest elementem liściowym taksonomii — nie ma zdefiniowanych pod-działań. Jego
+            opis znajduje się powyżej.
+          </p>
+        )}
+
+        {siblings.length > 0 && (
+          <RelatedLinks
+            title={group ? `Pozostałe procesy — ${group.name}` : "Pozostałe procesy"}
+            items={siblings.map((s) => ({ label: `${s.code} ${s.namePl}`, href: `/procesy/proces/${codeToSlug(s.code)}`, kind: "proces" }))}
+          />
+        )}
+      </Tabliczka>
+
+      <KolumnaBoczna
+        routes={[
+          { from: "Ten proces", to: `${activities.length} działań`, href: `/procesy/proces/${params.kod}` },
+          ...(group ? [{ from: "Grupa", to: group.code, href: group.href }] : []),
+          ...(cat ? [{ from: "Kategoria", to: cat.code, href: `/procesy/${cat.slug}` }] : []),
+          { from: "Ten proces u Ciebie", to: "Rozmowa", href: "/kontakt" },
+        ]}
+        routesFooter="/procesy"
+      >
+        {activities.length > 1 && (
+          <Tabliczka nr="04" title="Na tej stronie" right={activities.length} footer="Działania" >
+            <ul className="rows">
+              {activities.map((a) => (
+                <li key={a.code}>
+                  <span className="n">{a.code}</span>
+                  <span className="t" style={{ fontWeight: 400, fontSize: 14 }}>
+                    <a href={`#a-${codeToSlug(a.code)}`}>{a.namePl}</a>
+                  </span>
+                  <span className="v" />
+                </li>
+              ))}
+            </ul>
+          </Tabliczka>
+        )}
+        {cat && (
+          <Tabliczka nr={activities.length > 1 ? "05" : "04"} title="Drzewo kategorii" right={cat.code} footer="Grupa > Proces > Działanie" plate>
+            <CategoryTree categorySlug={p.categorySlug} activeCode={p.code} />
+          </Tabliczka>
+        )}
+      </KolumnaBoczna>
     </>
   );
 }
@@ -244,61 +200,53 @@ export default function ProcesPage({ params }: Props) {
 function ActivitySection({ activity }: { activity: ProcessNode }) {
   const tasks = getChildren(activity.code); // poziom 5 — Zadanie
   return (
-    <section id={`a-${codeToSlug(activity.code)}`} className="scroll-mt-24">
-      <div className="flex items-baseline gap-3 mb-2 flex-wrap">
-        <span className="font-mono text-[12px] text-amber">{activity.code}</span>
-        <h3 className="font-heading font-bold text-on-surface text-[18px] leading-snug">{activity.namePl}</h3>
-      </div>
+    <section id={`a-${codeToSlug(activity.code)}`} className="ruled" style={{ marginTop: 0, scrollMarginTop: 16 }}>
+      <h3 style={{ fontWeight: 600, marginBottom: 2 }}>
+        <span className="mono" style={{ color: "var(--ink-3)", marginRight: 8 }}>
+          {activity.code}
+        </span>
+        {activity.namePl}
+      </h3>
       {activity.nameEng && (
-        <p className="font-mono text-[11px] text-text-mute mb-3" lang="en">
+        <p className="mono" style={{ color: "var(--ink-3)", marginBottom: 6 }} lang="en">
           {activity.nameEng}
         </p>
       )}
-      {activity.descPl && (
-        <p className="text-on-surface-variant text-[15px] leading-relaxed max-w-3xl mb-2">{activity.descPl}</p>
-      )}
+      {activity.descPl && <p style={{ color: "var(--ink-2)", fontSize: 15, maxWidth: "var(--measure)" }}>{activity.descPl}</p>}
       {activity.descEng && (
-        <p className="text-text-mute text-[13px] leading-relaxed max-w-3xl mb-4" lang="en">
+        <p style={{ color: "var(--ink-3)", fontSize: 13, maxWidth: "var(--measure)", marginTop: 4 }} lang="en">
           {activity.descEng}
         </p>
       )}
 
       {tasks.length > 0 && (
-        <div className="mt-4 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-left border-collapse text-[13px]">
-            <thead>
-              <tr className="bg-surface">
-                <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-mute font-medium px-4 py-2.5 w-[88px]">
-                  Kod
-                </th>
-                <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-mute font-medium px-4 py-2.5">
-                  Zadanie
-                </th>
-                <th className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-mute font-medium px-4 py-2.5 hidden sm:table-cell">
-                  EN
-                </th>
+        <table style={{ marginTop: "var(--space-1)" }}>
+          <thead>
+            <tr>
+              <th scope="col">Kod</th>
+              <th scope="col">Zadanie</th>
+              <th scope="col" className="hide-m">
+                EN
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((t) => (
+              <tr key={t.code} id={`a-${codeToSlug(t.code)}`} style={{ scrollMarginTop: 16 }}>
+                <td className="c" style={{ width: 72, verticalAlign: "top" }}>
+                  {t.code}
+                </td>
+                <td>
+                  {t.namePl}
+                  {t.descPl && <span style={{ display: "block", color: "var(--ink-2)", fontSize: 13 }}>{t.descPl}</span>}
+                </td>
+                <td className="hide-m" style={{ color: "var(--ink-3)", fontSize: 13 }} lang="en">
+                  {t.nameEng}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {tasks.map((t) => (
-                <tr
-                  key={t.code}
-                  id={`a-${codeToSlug(t.code)}`}
-                  className="scroll-mt-24 border-t border-border align-top"
-                >
-                  <td className="font-mono text-[11px] text-amber px-4 py-2.5 whitespace-nowrap">{t.code}</td>
-                  <td className="px-4 py-2.5 text-on-surface">
-                    {t.namePl}
-                    {t.descPl && <span className="block text-text-dim text-[12px] leading-snug mt-0.5">{t.descPl}</span>}
-                  </td>
-                  <td className="px-4 py-2.5 text-text-mute hidden sm:table-cell" lang="en">
-                    {t.nameEng}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       )}
     </section>
   );

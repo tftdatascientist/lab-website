@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MechanismLogoMark } from "@/components/mechanism";
+import Znak from "./Znak";
 
 /**
  * Szyna nawigacyjna: pionowa 56 px z lewej (dewiacja #1), na telefonie pasek dolny 52 px.
@@ -24,7 +24,7 @@ export default function Szyna() {
     <nav className="rail" aria-label="główna">
       <div className="brand-box">
         <Link className="mark" href="/" aria-label="lok-ai — strona główna">
-          <MechanismLogoMark size={32} color="var(--bone-2)" />
+          <Znak size={32} />
         </Link>
         <Link className="brand" href="/" tabIndex={-1} aria-hidden="true">
           lok-ai

@@ -4,28 +4,7 @@ import { useState, type FormEvent } from "react";
 
 type Status = "idle" | "sending" | "success" | "error";
 
-const inputStyle = {
-  width: "100%",
-  background: "#17181b",
-  border: "none",
-  outline: "1px solid rgba(255,255,255,0.08)",
-  borderRadius: 10,
-  padding: "12px 14px",
-  color: "#ede7dc",
-  fontSize: 14,
-  fontFamily: "inherit",
-} as const;
-
-const labelStyle = {
-  display: "block",
-  fontSize: 11,
-  color: "#a8a29e",
-  marginBottom: 8,
-  fontFamily: "var(--font-ibm-plex-mono), monospace",
-  letterSpacing: "0.1em",
-  textTransform: "uppercase" as const,
-};
-
+/** Formularz kontaktowy na papierze (style `.form-grid` w globals.css). Wysyła do /api/contact. */
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
 
@@ -39,8 +18,7 @@ export default function ContactForm() {
       company: (form.elements.namedItem("company") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
-        .value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
     try {
@@ -59,116 +37,62 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div
-        className="rounded-[10px] p-8 text-center flex flex-col items-center justify-center h-full"
-        style={{
-          background: "rgba(245,184,69,0.06)",
-          outline: "1px solid rgba(245,184,69,0.2)",
-        }}
-      >
-        <p
-          className="font-heading font-bold text-text mb-2"
-          style={{ fontSize: 20 }}
-        >
-          Dziękujemy!
-        </p>
-        <p className="text-[14px] text-text-dim">
-          Odezwiemy się w&nbsp;ciągu 24&nbsp;godzin.
-        </p>
+      <div className="ruled" role="status">
+        <p className="label">Wysłano</p>
+        <p style={{ fontWeight: 600 }}>Dziękujemy.</p>
+        <p style={{ color: "var(--ink-2)" }}>Odezwiemy się w ciągu 24 godzin.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className="grid sm:grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="form-grid">
+      <div className="two">
         <div>
-          <label htmlFor="name" style={labelStyle}>
-            Imię i firma
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            placeholder="Anna Kowalska, Kowalscy sp. z o.o."
-            style={inputStyle}
-          />
+          <label htmlFor="name">Imię i nazwisko</label>
+          <input id="name" name="name" type="text" required placeholder="Anna Kowalska" autoComplete="name" />
         </div>
         <div>
-          <label htmlFor="company" style={labelStyle}>
-            Firma
-          </label>
-          <input
-            id="company"
-            name="company"
-            type="text"
-            placeholder="Nazwa firmy"
-            style={inputStyle}
-          />
+          <label htmlFor="company">Firma</label>
+          <input id="company" name="company" type="text" placeholder="Nazwa firmy" autoComplete="organization" />
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="two">
         <div>
-          <label htmlFor="email" style={labelStyle}>
-            Email
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="anna@firma.pl"
-            style={inputStyle}
-          />
+          <label htmlFor="email">E-mail</label>
+          <input id="email" name="email" type="email" required placeholder="anna@firma.pl" autoComplete="email" />
         </div>
         <div>
-          <label htmlFor="phone" style={labelStyle}>
-            Telefon
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="+48 000 000 000"
-            style={inputStyle}
-          />
+          <label htmlFor="phone">Telefon</label>
+          <input id="phone" name="phone" type="tel" placeholder="+48 000 000 000" autoComplete="tel" />
         </div>
       </div>
 
       <div>
-        <label htmlFor="message" style={labelStyle}>
-          Co chcesz zautomatyzować?
-        </label>
+        <label htmlFor="message">Co chcesz zautomatyzować?</label>
         <textarea
           id="message"
           name="message"
           required
-          rows={4}
+          rows={5}
           placeholder="Np. umawianie wizyt, obsługa reklamacji, wystawianie faktur…"
-          style={{ ...inputStyle, resize: "vertical" }}
         />
       </div>
 
       {status === "error" && (
-        <p className="text-[13px]" style={{ color: "#ef7955" }}>
-          Wystąpił błąd. Spróbuj ponownie lub napisz na kontakt@lok-ai.pl.
+        <p className="mono" role="alert" style={{ color: "var(--accent)" }}>
+          Nie wysłano. Spróbuj ponownie albo napisz na kontakt@lok-ai.pl.
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="btn-primary inline-flex items-center justify-center rounded-xl text-[15px] disabled:opacity-50"
-        style={{ marginTop: 8, padding: "14px 22px" }}
-      >
-        {status === "sending" ? "Wysyłanie…" : "Umów konsultację →"}
+      <button type="submit" disabled={status === "sending"} className="cta">
+        <span>{status === "sending" ? "Wysyłanie…" : "Umów rozmowę"}</span>
+        <span aria-hidden="true">&gt;</span>
       </button>
 
-      <p className="text-[11px] text-text-mute">
-        Odpowiadamy w&nbsp;ciągu 24&nbsp;godzin. Bez&nbsp;zobowiązań,
-        bez&nbsp;sprzedawania.
+      <p className="mono" style={{ color: "var(--ink-3)" }}>
+        Odpowiadamy w ciągu 24 godzin · bez zobowiązań
       </p>
     </form>
   );
