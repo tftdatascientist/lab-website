@@ -60,7 +60,7 @@ gęstość w górę; ruch tylko odczytowy — motion w dół o 1.
   bilet, nie rozkaz.
 - Żadnego języka inwestorów („skaluj", „disruptuj", „ekosystem") ani straszenia stratą.
 - Żadnych liczników bez źródła („400+ integracji", „<48h"). Liczba pojawia się tylko, gdy
-  jest policzona z czegoś, co można kliknąć (1908 procesów, 368 haseł, wpis z dziś).
+  jest policzona z czegoś, co można kliknąć (1908 procesów, 1201 haseł, wpis z dziś).
 - Żadnych nazw narzędzi (n8n, OpenAI, Flowise, ElevenLabs, Make) w warstwie brandowej:
   hero, nawigacja, tabliczki usług, stopka. Wolno w treści technicznej (słownik, procesy, wpis).
 - Nic, co czyta się jako „trzech chłopaków z laptopami": brak zdjęć zespołu przy laptopie,

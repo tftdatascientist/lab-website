@@ -141,7 +141,7 @@ agencji AI mówią językiem inwestorów, nie warsztatu.
 |---|---|---|
 | strona główna, `/wdrozenia`, `/o-nas`, `/kontakt` | brand / editorial | ma zostać w pamięci, sprzedaje |
 | wpis blogowy, hasło słownika, strona procesu | editorial (czytanie) | to są strony wejściowe z LLM, muszą nieść markę |
-| `/procesy` (drzewo + wyszukiwarka), `/slownik` (lista), `/blog` (indeks) | produkt / UI | narzędzia do przeszukiwania 1908 + 368 + 123 pozycji, mają zniknąć w użyciu |
+| `/procesy` (drzewo + wyszukiwarka), `/slownik` (lista), `/blog` (indeks) | produkt / UI | narzędzia do przeszukiwania 1908 + 1201 + 123 pozycji, mają zniknąć w użyciu |
 | `/demo` (chatbot) | produkt / UI | działa, nie opowiada |
 
 **Domyślne pokrętła dla rejestru:** `[WYGENEROWANY]` `[DO POTWIERDZENIA]` VARIANCE 8 / MOTION 6 / DENSITY 6
@@ -193,7 +193,7 @@ widać. Nikt nie pokazuje **miejsca** ani **przedmiotu**.
    technologii) obok siebie; agencja chmurowa ma tylko drugi biegun.
 2. **Wejście → wyjście zamiast narzędzi** — strona pokazuje problem i wynik, nie logotypy;
    zdjęcie paska logo z każdej strony w kategorii to test, czy przekaz jest wykonany.
-3. **Dowód zamiast licznika** — 1908 procesów, 368 haseł, wpis dziennie, fizyczny sprzęt: rzeczy,
+3. **Dowód zamiast licznika** — 1908 procesów, 1201 haseł, wpis dziennie, fizyczny sprzęt: rzeczy,
    które istnieją i można kliknąć albo dotknąć, zamiast „400+ integracji".
 4. **Lokalność jako precyzja, nie folklor** — Grudziądz/Toruń/Bydgoszcz jako współrzędne, mapa
    jako instrument, nie ozdoba z konturem Polski w tle.
@@ -204,7 +204,7 @@ widać. Nikt nie pokazuje **miejsca** ani **przedmiotu**.
 - **Stack**: Next.js 14 + Tailwind, tokeny w `tailwind.config.ts`; deploy Vercel z `main`.
 - **Chronione artefakty SEO/LLM**: `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt`,
   `lib/schema.ts` — redesign ich nie rusza.
-- **Treść**: 123 wpisy MDX, 1908 procesów, 368 haseł — układ musi je udźwignąć bez przepisywania.
+- **Treść**: 123 wpisy MDX, 1908 procesów, 1201 haseł — układ musi je udźwignąć bez przepisywania.
 - **Wydajność**: LCP na telefonie poniżej 2,5 s; audyt sierpniowy zdjął LCP `/portfolio`
   z 22 s do 3,3 s, redesign nie może tego cofnąć.
 - **Dostępność**: kontrast tekstu ≥ 4,5:1, akcent na CTA ≥ 3:1.
