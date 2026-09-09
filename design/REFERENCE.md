@@ -108,7 +108,7 @@ Pełna lista z kontrposunięciami: `references/anti-slop.md` (skill CCUD).
 - **DLACZEGO DZIAŁA:** treść jest **zorganizowana jak dokument przewozowy**, więc oko czyta
   strukturę zanim przeczyta słowa. Pary `A > B` niosą relację (skąd → dokąd) bez jednego zdania —
   dokładnie warunek „hasła niepotrzebne".
-- **TOKENY:** podłoże ciepłe `#e6e4de` · akcent `#ec3d0a` · mono 11/14/18 px · reguła 1 px `#1a1a1a` ·
+- **TOKENY:** podłoże ciepłe `#e6e4de` · akcent `#ff4a1c` (obserwowany; w kontrakcie przyciemniony do `#ec3d0a` dla 3:1 na papierze) · mono 11/14/18 px · reguła 1 px `#1a1a1a` ·
   wiersz danych 48 px · pole wartości = akcent + tekst ciemny.
 
 ### R2 — wrzut użytkownika: tabliczka „B22 / Retrodynamics" w dwóch wariantach (Pinterest)

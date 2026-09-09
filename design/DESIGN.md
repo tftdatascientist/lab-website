@@ -81,7 +81,8 @@ tabliczki (miejsce, tradycja) na grafitowej płycie (świat, technologia); „ko
 | metadane | `--ink-3` / `--paper` | 4,8:1 | metadane mono ≥ 13 px w paskach nagłówka i stopkach tabliczek (nie proza) |
 | tekst na płycie | `--bone` / `--plate` | 11,7:1 | tabliczki grafitowe, szyna |
 | tekst drugorzędny na płycie | `--bone-2` / `--plate` | 6,0:1 | metadane na płycie |
-| sygnał | `--accent` | 3,2:1 na papierze · 3,7:1 na płycie (próg 3:1 dla elementów UI; jako tekst wyłącznie znak `>` i pojedyncza wartość w mono 700) | **tylko**: pole CTA, znak `>` w wierszach, kropka stanu, jedna wartość w wierszu; ≤ 10 % ekranu (zmierzone: 8,7 % na 1440, 0 % na 375 w pierwszym ekranie) |
+| sygnał jako wypełnienie | `--accent` | 3,2:1 na papierze · 3,7:1 na płycie (próg 3:1 dla elementów UI) | **tylko**: pole CTA, kropka stanu, pasek ostrzegawczy, pole wartości w wierszu; ≤ 10 % ekranu (zmierzone: 8,6 % na 1440, 0 % na 375 w pierwszym ekranie) |
+| ⚠️ sygnał jako glif `>` na papierze | `--accent` / `--paper` | 3,2:1 — **poniżej 4,5:1 z briefu §7** | jawny wyjątek: jedyny tekst w akcencie to znak `>` (mono 700, 13–15 px) między parą `A > B`; znaczenie niesie pogrubiony cel po prawej, strzałka jest sygnałem kierunku, nie treścią. Na płycie 3,7:1. Jeśli ETAP3 uzna to za blokadę: `>` na papierze przechodzi na `--ink`, akcent zostaje na wypełnieniach. |
 | tekst na sygnale | `--accent-ink` / `--accent` | 4,8:1 | CTA |
 
 Zasada: **jeden token akcentu w całym CSS**. Obecne `amber`, `sand`, `rust` z `tailwind.config.ts`
