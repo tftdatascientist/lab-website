@@ -102,7 +102,11 @@ DŁUG:       (1) meta description „automatyzacje n8n" w layout.tsx — chronio
             (2) lista /blog, /procesy, /slownik i reszta podstron — stary układ (kafle, SubpageHeader
             z zębatkami mechanism.tsx w starej palecie hex); (3) 123 ilustracje wpisów w starej
             palecie (widoczne tylko w OG); (4) kropka stanu w szynie STOI — migotanie dopiero,
-            gdy stoi za nią realny stan; (5) ContactForm woła --font-ibm-plex-mono (alias działa).
+            gdy stoi za nią realny stan; (5) ContactForm woła --font-ibm-plex-mono (alias działa); (6) pływający przycisk
+            „Szukaj procesu" (ProcessSearch, position: fixed prawy dół) na ≤760 px siada na pasku
+            dolnym szyny — do przeniesienia przy migracji /procesy; (7) znak logo w szynie =
+            MechanismLogoMark z mechanism.tsx (kolor przez prop, kość) — obraca się 16 s, kontrakt
+            dopuszcza animowane logo „jako mały znak w szynie".
 URUCHOMIENIE: skrót LOKAI.lnk (oba serwery) · `scripts\lokai-dual.ps1 -TylkoNowy` (tylko 3301, do
             kodowania) · `-BezPrzegladarki` (bez otwierania kart). Dev 3301 i `next build` dzielą
             `.next` — build tylko po zabiciu 3301 (po porcie, `taskkill //PID`), potem restart.

@@ -89,6 +89,20 @@
     padding: var(--space-2) 0;
     background: var(--plate);
   }
+  .rail .brand-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .rail .mark {
+    display: block;
+    color: var(--bone-2);
+    transition: color var(--dur-state) var(--ease-out);
+  }
+  .rail .mark:hover {
+    color: var(--bone);
+  }
   .rail .brand {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
@@ -554,6 +568,18 @@
   .rail ul {
     writing-mode: horizontal-tb;
     transform: none;
+  }
+  /* na pasku dolnym zostaje sam znak — napis „lok-ai" zabierałby miejsce piątej pozycji */
+  .rail .brand-box {
+    flex-direction: row;
+    gap: var(--space-1);
+  }
+  .rail .brand {
+    display: none;
+  }
+  .rail .mark svg {
+    width: 24px;
+    height: 24px;
   }
   .rail ul {
     flex-direction: row;

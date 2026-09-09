@@ -126,6 +126,15 @@ export default function BlogPostPage({ params }: Props) {
     : [];
 
   const modified = fm.dateModified && fm.dateModified !== fm.date ? fm.dateModified : null;
+  const sideRoutes = [
+    { from: "Ten wpis", to: `Blog · ${all.length}`, href: "/blog" },
+    {
+      from: "Pojęcia z tekstu",
+      to: relatedTerms.length ? `Słownik · ${relatedTerms.length}` : "Słownik",
+      href: relatedTerms[0]?.href ?? "/slownik",
+    },
+    { from: "Procesy w firmie", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
+  ];
 
   return (
     <>
@@ -204,18 +213,8 @@ export default function BlogPostPage({ params }: Props) {
       <aside className="s-side" aria-label="metadane">
         <Miejsce nr="02" className="" short />
 
-        <Tabliczka nr="03" title="Skąd > dokąd" right={3} footer="/blog · /slownik · /procesy">
-          <WierszeAB
-            rows={[
-              { from: "Ten wpis", to: `Blog · ${all.length}`, href: "/blog" },
-              {
-                from: "Pojęcia z tekstu",
-                to: relatedTerms.length ? `Słownik · ${relatedTerms.length}` : "Słownik",
-                href: relatedTerms[0]?.href ?? "/slownik",
-              },
-              { from: "Procesy w firmie", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
-            ]}
-          />
+        <Tabliczka nr="03" title="Skąd > dokąd" right={sideRoutes.length} footer="/blog · /slownik · /procesy">
+          <WierszeAB rows={sideRoutes} />
         </Tabliczka>
 
         <CtaPole className="" />

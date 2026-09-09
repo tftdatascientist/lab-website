@@ -38,6 +38,13 @@ export default function Home() {
   const termCount = getAllTerms().length;
   const categories = getCategories().map((c) => ({ ...c, count: getNodesByCategory(c.slug).length }));
   const stamp = posts[0]?.frontmatter.date.slice(0, 7) ?? "";
+  const routes = [
+    { from: "Grudziądz", to: "Region", href: "/o-nas" },
+    { from: "Sprawdzona technologia", to: "Prosta rzecz", href: "/wdrozenia" },
+    { from: "Procesy w firmie", to: `${nodeCount} w bazie`, href: "/procesy" },
+    { from: "Trudne pojęcia", to: `${termCount} haseł`, href: "/slownik" },
+    { from: "Świat AI", to: "Przegląd dnia", href: "/blog" },
+  ];
 
   return (
     <>
@@ -57,16 +64,8 @@ export default function Home() {
 
       <Miejsce nr="02" />
 
-      <Tabliczka nr="03" title="Skąd > dokąd" right={5} footer="/procesy · /slownik · /blog" className="s-routes">
-        <WierszeAB
-          rows={[
-            { from: "Grudziądz", to: "Region", href: "/o-nas" },
-            { from: "Sprawdzona technologia", to: "Prosta rzecz", href: "/wdrozenia" },
-            { from: "Procesy w firmie", to: `${nodeCount} w bazie`, href: "/procesy" },
-            { from: "Trudne pojęcia", to: `${termCount} haseł`, href: "/slownik" },
-            { from: "Świat AI", to: "Przegląd dnia", href: "/blog" },
-          ]}
-        />
+      <Tabliczka nr="03" title="Skąd > dokąd" right={routes.length} footer="/procesy · /slownik · /blog" className="s-routes">
+        <WierszeAB rows={routes} />
       </Tabliczka>
 
       <Tabliczka nr="04" title="Komputer lokalny" right="u klienta" footer="Rys. 1" className="s-device">
