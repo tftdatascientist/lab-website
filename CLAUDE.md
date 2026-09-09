@@ -142,7 +142,7 @@ USUNIĘTE:   BlogListClient, SlownikListClient, FaqPageClient, PortfolioGrid, Ne
             BlogTagFilter, ChatDemo, ChatWindow, ChatbotDemo, CtaSection, FaqAccordion,
             FeatureSpotlight, GeoGrid, LinkedInCopyButton, ProcessSteps, ServiceCard, TechStack,
             blog-illustrations.ts, news-illustrations/ (123 SVG), mechanism.tsx, Logo.tsx.
-            Zostaje: Logo/ (animowane logo, złoto hardkodowane — nieużywane, dług).
+            Logo/ (animowane logo) — 2026-09-10 mapa i koło przeniesione do sciana/mapa/, reszta usunięta.
 POMIAR:     shots-live 1440/375 na 20 trasach: sygnał 0–3,8 % (CTA w kolumnie), 0 błędów JS,
             0 overlay; slop_scan na 30 nowych plikach: 0 twardych / 0 miękkich.
 ZOSTAJE:    /demo — stary układ (lucide, makieta agenta), aliasy legacy w tailwind.config.ts zostają
@@ -189,6 +189,8 @@ Rozbieżności ETAP2 wobec `design/DESIGN.md` (kontrakt read-only, nie poprawiam
   9–12 (`.s-side`). SKUTEK POMIAROWY: pierwszy ekran 1440 = papier 29 % / płyta 60 % / sygnał
   7 % — kontrakt CHCĘ 2 żąda papieru ≥ 40 % (przed mapą: 66 / 22 / 9). Wariant na papierze
   (kreska atramentem) = zdjąć `plate` z tabliczki 01. Test: `scripts/e2e-mapa.mjs` (9 checków).
+  Dewiacja #3 („jedyny obraz to rysunek techniczny urządzenia”) ma teraz drugi rysunek — też
+  kreskowy, bez fotografii; budżet dewiacji to minimum 3, bez górnego limitu.
 
 ---
 
