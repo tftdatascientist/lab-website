@@ -79,8 +79,17 @@ praca może iść wprost na `main` (dzienny blog i tak tam wchodzi). Stary desig
    tag wpisu → proces (blog „Zobacz też”), krok „Co dostajesz” na /kontakt → proces, /o-nas → 13.1.1–13.1.3.
    Brak kodu w bazie przerywa build. Korekta właściciela: Bydgoszcz 73 km, Gdańsk 109 km (A1) —
    Miejsce + etykieta GDAŃSK na mapie.
-2. **Blog: ceny usług AI** (chatbot, agent głosowy, automatyzacja, RAG — widełki z podanym
-   źródłem; liczby tylko ze źródłem, jak każda liczba na ścianie).
+2. ~~Blog: ceny usług AI~~ → **ZROBIONE 2026-09-10**: `src/content/blog/ile-kosztuje-wdrozenie-ai-w-firmie-ceny-2026.mdx`
+   (chatbot, voicebot, n8n, RAG; 5 tabel, każda liczba z linkiem i datą źródła: cenniki ElevenLabs/n8n
+   + szacunki 6 polskich wykonawców z 2026; widełki NIE uśredniane, rozrzut = wynik; cen lok-ai brak
+   celowo — cennik 0/199/indywidualnie dalej „do potwierdzenia”). Skille: copywriting (answer-first,
+   konkrety, CTA „Opisz nam proces”) + seo-audit (tytuł 45 zn., description 154, 1×H1, FAQPage,
+   linki wewnętrzne, bez zwrotów-sygnałów AI). PRZY OKAZJI: tabele markdown NIE renderowały się
+   w żadnym wpisie (brak remark-gfm; `chatboty-ai-dla-firm` pokazywał surowe `|`) — dodany
+   `remark-gfm` w `blog/[slug]/page.tsx` (CSS `.tag table` już był). Tag `ceny` → PCF 3.5.3
+   w `procesy-tresc.ts`. Autolink słownika łapał „momentum” w nazwie firmy → każde źródło w tabeli
+   jest linkiem (autolink nie wchodzi w `<a>`). Tytuł wpisu z sufiksem „— lok-ai Blog | lok-ai”
+   ma 68 zn. — szablon layoutu, backlog „tytuły >60”. Brak `image` (OG) — jak inne wpisy stałe.
 3. **Artykuł o LAB247.pl** (monitoring WordPress CREATO_PING jako produkt; fakty z
    `10_PROJEKTY/CREAITO/CLAUDE.md`, bez obietnic o czasie reakcji, dopóki nie jest mierzony).
 4. **Przeglądy dnia** — dalej codziennie (format jak `2026-09-09-polscy-programisci…`).

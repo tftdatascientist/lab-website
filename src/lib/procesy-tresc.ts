@@ -20,6 +20,7 @@ export const PROCESY_USLUG: Record<string, string[]> = {
 
 /** tag wpisu bloga → proces, do którego wpis prowadzi w „Zobacz też” */
 export const PROCESY_TAGOW: Record<string, string> = {
+  ceny: "3.5.3",
   automatyzacja: "13.1.5",
   n8n: "13.1.5",
   "ai dla biznesu": "8.2.7",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug, getRelatedPosts, type Post, type PostFrontmatter } from "@/lib/mdx";
 import SchemaOrg from "@/components/SchemaOrg";
 import TldrBox from "@/components/TldrBox";
@@ -182,7 +183,11 @@ export default function BlogPostPage({ params }: Props) {
 
         {/* MDX content */}
         <div className="prose prose-paper">
-          <MDXRemote source={post.content} components={mdxComponents} />
+          <MDXRemote
+            source={post.content}
+            components={mdxComponents}
+            options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+          />
         </div>
 
         {/* Wnioski + FAQ (GEO) */}
