@@ -79,7 +79,7 @@ praca może iść wprost na `main` (dzienny blog i tak tam wchodzi). Stary desig
    tag wpisu → proces (blog „Zobacz też”), krok „Co dostajesz” na /kontakt → proces, /o-nas → 13.1.1–13.1.3.
    Brak kodu w bazie przerywa build. Korekta właściciela: Bydgoszcz 73 km, Gdańsk 109 km (A1) —
    Miejsce + etykieta GDAŃSK na mapie.
-2. ~~Blog: ceny usług AI~~ → **ZROBIONE 2026-09-10**: `src/content/blog/ile-kosztuje-wdrozenie-ai-w-firmie-ceny-2026.mdx`
+2. ~~Blog: ceny usług AI~~ → **ZROBIONE I NA PRODUKCJI 2026-09-10** (push 5393dee na polecenie właściciela; na żywo 200, 5 tabel, FAQPage, sitemap, tag): `src/content/blog/ile-kosztuje-wdrozenie-ai-w-firmie-ceny-2026.mdx`
    (chatbot, voicebot, n8n, RAG; 5 tabel, każda liczba z linkiem i datą źródła: cenniki ElevenLabs/n8n
    + szacunki 6 polskich wykonawców z 2026; widełki NIE uśredniane, rozrzut = wynik; cen lok-ai brak
    celowo — cennik 0/199/indywidualnie dalej „do potwierdzenia”). Skille: copywriting (answer-first,
