@@ -63,9 +63,22 @@ TRYB:          autonomiczny (CCUD zamknięty bramką 3 · 2026-09-09)
 ⛔ `design/DESIGN.md` jest read-only dla ETAP1–ETAP6. Zmiana wymaga ponownego CCUD ETAP C
 i podniesienia wersji. Rozbieżności oznaczaj `⚠️`, nie poprawiaj kontraktu.
 
-**Produkcja zostaje na obecnym designie** (decyzja właściciela 2026-09-09): redesign powstaje
-wyłącznie na gałęzi `redesign-ccud`; `main` (auto-deploy Vercel) nie dostaje go, dopóki właściciel
-nie uzna nowej szaty za lepszą. Gałąź rebase'uje się na `main` (dzienny blog), nie odwrotnie.
+**Redesign NA PRODUKCJI od 2026-09-10** (decyzja właściciela: „płyta, commit i wjeżdżamy na
+produkcję"): merge `redesign-ccud` → `main` (5823190), push, Vercel zbudował w ~2 min. Na żywo:
+11 tras 200, `lok-ai.pl` 307 → www, canonical www, e2e mapy 9/9 na https://www.lok-ai.pl, pomiar
+pierwszego ekranu jak lokalnie (home 29 / 60 / 7 %, podstrony papier 63–76 %). Gałąź
+`redesign-ccud` (worktree `../lab-website-redesign`, dev 3301) jest teraz równa `main`; dalsza
+praca może iść wprost na `main` (dzienny blog i tak tam wchodzi). Stary design = historia gita.
+
+### ETAP4 (od 2026-09-10) — TREŚĆ, kolejność od właściciela
+1. **Hasła** (do doprecyzowania: hasła reklamowe / H1 podstron, czy nowe hasła słownika).
+2. **Blog: ceny usług AI** (chatbot, agent głosowy, automatyzacja, RAG — widełki z podanym
+   źródłem; liczby tylko ze źródłem, jak każda liczba na ścianie).
+3. **Artykuł o LAB247.pl** (monitoring WordPress CREATO_PING jako produkt; fakty z
+   `10_PROJEKTY/CREAITO/CLAUDE.md`, bez obietnic o czasie reakcji, dopóki nie jest mierzony).
+4. **Przeglądy dnia** — dalej codziennie (format jak `2026-09-09-polscy-programisci…`).
+5. **Słownik terminów IT** (1201 haseł) i **tłumaczenie klasyfikacji procesów (APQC PCF, 1908
+   węzłów)** jako zasoby filarowe: artykuły wprowadzające + ewentualne rozszerzenie haseł.
 
 Zasada 1 („Design — tylko ze Stitch”) od tej wersji brzmi: **tokeny z `design/DESIGN.md`**,
 Stitch i Claude Design generują układy i assety w jego granicach. `DESIGN-SYSTEM.md` (grafit +
