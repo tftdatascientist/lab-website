@@ -71,7 +71,14 @@ pierwszego ekranu jak lokalnie (home 29 / 60 / 7 %, podstrony papier 63–76 %).
 praca może iść wprost na `main` (dzienny blog i tak tam wchodzi). Stary design = historia gita.
 
 ### ETAP4 (od 2026-09-10) — TREŚĆ, kolejność od właściciela
-1. **Hasła** (do doprecyzowania: hasła reklamowe / H1 podstron, czy nowe hasła słownika).
+1. ~~Hasła~~ → **Procesy w treści — ZROBIONE 2026-09-10** (właściciel: „nie dodawałbym haseł, za to
+   więcej tego, co dodałeś: wykorzystanie opisów procesów i wplatanie ich między treści strony”).
+   `src/lib/procesy-tresc.ts` = ręcznie dobrane kody PCF: usługa → 5 procesów (strona wdrożenia:
+   sekcja „Które procesy to obejmuje” z nazwą + pierwszym zdaniem opisu; listy usług na / i /wdrozenia:
+   kod pierwszego procesu w prawej kolumnie zamiast wymyślonego „u klienta / www / telefon”),
+   tag wpisu → proces (blog „Zobacz też”), krok „Co dostajesz” na /kontakt → proces, /o-nas → 13.1.1–13.1.3.
+   Brak kodu w bazie przerywa build. Korekta właściciela: Bydgoszcz 73 km, Gdańsk 109 km (A1) —
+   Miejsce + etykieta GDAŃSK na mapie.
 2. **Blog: ceny usług AI** (chatbot, agent głosowy, automatyzacja, RAG — widełki z podanym
    źródłem; liczby tylko ze źródłem, jak każda liczba na ścianie).
 3. **Artykuł o LAB247.pl** (monitoring WordPress CREATO_PING jako produkt; fakty z

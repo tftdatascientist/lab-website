@@ -9,6 +9,8 @@ import { services } from "@/content/services";
 import { getCategories, getNodesByCategory, totalNodeCount } from "@/lib/procesy";
 import { getAllTerms } from "@/lib/slownik";
 import { getAllPosts } from "@/lib/mdx";
+import { procesyUslugi } from "@/lib/procesy-tresc";
+import { KodProcesu } from "@/components/sciana/ProcesyWplatane";
 
 /**
  * Strona główna = ściana tabliczek (DESIGN.md §Siatka). Każda liczba na ścianie jest
@@ -16,16 +18,6 @@ import { getAllPosts } from "@/lib/mdx";
  * Warstwa brandowa bez nazw narzędzi i bez emoji (NIE CHCĘ, warstwa 1–2): z usług
  * wychodzi tylko `title` + `desc`, nigdy `tags` / `icon` / `longDesc`.
  */
-
-/** Gdzie działa dana usługa — prawa kolumna „Co wdrażamy” (zamiast nazw narzędzi). */
-const WHERE: Record<string, string> = {
-  "automatyzacja-n8n": "u klienta",
-  "chatboty-ai": "www",
-  "agenci-glosowi": "telefon",
-  "bazy-wiedzy-rag": "lokalnie",
-  "dashboardy-raporty": "co rano",
-  "integracje-systemow": "CRM · ERP",
-};
 
 function mmdd(date: string) {
   return date.slice(5, 10);
@@ -89,7 +81,7 @@ export default function Home() {
         nr="06"
         title="Co wdrażamy"
         right={services.length}
-        footer="Technologia jest środkiem"
+        footer="Kod = proces z klasyfikacji APQC, który wdrożenie obejmuje"
         className="s-services"
       >
         <ul className="rows">
@@ -100,7 +92,7 @@ export default function Home() {
                 <Link href={`/wdrozenia/${s.slug}`}>{s.title}</Link>
                 <span className="d">{s.desc}</span>
               </span>
-              <span className="v">{WHERE[s.slug] ?? ""}</span>
+              <KodProcesu node={procesyUslugi(s.slug)[0]} />
             </li>
           ))}
         </ul>

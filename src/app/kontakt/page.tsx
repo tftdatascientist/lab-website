@@ -4,6 +4,8 @@ import ContactForm from "@/components/ContactForm";
 import Tabliczka from "@/components/sciana/Tabliczka";
 import Miejsce from "@/components/sciana/Miejsce";
 import WierszeAB from "@/components/sciana/WierszeAB";
+import { getNode, nodeHref } from "@/lib/procesy";
+import { PROCESY_KONTAKTU } from "@/lib/procesy-tresc";
 import { generateWebPageSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -78,8 +80,13 @@ export default function KontaktPage() {
 
       <aside className="s-side" aria-label="metadane">
         <Miejsce nr="02" className="" />
-        <Tabliczka nr="03" title="Co dostajesz" right={BENEFITS.length} footer="Bez zobowiązań, bez sprzedawania">
-          <WierszeAB rows={BENEFITS.map(([from, to]) => ({ from, to }))} />
+        <Tabliczka nr="03" title="Co dostajesz" right={BENEFITS.length} footer="Każdy krok to proces z klasyfikacji APQC">
+          <WierszeAB
+            rows={BENEFITS.map(([from, to]) => {
+              const node = getNode(PROCESY_KONTAKTU[from]);
+              return { from, to, href: node ? nodeHref(node) : undefined };
+            })}
+          />
         </Tabliczka>
         <Tabliczka nr="04" title="Dane kontaktowe" right="PL" footer="Grudziądz · kujawsko-pomorskie" plate>
           <ul className="rows">

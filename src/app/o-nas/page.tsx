@@ -6,6 +6,8 @@ import KomputerLokalny from "@/components/sciana/KomputerLokalny";
 import { getAllPosts } from "@/lib/mdx";
 import { getAllTerms } from "@/lib/slownik";
 import { totalNodeCount } from "@/lib/procesy";
+import { PROCESY_O_NAS, procesyZKodow } from "@/lib/procesy-tresc";
+import ProcesyWplatane from "@/components/sciana/ProcesyWplatane";
 import { generateWebPageSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -106,6 +108,12 @@ export default function ONasPage() {
             </li>
           </ul>
         </section>
+
+        <ProcesyWplatane
+          nodes={procesyZKodow(PROCESY_O_NAS)}
+          title="Wspólny język z klientem"
+          lead="Zanim cokolwiek zautomatyzujemy, nazywamy procesy tak, jak robi to klasyfikacja APQC. Te trzy są początkiem każdej rozmowy."
+        />
       </Tabliczka>
 
       <KolumnaBoczna

@@ -29,7 +29,7 @@ const CITIES: {
   { x: 470, y: 200, name: 'BYDGOSZCZ', primary: true, labelDx: -150, labelAlign: 'end' as const },
   { x: 525, y: 151, name: 'GRUDZIĄDZ', primary: true, labelDx: 66, labelAlign: 'start' as const, highlight: true },
   { x: 540, y: 200, name: 'TORUŃ', primary: true, labelDx: 66, labelAlign: 'start' as const },
-  { x: 510, y: 110, name: 'Gdańsk', primary: false, labelDx: 66, labelAlign: 'start' as const },
+  { x: 510, y: 110, name: 'GDAŃSK', primary: true, labelDx: 66, labelAlign: 'start' as const },
   { x: 600, y: 280, name: 'Warszawa', primary: false, labelDx: 66, labelAlign: 'start' as const },
   { x: 360, y: 200, name: 'Szczecin', primary: false, labelDx: 66, labelAlign: 'start' as const },
 ];

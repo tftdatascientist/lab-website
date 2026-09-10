@@ -6,19 +6,11 @@ import Tabliczka from "@/components/sciana/Tabliczka";
 import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
 import KomputerLokalny from "@/components/sciana/KomputerLokalny";
 import { totalNodeCount } from "@/lib/procesy";
+import { procesyUslugi } from "@/lib/procesy-tresc";
+import { KodProcesu } from "@/components/sciana/ProcesyWplatane";
 import { generateItemListSchema, generateServiceSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
-
-/** Gdzie działa dana usługa — zamiast nazw narzędzi (NIE CHCĘ, warstwa 1). */
-const WHERE: Record<string, string> = {
-  "automatyzacja-n8n": "u klienta",
-  "chatboty-ai": "www",
-  "agenci-glosowi": "telefon",
-  "bazy-wiedzy-rag": "lokalnie",
-  "dashboardy-raporty": "co rano",
-  "integracje-systemow": "CRM · ERP",
-};
 
 export const metadata: Metadata = {
   title: "Wdrożenia AI i automatyzacji — chatboty, agenci głosowi, RAG | lok-ai",
@@ -70,7 +62,7 @@ export default function WdrozeniaPage() {
                 <Link href={`/wdrozenia/${s.slug}`}>{s.title}</Link>
                 <span className="d">{s.desc}</span>
               </span>
-              <span className="v">{WHERE[s.slug] ?? ""}</span>
+              <KodProcesu node={procesyUslugi(s.slug)[0]} />
             </li>
           ))}
         </ul>

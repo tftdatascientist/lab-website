@@ -11,7 +11,7 @@ export const MIEJSCE = {
   lon: "18°45′E",
   city: "Grudziądz",
   region: "kujawsko-pomorskie",
-  distances: "Toruń 60 km · Bydgoszcz 100 km",
+  distances: "Toruń 60 km · Bydgoszcz 73 km · Gdańsk 109 km (A1)",
 } as const;
 
 export default function Miejsce({

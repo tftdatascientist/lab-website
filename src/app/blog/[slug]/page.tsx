@@ -14,7 +14,8 @@ import WierszeAB from "@/components/sciana/WierszeAB";
 import CtaPole from "@/components/sciana/CtaPole";
 import { createAutolinkComponents } from "@/lib/autolink";
 import { getAllTerms } from "@/lib/slownik";
-import { totalNodeCount } from "@/lib/procesy";
+import { totalNodeCount, nodeHref } from "@/lib/procesy";
+import { procesyTagow } from "@/lib/procesy-tresc";
 import { generateArticleSchema, generateBreadcrumbSchema, generateFaqSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
@@ -116,9 +117,12 @@ export default function BlogPostPage({ params }: Props) {
   const mdxComponents = createAutolinkComponents();
 
   const relatedTerms = pickRelatedTerms(post, 4);
+  const relatedProcesses = procesyTagow(fm.tags, 2);
   const relatedLinks: RelatedItem[] = [
     ...relatedTerms,
-    { label: "Automatyzacja procesów", href: "/procesy", kind: "proces" },
+    ...(relatedProcesses.length
+      ? relatedProcesses.map((n) => ({ label: `${n.code} ${n.namePl}`, href: nodeHref(n), kind: "proces" as const }))
+      : [{ label: "Automatyzacja procesów", href: "/procesy", kind: "proces" as const }]),
     { label: "Wdrożenia AI", href: "/wdrozenia", kind: "wdrozenie" },
   ];
   const faqNodes = fm.faq?.length

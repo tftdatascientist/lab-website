@@ -6,6 +6,8 @@ import SchemaOrg from "@/components/SchemaOrg";
 import Tabliczka from "@/components/sciana/Tabliczka";
 import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
 import { totalNodeCount } from "@/lib/procesy";
+import { procesyUslugi } from "@/lib/procesy-tresc";
+import ProcesyWplatane from "@/components/sciana/ProcesyWplatane";
 import { generateServiceSchema, generateHowToSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
@@ -75,7 +77,7 @@ export default function WdrozeniePage({ params }: Props) {
             <Link href="/wdrozenia">Wdrożenia</Link> · {String(index + 1).padStart(2, "0")} z {services.length}
           </>
         }
-        right="u klienta"
+        right={`${procesyUslugi(service.slug).length} procesów APQC`}
         footer="Audyt > Projekt > Wdrożenie > Wsparcie"
         className="s-read"
       >
@@ -130,6 +132,12 @@ export default function WdrozeniePage({ params }: Props) {
             {service.title.toLowerCase()} w praktyce.
           </p>
         )}
+
+        <ProcesyWplatane
+          nodes={procesyUslugi(service.slug)}
+          title="Które procesy to obejmuje"
+          lead="Nazwy i opisy z klasyfikacji APQC PCF 7.4 (tłum. własne) — wspólny język do rozmowy o tym, co w firmie faktycznie się zmieni."
+        />
 
         <section className="ruled">
           <h2 className="label">Jak wdrażamy · {STEPS.length}</h2>
