@@ -1,45 +1,33 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Chakra_Petch, JetBrains_Mono, Orbitron } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import MobileBottomNav from "@/components/MobileBottomNav";
+import { Archivo, Chakra_Petch, JetBrains_Mono } from "next/font/google";
+import Szyna from "@/components/sciana/Szyna";
+import StopkaSciany from "@/components/sciana/StopkaSciany";
 import SchemaOrg from "@/components/SchemaOrg";
 import { generateLocalBusinessSchema, generateWebSiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
-const inter = Inter({
+// Kroje z DESIGN.md: Chakra Petch (display, zostaje) + Archivo (proza) + JetBrains Mono (dane).
+// Inter, Orbitron i IBM Plex Mono wypadły w ETAP2.
+const chakraPetch = Chakra_Petch({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  weight: ["500", "700"],
+  variable: "--font-chakra-petch",
   display: "swap",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+const archivo = Archivo({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
-  variable: "--font-ibm-plex-mono",
-  display: "swap",
-});
-
-const chakraPetch = Chakra_Petch({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-chakra-petch",
+  variable: "--font-archivo",
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "700"],
   variable: "--font-jetbrains-mono",
-  display: "swap",
-});
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-orbitron",
   display: "swap",
 });
 
@@ -86,18 +74,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body
-        className={`${inter.variable} ${ibmPlexMono.variable} ${chakraPetch.variable} ${jetbrainsMono.variable} ${orbitron.variable} font-body antialiased bg-background text-on-surface`}
-      >
+      <body className={`${chakraPetch.variable} ${archivo.variable} ${jetbrainsMono.variable} antialiased`}>
         <SchemaOrg schema={graph(generateLocalBusinessSchema(), generateWebSiteSchema())} />
-        <Navbar />
-        <main className="pt-16">{children}</main>
-        <Footer />
-        <MobileBottomNav />
+        <Szyna />
+        <main className="wall">
+          {children}
+          <StopkaSciany />
+        </main>
 
         {/* CHATBOT EMBED — podłącz Typebot widget gdy gotowy */}
-        {/* <Script src="https://cdn.typebot.io/js/web.js" strategy="lazyOnload" /> */}
-        {/* <typebot-bubble typebot="TWOJ-TYPEBOT-ID" theme='{"button":{"backgroundColor":"#00d4ff"}}' /> */}
         <div id="chatbot-embed" />
       </body>
     </html>

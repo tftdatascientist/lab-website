@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import SchemaOrg from "@/components/SchemaOrg";
-import { SubpageHeader, SectionDivider } from "@/components/mechanism";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import SzukajPrzycisk from "@/components/sciana/SzukajPrzycisk";
 import { generateDefinedTermSetSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
-import { getAllTerms, getCategories, getAllL2Pairs, getAllL3Slugs } from "@/lib/slownik";
-import SlownikListClient from "./SlownikListClient";
+import { getAllTerms, getCategories, getAllL2Pairs, getAllL3Slugs, firstLetter, L1_LABELS } from "@/lib/slownik";
+import { totalNodeCount } from "@/lib/procesy";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
@@ -15,8 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/slownik` },
   openGraph: {
     title: "Słownik IT — 1200+ pojęć | lok-ai",
-    description:
-      "Ponad 1200 terminów IT z prostymi definicjami: od algorytmów po AI/ML. Wyszukiwarka i kategorie.",
+    description: "Ponad 1200 terminów IT z prostymi definicjami: od algorytmów po AI/ML. Wyszukiwarka i kategorie.",
     url: `${SITE_URL}/slownik`,
     type: "website",
     locale: "pl_PL",
@@ -24,8 +26,23 @@ export const metadata: Metadata = {
 };
 
 export default function SlownikPage() {
-  const terms = getAllTerms();
+  const terms = [...getAllTerms()].sort((a, b) => a.haslo.localeCompare(b.haslo, "pl"));
   const categories = getCategories();
+
+  // grupowanie alfabetyczne — jedna gęsta tabela, litery jako wiersze-nagłówki z kotwicą
+  const groups: { letter: string; items: typeof terms }[] = [];
+  for (const t of terms) {
+    const L = firstLetter(t.haslo);
+    const g = groups[groups.length - 1];
+    if (g && g.letter === L) g.items.push(t);
+    else groups.push({ letter: L, items: [t] });
+  }
+  // hasła od cyfry/znaku („#”) na koniec — wiersz liter czyta się A–Z, potem #
+  const hash = groups.filter((g) => g.letter === "#");
+  if (hash.length) {
+    const rest = groups.filter((g) => g.letter !== "#");
+    groups.splice(0, groups.length, ...rest, { letter: "#", items: hash.flatMap((g) => g.items) });
+  }
 
   const schema = graph(
     generateDefinedTermSetSchema({
@@ -33,15 +50,11 @@ export default function SlownikPage() {
       description:
         "Słownik terminologii informatycznej: algorytmy, systemy, sieci, dane, bezpieczeństwo, AI/ML, chmura i inżynieria oprogramowania.",
       url: "/slownik",
-      terms: terms.slice(0, 40).map((t) => ({
-        name: t.haslo,
-        url: `/slownik/${t.slug}`,
-        description: t.definicja,
-      })),
+      terms: terms.slice(0, 40).map((t) => ({ name: t.haslo, url: `/slownik/${t.slug}`, description: t.definicja })),
     }),
     generateItemListSchema(
       "Kategorie słownika IT",
-      categories.map((c) => ({ name: c.label, url: `/slownik?kat=${c.key}` })),
+      categories.map((c) => ({ name: c.label, url: `/slownik/kategoria/${c.key}` })),
       "Główne dziedziny terminologii IT w słowniku lok-ai.",
     ),
     generateBreadcrumbSchema([
@@ -50,82 +63,93 @@ export default function SlownikPage() {
     ]),
   );
 
-  // lekki payload dla klienta
-  const items = terms.map((t) => ({
-    slug: t.slug,
-    haslo: t.haslo,
-    skrot: t.skrot,
-    typ: t.typ,
-    def: t.definicja,
-    L1: t.L1,
-  }));
-
   return (
     <>
       <SchemaOrg schema={schema} />
-      <div className="pt-13" style={{ paddingTop: 52 }}>
-        <SubpageHeader
-          eyebrow={`Słownik · ${terms.length} pojęć`}
-          title="Słownik"
-          accent="terminologii"
-          titleAfter="IT."
-          cluster="slownik"
-          description={
-            <>
-              Ponad {terms.length} pojęć z informatyki — od algorytmów i&nbsp;sieci po AI/ML
-              i&nbsp;chmurę. Każde hasło ma prostą definicję, kategorię i&nbsp;źródło. Bez żargonu,
-              po&nbsp;ludzku.
-            </>
-          }
-        />
+      <Tabliczka
+        nr="01"
+        title={`Słownik · ${terms.length} pojęć`}
+        right={<SzukajPrzycisk />}
+        footer="Definicje własne, źródła przy hasłach"
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "16ch", marginBottom: "var(--space-2)" }}>
+          Słownik terminologii IT.
+        </h1>
+        <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>
+          Ponad {terms.length} pojęć z informatyki — od algorytmów i sieci po AI/ML i chmurę. Każde hasło ma prostą
+          definicję, kategorię i źródło. Bez żargonu, po ludzku.
+        </p>
+        <p className="mono" style={{ color: "var(--ink-3)", margin: "var(--space-2) 0 var(--space-3)" }}>
+          {terms.length} haseł · {categories.length} kategorii · {getAllL2Pairs().length} poddziedzin ·{" "}
+          {getAllL3Slugs().length} grup · 4 poziomy
+        </p>
 
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 pt-10">
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-2xl border border-border bg-bg-soft px-6 py-5">
-            {[
-              { value: terms.length, label: "haseł" },
-              { value: categories.length, label: "kategorii" },
-              { value: getAllL2Pairs().length, label: "poddziedzin" },
-              { value: getAllL3Slugs().length, label: "grup tematycznych" },
-              { value: 4, label: "poziomy" },
-            ].map((s) => (
-              <div key={s.label} className="flex items-baseline gap-2">
-                <span className="font-heading font-bold text-on-surface text-[22px]">{s.value}</span>
-                <span className="text-text-mute text-[13px]">{s.label}</span>
-              </div>
+        <nav className="filters" aria-label="kategorie">
+          <Link href="/slownik" aria-current="page">
+            Wszystkie <span className="n">{terms.length}</span>
+          </Link>
+          {categories.map((c) => (
+            <Link key={c.key} href={`/slownik/kategoria/${c.key}`}>
+              {c.label} <span className="n">{c.count}</span>
+            </Link>
+          ))}
+        </nav>
+        <nav className="filters" aria-label="litery" style={{ borderBottom: 0 }}>
+          {groups.map((g) => (
+            <a key={g.letter} href={`#litera-${g.letter}`}>
+              {g.letter}
+            </a>
+          ))}
+        </nav>
+
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Hasło</th>
+              <th scope="col">Definicja</th>
+              <th scope="col" className="hide-m" style={{ textAlign: "right" }}>
+                Dziedzina
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {groups.map((g) => (
+              <Fragment key={g.letter}>
+                <tr className="letter" id={`litera-${g.letter}`}>
+                  <td colSpan={3}>{g.letter}</td>
+                </tr>
+                {g.items.map((t) => (
+                  <tr key={t.slug}>
+                    <td style={{ width: "28%", verticalAlign: "top", fontWeight: 600 }}>
+                      <Link href={`/slownik/${t.slug}`}>{t.haslo}</Link>
+                      {t.skrot && (
+                        <span className="mono" style={{ color: "var(--ink-3)", display: "block", fontSize: 11 }}>
+                          {t.skrot}
+                        </span>
+                      )}
+                    </td>
+                    <td style={{ color: "var(--ink-2)", fontSize: 14, verticalAlign: "top" }}>{t.definicja}</td>
+                    <td className="hide-m mono" style={{ color: "var(--ink-3)", textAlign: "right", verticalAlign: "top", fontSize: 11, width: 140 }}>
+                      {L1_LABELS[t.L1] || t.L1}
+                    </td>
+                  </tr>
+                ))}
+              </Fragment>
             ))}
-            <div className="ml-auto hidden sm:flex items-center gap-2 text-text-mute text-[12px]">
-              <span>Szukaj w słowniku:</span>
-              <kbd className="font-mono text-[11px] text-text-dim border border-border rounded px-1.5 py-0.5">⌘K</kbd>
-            </div>
-          </div>
-        </div>
+          </tbody>
+        </table>
+      </Tabliczka>
 
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 py-12">
-          {/* Huby kategorii */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
-            {categories.map((c) => (
-              <Link
-                key={c.key}
-                href={`/slownik/kategoria/${c.key}`}
-                className="group relative block rounded-xl border border-border bg-surface hover:border-amber/40 transition-all px-4 py-4 overflow-hidden"
-              >
-                <h2 className="font-heading font-semibold text-on-surface text-[15px] leading-snug group-hover:text-amber transition-colors">
-                  {c.label}
-                </h2>
-                <div className="mt-2 font-mono text-[11px] tracking-[0.1em] text-text-mute">
-                  {c.count} pojęć
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <SectionDivider label="Wszystkie hasła" />
-
-          <div className="pt-12">
-            <SlownikListClient items={items} categories={categories} />
-          </div>
-        </div>
-      </div>
+      <KolumnaBoczna
+        routes={[
+          { from: "Trudne pojęcia", to: `${terms.length} haseł`, href: "/slownik" },
+          { from: "Największa dziedzina", to: categories.reduce((a, b) => (b.count > a.count ? b : a)).label, href: `/slownik/kategoria/${categories.reduce((a, b) => (b.count > a.count ? b : a)).key}` },
+          { from: "Procesy w firmie", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
+        ]}
+        routesFooter="/slownik · /procesy"
+      />
     </>
   );
 }
+

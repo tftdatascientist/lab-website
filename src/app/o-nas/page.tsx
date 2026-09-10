@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import SchemaOrg from "@/components/SchemaOrg";
-import {
-  generateWebPageSchema,
-  generateBreadcrumbSchema,
-  graph,
-} from "@/lib/schema";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import KomputerLokalny from "@/components/sciana/KomputerLokalny";
+import { getAllPosts } from "@/lib/mdx";
+import { getAllTerms } from "@/lib/slownik";
+import { totalNodeCount } from "@/lib/procesy";
+import { generateWebPageSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "O nas — lok-ai | Automatyzacja i AI dla firm",
@@ -17,24 +18,10 @@ export const metadata: Metadata = {
 };
 
 const VALUES = [
-  {
-    title: "Lokalność",
-    desc: "Znamy rynek i specyfikę firm z Pomorza i Kujaw. Spotykamy się na żywo.",
-    color: "#f5b845",
-  },
-  {
-    title: "Prostota",
-    desc: "Low-code / no-code — bez zbędnej złożoności. Konfigurujemy wszystko za Ciebie.",
-    color: "#ef7955",
-  },
-  {
-    title: "Wsparcie",
-    desc: "Pełne wsparcie po wdrożeniu. Nie zostawiamy klienta z pytaniami bez odpowiedzi.",
-    color: "#d9b88a",
-  },
+  { title: "Lokalność", desc: "Znamy rynek i specyfikę firm z Pomorza i Kujaw. Spotykamy się na żywo." },
+  { title: "Prostota", desc: "Low-code / no-code — bez zbędnej złożoności. Konfigurujemy wszystko za Ciebie." },
+  { title: "Wsparcie", desc: "Pełne wsparcie po wdrożeniu. Nie zostawiamy klienta z pytaniami bez odpowiedzi." },
 ];
-
-const STACK = ["n8n", "Flowise", "Typebot", "OpenAI", "ElevenLabs", "Claude"];
 
 const schema = graph(
   generateWebPageSchema({
@@ -50,131 +37,89 @@ const schema = graph(
   ]),
 );
 
+/** O nas: proza + trzy zasady jako wiersze. Pasek „Nasz stack" (nazwy narzędzi) NIE wraca (NIE CHCĘ, warstwa 1). */
 export default function ONasPage() {
+  const posts = getAllPosts().length;
   return (
-    <section className="py-[100px] px-8 max-w-[1280px] mx-auto">
+    <>
       <SchemaOrg schema={schema} />
-      {/* Header */}
-      <div className="max-w-[720px] mb-16">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="w-7 h-px" style={{ background: "#d9b88a" }} />
-          <span
-            className="font-mono text-[11px] uppercase"
-            style={{ color: "#d9b88a", letterSpacing: "0.15em" }}
-          >
-            O nas
-          </span>
-        </div>
-        <h1
-          className="font-heading font-bold text-text mb-6"
-          style={{
-            fontSize: "clamp(32px,4.5vw,56px)",
-            letterSpacing: "-0.035em",
-            lineHeight: 1,
-          }}
-        >
-          Lokalna firma.{" "}
-          <span
-            className="font-display font-medium italic"
-            style={{ color: "#d9b88a" }}
-          >
-            Realne
-          </span>{" "}
-          wdrożenia.
+      <Tabliczka nr="01" title="O nas · lok-ai" right="Grudziądz" footer="Lokalna Automatyzacja Biznesu" className="s-read">
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          Lokalna firma. Realne wdrożenia.
         </h1>
-
-        <div className="space-y-5 text-[16px] text-text-dim leading-relaxed">
+        <div style={{ maxWidth: "var(--measure)", color: "var(--ink-2)", display: "grid", gap: "var(--space-2)" }}>
           <p>
-            lok-ai to firma technologiczna z&nbsp;Grudziądza, specjalizująca
-            się we&nbsp;wdrażaniu automatyzacji procesów biznesowych
-            i&nbsp;rozwiązań opartych na sztucznej inteligencji dla małych
-            i&nbsp;średnich przedsiębiorstw z&nbsp;regionu
+            lok-ai to firma technologiczna z Grudziądza, specjalizująca się we wdrażaniu automatyzacji procesów
+            biznesowych i rozwiązań opartych na sztucznej inteligencji dla małych i średnich przedsiębiorstw z regionu
             kujawsko-pomorskiego.
           </p>
           <p>
-            Wierzymy, że nowoczesne technologie — chatboty AI, automatyzacje
-            workflow, integracje systemów — nie powinny być zarezerwowane dla
-            korporacji. Dlatego oferujemy rozwiązania dopasowane do skali
-            i&nbsp;budżetu lokalnych firm.
+            Wierzymy, że nowoczesne technologie — chatboty AI, automatyzacje workflow, integracje systemów — nie
+            powinny być zarezerwowane dla korporacji. Dlatego oferujemy rozwiązania dopasowane do skali i budżetu
+            lokalnych firm.
           </p>
           <p>
-            Pracujemy z&nbsp;narzędziami open-source i&nbsp;najlepszymi API, co
-            pozwala nam budować zaawansowane rozwiązania bez nadmiernych kosztów
-            licencji.
+            Pracujemy z narzędziami open-source i najlepszymi API, co pozwala nam budować zaawansowane rozwiązania bez
+            nadmiernych kosztów licencji.
           </p>
         </div>
-      </div>
 
-      {/* Values */}
-      <div className="grid sm:grid-cols-3 gap-[18px] mb-16">
-        {VALUES.map((v) => (
-          <div
-            key={v.title}
-            className="relative rounded-[16px] overflow-hidden p-7"
-            style={{
-              background: "#17181b",
-              outline: "1px solid rgba(255,255,255,0.08)",
-            }}
-          >
-            <div
-              className="absolute inset-x-0 top-0 h-px"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${v.color}, transparent)`,
-                opacity: 0.6,
-              }}
-            />
-            <h3
-              className="font-heading font-bold text-text mb-2"
-              style={{ fontSize: 18, letterSpacing: "-0.02em", color: v.color }}
-            >
-              {v.title}
-            </h3>
-            <p className="text-[14px] text-text-dim leading-relaxed">
-              {v.desc}
-            </p>
-          </div>
-        ))}
-      </div>
+        <section className="ruled">
+          <h2 className="label">Trzy zasady</h2>
+          <ul className="rows">
+            {VALUES.map((v, i) => (
+              <li key={v.title}>
+                <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                <span className="t">
+                  {v.title}
+                  <span className="d">{v.desc}</span>
+                </span>
+                <span className="v" />
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      {/* Tech stack */}
-      <div
-        className="rounded-[16px] p-7 mb-12"
-        style={{
-          background: "#17181b",
-          outline: "1px solid rgba(255,255,255,0.08)",
-        }}
+        <section className="ruled">
+          <h2 className="label">Co mamy na stronie</h2>
+          <ul className="rows">
+            <li>
+              <span className="n">{totalNodeCount()}</span>
+              <span className="t" style={{ fontWeight: 400 }}>
+                węzłów procesów biznesowych (APQC PCF 7.4, tłum. własne)
+              </span>
+              <span className="v" />
+            </li>
+            <li>
+              <span className="n">{getAllTerms().length}</span>
+              <span className="t" style={{ fontWeight: 400 }}>
+                haseł słownika IT z definicjami i źródłami
+              </span>
+              <span className="v" />
+            </li>
+            <li>
+              <span className="n">{posts}</span>
+              <span className="t" style={{ fontWeight: 400 }}>
+                wpisów bloga, codziennie, ze źródłami
+              </span>
+              <span className="v" />
+            </li>
+          </ul>
+        </section>
+      </Tabliczka>
+
+      <KolumnaBoczna
+        routes={[
+          { from: "Grudziądz", to: "Region", href: "/o-nas" },
+          { from: "Sprawdzona technologia", to: "Prosta rzecz", href: "/wdrozenia" },
+          { from: "Porozmawiajmy", to: "Kontakt", href: "/kontakt" },
+        ]}
+        routesFooter="/wdrozenia · /kontakt"
       >
-        <p
-          className="font-mono text-[11px] uppercase text-text-mute mb-4"
-          style={{ letterSpacing: "0.15em" }}
-        >
-          Nasz stack
-        </p>
-        <div className="flex flex-wrap gap-3">
-          {STACK.map((tool) => (
-            <span
-              key={tool}
-              className="font-mono text-[12px] rounded-full px-3 py-1"
-              style={{
-                color: "#f5b845",
-                background: "rgba(245,184,69,0.08)",
-                outline: "1px solid rgba(245,184,69,0.2)",
-              }}
-            >
-              {tool}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* CTA */}
-      <Link
-        href="/kontakt"
-        className="btn-primary inline-flex items-center justify-center gap-2 rounded-xl text-[15px]"
-        style={{ padding: "14px 22px" }}
-      >
-        Porozmawiajmy →
-      </Link>
-    </section>
+        <Tabliczka nr="04" title="Komputer lokalny" right="u klienta" footer="Rys. 1">
+          <KomputerLokalny />
+        </Tabliczka>
+      </KolumnaBoczna>
+    </>
   );
 }

@@ -3,19 +3,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { services } from "@/content/services";
 import SchemaOrg from "@/components/SchemaOrg";
-import { SubpageHeader, SectionDivider, ServiceIconBySlug } from "@/components/mechanism";
-import {
-  generateServiceSchema,
-  generateHowToSchema,
-  generateBreadcrumbSchema,
-  graph,
-} from "@/lib/schema";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import { totalNodeCount } from "@/lib/procesy";
+import { generateServiceSchema, generateHowToSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
 interface Props {
   params: { slug: string };
 }
+
+const STEPS = [
+  { name: "Analiza procesów", text: "Mapujemy proces i wskazujemy, gdzie wdrożenie daje najszybszy zwrot." },
+  { name: "Konfiguracja", text: "Budujemy i konfigurujemy rozwiązanie na sprawdzonych narzędziach." },
+  { name: "Testy", text: "Testujemy na realnych danych i scenariuszach z Twojej firmy." },
+  { name: "Wdrożenie i wsparcie", text: "Uruchamiamy produkcyjnie i zapewniamy wsparcie po wdrożeniu." },
+];
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -41,24 +45,18 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
+/** Strona usługi = podstrona treści. Tagi z nazwami narzędzi NIE wychodzą na tabliczkę (NIE CHCĘ, warstwa 1). */
 export default function WdrozeniePage({ params }: Props) {
   const service = services.find((s) => s.slug === params.slug);
   if (!service) notFound();
 
+  const index = services.findIndex((s) => s.slug === service.slug);
   const description = service.longDesc || service.desc;
+  const others = services.filter((s) => s.slug !== service.slug);
 
   const schema = graph(
     generateServiceSchema(service),
-    generateHowToSchema({
-      name: `Jak wdrażamy: ${service.title}`,
-      description,
-      steps: [
-        { name: "Analiza procesów", text: "Mapujemy proces i wskazujemy, gdzie wdrożenie daje najszybszy zwrot." },
-        { name: "Konfiguracja", text: "Budujemy i konfigurujemy rozwiązanie na sprawdzonych narzędziach." },
-        { name: "Testy", text: "Testujemy na realnych danych i scenariuszach z Twojej firmy." },
-        { name: "Wdrożenie i wsparcie", text: "Uruchamiamy produkcyjnie i zapewniamy wsparcie po wdrożeniu." },
-      ],
-    }),
+    generateHowToSchema({ name: `Jak wdrażamy: ${service.title}`, description, steps: STEPS }),
     generateBreadcrumbSchema([
       { name: "Strona główna", url: "/" },
       { name: "Wdrożenia", url: "/wdrozenia" },
@@ -69,135 +67,113 @@ export default function WdrozeniePage({ params }: Props) {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <div className="pt-13" style={{ paddingTop: 52 }}>
-        <SubpageHeader
-          eyebrow={`Wdrożenie · ${service.tags.join(" · ")}`}
-          title={service.title}
-          cluster="tech"
-          description={description}
-        >
-          <div className="mt-5 flex items-center gap-4">
-            <span className="text-amber shrink-0">
-              <ServiceIconBySlug slug={service.slug} size={48} />
-            </span>
-            <nav className="flex items-center gap-2 text-sm text-text-mute flex-wrap font-mono text-[12px]">
-              <Link href="/wdrozenia" className="hover:text-amber transition-colors">
-                ← Wszystkie wdrożenia
-              </Link>
-            </nav>
-          </div>
-        </SubpageHeader>
+      <Tabliczka
+        as="article"
+        nr="01"
+        title={
+          <>
+            <Link href="/wdrozenia">Wdrożenia</Link> · {String(index + 1).padStart(2, "0")} z {services.length}
+          </>
+        }
+        right="u klienta"
+        footer="Audyt > Projekt > Wdrożenie > Wsparcie"
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          {service.title}
+        </h1>
+        <p style={{ fontSize: "var(--step-1)", lineHeight: 1.35, maxWidth: "var(--measure)", marginBottom: "var(--space-3)" }}>
+          {service.desc}
+        </p>
 
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
-          <div className="max-w-3xl space-y-10">
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2">
-              {service.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="font-mono text-[11px] uppercase tracking-[0.1em] text-amber border border-border rounded-full px-3 py-1.5"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+        {service.longDesc ? (
+          <>
+            <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>{service.longDesc}</p>
 
-            {service.longDesc ? (
-              <>
-                <div className="rounded-2xl border border-border bg-surface p-8 lg:p-10">
-                  <p className="text-text-dim leading-relaxed">{service.longDesc}</p>
-                </div>
-
-                {service.benefits && (
-                  <section>
-                    <h2 className="font-heading text-xl font-bold text-on-surface mb-4">Korzyści</h2>
-                    <ul className="space-y-3">
-                      {service.benefits.map((b) => (
-                        <li key={b} className="flex items-start gap-3 text-sm text-text-dim">
-                          <span className="text-amber mt-0.5 shrink-0">✓</span>
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
-
-                {service.useCases && (
-                  <section>
-                    <h2 className="font-heading text-xl font-bold text-on-surface mb-4">
-                      Przykłady zastosowań
-                    </h2>
-                    <ul className="space-y-3">
-                      {service.useCases.map((u) => (
-                        <li key={u} className="flex items-start gap-3 text-sm text-text-dim">
-                          <span className="text-amber mt-0.5 shrink-0">→</span>
-                          {u}
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
-              </>
-            ) : (
-              <div className="rounded-2xl border border-border bg-surface p-8 lg:p-10">
-                <p className="text-text-dim leading-relaxed">
-                  Szczegółowy opis tego wdrożenia w przygotowaniu. Napisz do nas — opowiemy, jak
-                  wygląda wdrożenie <em>{service.title.toLowerCase()}</em> w praktyce.
-                </p>
-              </div>
+            {service.benefits && (
+              <section className="ruled">
+                <h2 className="label">Korzyści · {service.benefits.length}</h2>
+                <ul className="rows">
+                  {service.benefits.map((b, i) => (
+                    <li key={b}>
+                      <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="t" style={{ fontWeight: 400 }}>
+                        {b}
+                      </span>
+                      <span className="v" />
+                    </li>
+                  ))}
+                </ul>
+              </section>
             )}
 
-            {/* Jak wdrażamy */}
-            <section>
-              <h2 className="font-heading text-xl font-bold text-on-surface mb-4">
-                Jak wdrażamy
-              </h2>
-              <ol className="space-y-3">
-                {[
-                  "Analiza procesów",
-                  "Konfiguracja",
-                  "Testy",
-                  "Wdrożenie i wsparcie",
-                ].map((step, i) => (
-                  <li key={step} className="flex items-start gap-3 text-sm text-text-dim">
-                    <span className="font-mono text-amber shrink-0">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="text-on-surface">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </section>
+            {service.useCases && (
+              <section className="ruled">
+                <h2 className="label">Przykłady zastosowań · {service.useCases.length}</h2>
+                <ul className="rows">
+                  {service.useCases.map((u, i) => (
+                    <li key={u}>
+                      <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="t" style={{ fontWeight: 400 }}>
+                        {u}
+                      </span>
+                      <span className="v" />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </>
+        ) : (
+          <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>
+            Szczegółowy opis tego wdrożenia w przygotowaniu. Napisz do nas — opowiemy, jak wygląda wdrożenie{" "}
+            {service.title.toLowerCase()} w praktyce.
+          </p>
+        )}
 
-            {/* Link kontekstowy do procesów */}
-            <div className="rounded-2xl border border-border bg-bg-soft px-6 py-6 sm:px-8 sm:py-7">
-              <p className="text-text-dim text-[15px] leading-relaxed">
-                To wdrożenie wpina się w Twoje procesy biznesowe.{" "}
-                <Link href="/procesy" className="text-amber hover:underline">
-                  Zobacz, które procesy automatyzujemy
-                </Link>{" "}
-                według klasyfikacji APQC PCF.
-              </p>
-            </div>
-          </div>
-        </div>
+        <section className="ruled">
+          <h2 className="label">Jak wdrażamy · {STEPS.length}</h2>
+          <ul className="rows">
+            {STEPS.map((s, i) => (
+              <li key={s.name}>
+                <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                <span className="t">
+                  {s.name}
+                  <span className="d">{s.text}</span>
+                </span>
+                <span className="v" />
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <SectionDivider label="Zacznijmy wdrożenie" />
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
-          <div className="rounded-2xl border border-border bg-bg-soft px-6 py-8 sm:px-10 sm:py-10 text-center">
-            <h2 className="font-heading text-[clamp(20px,2.5vw,28px)] font-bold text-on-surface mb-3">
-              {service.title} w Twojej firmie
-            </h2>
-            <p className="text-text-dim text-[15px] max-w-xl mx-auto mb-6">
-              Umów bezpłatną konsultację — pokażemy zakres, koszt i spodziewany zwrot z tego wdrożenia.
-            </p>
-            <Link
-              href="/kontakt"
-              className="btn-primary inline-flex items-center rounded-[10px] px-6 py-3 text-[15px]"
-            >
-              {service.ctaText ?? "Porozmawiaj o wdrożeniu"}
-            </Link>
-          </div>
-        </div>
-      </div>
+        <section className="ruled">
+          <h2 className="label">Pozostałe wdrożenia · {others.length}</h2>
+          <ul className="routes">
+            {others.map((o) => (
+              <li key={o.slug}>
+                <span>{service.title}</span>
+                <span className="arrow" aria-hidden="true">
+                  &gt;
+                </span>
+                <span className="to">
+                  <Link href={`/wdrozenia/${o.slug}`}>{o.title}</Link>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </Tabliczka>
+
+      <KolumnaBoczna
+        routes={[
+          { from: "To wdrożenie", to: `${index + 1} z ${services.length}`, href: "/wdrozenia" },
+          { from: "Procesy w firmie", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
+          { from: service.title, to: "Rozmowa", href: "/kontakt" },
+        ]}
+        routesFooter="/wdrozenia · /procesy"
+        ctaLabel={service.ctaText ?? "Umów rozmowę"}
+      />
     </>
   );
 }

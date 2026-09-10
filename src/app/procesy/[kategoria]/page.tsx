@@ -2,21 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SchemaOrg from "@/components/SchemaOrg";
-import { SubpageHeader } from "@/components/mechanism";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import KolumnaBoczna from "@/components/sciana/KolumnaBoczna";
+import SzukajPrzycisk from "@/components/sciana/SzukajPrzycisk";
+import CategoryTree from "@/components/CategoryTree";
 import {
   getCategory,
   getCategorySlugs,
   getNodesByCategory,
   getChildren,
   codeToSlug,
+  totalNodeCount,
   type ProcessNode,
 } from "@/lib/procesy";
-import {
-  generateDefinedTermSchema,
-  generateItemListSchema,
-  generateBreadcrumbSchema,
-  graph,
-} from "@/lib/schema";
+import { generateDefinedTermSchema, generateItemListSchema, generateBreadcrumbSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
 
@@ -79,45 +78,46 @@ export default function ProcesKategoriaPage({ params }: Props) {
   return (
     <>
       <SchemaOrg schema={schema} />
-      <div className="pt-13" style={{ paddingTop: 52 }}>
-        <SubpageHeader
-          eyebrow={`PCF ${c.code} · ${c.nameEng}`}
-          title={c.namePl}
-          cluster="procesy"
-          description={c.descPl}
-        >
-          <nav className="mt-5 flex items-center gap-2 text-sm text-text-mute flex-wrap font-mono text-[12px]">
-            <Link href="/procesy" className="hover:text-amber transition-colors">
-              ← Wszystkie kategorie
-            </Link>
-          </nav>
-        </SubpageHeader>
+      <Tabliczka
+        as="article"
+        nr="01"
+        title={
+          <>
+            <Link href="/procesy">Procesy</Link> · PCF {c.code}
+          </>
+        }
+        right={<SzukajPrzycisk />}
+        footer={`${c.nameEng} · APQC PCF 7.4, tłum. własne`}
+        footerRight={`${nodes.length} węzłów`}
+        className="s-read"
+      >
+        <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "18ch", marginBottom: "var(--space-2)" }}>
+          {c.namePl}
+        </h1>
+        <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)", marginBottom: "var(--space-3)" }}>{c.descPl}</p>
 
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 py-12">
-          {groups.length > 0 ? (
-            <div className="space-y-10">
-              {groups.map((g) => (
-                <ProcessGroup key={g.code} group={g} />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-border bg-surface px-6 py-8 sm:px-10 sm:py-10">
-              <p className="text-text-dim leading-relaxed max-w-2xl">
-                Szczegółowa taksonomia tej kategorii (grupy procesów, procesy, działania i zadania według{" "}
-                <strong className="text-on-surface">APQC PCF {c.code}</strong>) jest synchronizowana z bazą
-                źródłową. Jeśli automatyzujesz procesy z obszaru <em>{c.namePl.toLowerCase()}</em> —
-                pokażemy, które z nich dają najszybszy zwrot.
-              </p>
-              <Link
-                href="/kontakt"
-                className="btn-primary inline-flex items-center rounded-[10px] px-6 py-3 text-[15px] mt-6"
-              >
-                Porozmawiajmy o automatyzacji
-              </Link>
-            </div>
-          )}
-        </div>
-      </div>
+        {groups.length > 0 ? (
+          groups.map((g) => <ProcessGroup key={g.code} group={g} />)
+        ) : (
+          <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>
+            Szczegółowa taksonomia tej kategorii (grupy procesów, procesy, działania i zadania według APQC PCF {c.code})
+            jest synchronizowana z bazą źródłową.
+          </p>
+        )}
+      </Tabliczka>
+
+      <KolumnaBoczna
+        routes={[
+          { from: "Ta kategoria", to: `${groups.length} grup`, href: `/procesy/${c.slug}` },
+          { from: "Wszystkie procesy", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
+          { from: "Ten obszar u Ciebie", to: "Rozmowa", href: "/kontakt" },
+        ]}
+        routesFooter="/procesy"
+      >
+        <Tabliczka nr="04" title="Drzewo kategorii" right={c.code} footer="Grupa > Proces > Działanie" plate>
+          <CategoryTree categorySlug={c.slug} />
+        </Tabliczka>
+      </KolumnaBoczna>
     </>
   );
 }
@@ -126,31 +126,30 @@ function ProcessGroup({ group }: { group: ProcessNode }) {
   const processes = getChildren(group.code);
   const groupHref = `/procesy/${group.categorySlug}/${codeToSlug(group.code)}`;
   return (
-    <section id={group.code} className="scroll-mt-24">
-      <div className="flex items-baseline gap-3 mb-3">
-        <span className="font-mono text-[12px] text-amber">{group.code}</span>
-        <h2 className="font-heading font-bold text-on-surface text-[20px]">
-          <Link href={groupHref} className="hover:text-amber transition-colors">
+    <section id={group.code} className="ruled" style={{ marginTop: 0 }}>
+      <h2 className="label" style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
+        <span>
+          {group.code} ·{" "}
+          <Link href={groupHref} style={{ color: "var(--ink)", fontWeight: 700 }}>
             {group.namePl}
           </Link>
-        </h2>
-      </div>
-      {group.descPl && <p className="text-text-dim text-[14px] leading-relaxed mb-4 max-w-2xl">{group.descPl}</p>}
+        </span>
+        <span>{processes.length}</span>
+      </h2>
+      {group.descPl && (
+        <p style={{ color: "var(--ink-2)", fontSize: 15, maxWidth: "var(--measure)", marginBottom: "var(--space-1)" }}>
+          {group.descPl}
+        </p>
+      )}
       {processes.length > 0 && (
-        <ul className="grid sm:grid-cols-2 gap-2">
+        <ul className="rows">
           {processes.map((p) => (
             <li key={p.code}>
-              <Link
-                href={`/procesy/proces/${codeToSlug(p.code)}`}
-                className="group flex items-baseline gap-2 rounded-lg border border-border bg-surface px-4 py-3 hover:border-amber/40 transition-colors"
-              >
-                <span className="font-mono text-[11px] text-text-mute group-hover:text-amber transition-colors">
-                  {p.code}
-                </span>
-                <span className="text-on-surface text-[14px] group-hover:text-amber transition-colors">
-                  {p.namePl}
-                </span>
-              </Link>
+              <span className="n">{p.code}</span>
+              <span className="t" style={{ fontWeight: 400 }}>
+                <Link href={`/procesy/proces/${codeToSlug(p.code)}`}>{p.namePl}</Link>
+              </span>
+              <span className="v">{getChildren(p.code).length || ""}</span>
             </li>
           ))}
         </ul>

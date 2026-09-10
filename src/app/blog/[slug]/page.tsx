@@ -8,8 +8,13 @@ import TldrBox from "@/components/TldrBox";
 import KeyTakeaways from "@/components/KeyTakeaways";
 import ArticleFaq from "@/components/ArticleFaq";
 import RelatedLinks, { type RelatedItem } from "@/components/RelatedLinks";
+import Tabliczka from "@/components/sciana/Tabliczka";
+import Miejsce from "@/components/sciana/Miejsce";
+import WierszeAB from "@/components/sciana/WierszeAB";
+import CtaPole from "@/components/sciana/CtaPole";
 import { createAutolinkComponents } from "@/lib/autolink";
 import { getAllTerms } from "@/lib/slownik";
+import { totalNodeCount } from "@/lib/procesy";
 import { generateArticleSchema, generateBreadcrumbSchema, generateFaqSchema, graph } from "@/lib/schema";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lok-ai.pl";
@@ -88,25 +93,48 @@ function pickRelatedTerms(post: Post, limit = 4): RelatedItem[] {
   return out;
 }
 
+function plDate(iso: string) {
+  return new Date(iso).toLocaleDateString("pl-PL", { year: "numeric", month: "long", day: "numeric" });
+}
+
+/**
+ * Wzorzec podstrony treści (DESIGN.md §Siatka): ta sama ściana, kol. 1–8 tabliczka
+ * czytania, kol. 9–12 Miejsce (skrócona) + „Skąd > dokąd” dla tego tematu + CTA.
+ * Każda podstrona niesie markę bez hero.
+ */
 export default function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(params.slug);
   if (!post) notFound();
 
   const fm = post.frontmatter;
   const related = getRelatedPosts(post.slug, 3);
+  const all = getAllPosts();
+  const index = all.findIndex((p) => p.slug === post.slug);
+  const nr = String(all.length - index).padStart(3, "0"); // numer wpisu w kolejności publikacji (stopka: nr / wszystkich)
 
   // Autolink: świeży stan (Set) per render artykułu.
   const mdxComponents = createAutolinkComponents();
 
-  // Powiązania "Zobacz też": hasła słownika + stałe linki do oferty.
+  const relatedTerms = pickRelatedTerms(post, 4);
   const relatedLinks: RelatedItem[] = [
-    ...pickRelatedTerms(post, 4),
+    ...relatedTerms,
     { label: "Automatyzacja procesów", href: "/procesy", kind: "proces" },
     { label: "Wdrożenia AI", href: "/wdrozenia", kind: "wdrozenie" },
   ];
   const faqNodes = fm.faq?.length
     ? [generateFaqSchema(fm.faq.map((f) => ({ question: f.q, answer: f.a })))]
     : [];
+
+  const modified = fm.dateModified && fm.dateModified !== fm.date ? fm.dateModified : null;
+  const sideRoutes = [
+    { from: "Ten wpis", to: `Blog · ${all.length}`, href: "/blog" },
+    {
+      from: "Pojęcia z tekstu",
+      to: relatedTerms.length ? `Słownik · ${relatedTerms.length}` : "Słownik",
+      href: relatedTerms[0]?.href ?? "/slownik",
+    },
+    { from: "Procesy w firmie", to: `${totalNodeCount()} w bazie`, href: "/procesy" },
+  ];
 
   return (
     <>
@@ -116,121 +144,81 @@ export default function BlogPostPage({ params }: Props) {
           generateBreadcrumbSchema([
             { name: "Strona główna", url: "/" },
             { name: "Blog", url: "/blog" },
-            { name: post.frontmatter.title, url: `/blog/${post.slug}` },
+            { name: fm.title, url: `/blog/${post.slug}` },
           ]),
           ...faqNodes,
         )}
       />
 
-      <article className="py-20 lg:py-28">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-outline mb-10">
-            <Link href="/" className="hover:text-on-surface-variant transition-colors">
-              Strona główna
-            </Link>
-            <span>/</span>
-            <Link href="/blog" className="hover:text-on-surface-variant transition-colors">
-              Blog
-            </Link>
-            <span>/</span>
-            <span className="text-on-surface-variant truncate">
-              {post.frontmatter.title}
-            </span>
-          </nav>
+      <Tabliczka
+        as="article"
+        nr="01"
+        title={
+          <>
+            <Link href="/blog">Blog</Link> · {fm.date}
+          </>
+        }
+        right={fm.readTime}
+        footer={modified ? `Zaktualizowano ${plDate(modified)}` : fm.author ? `Autor: ${fm.author}` : "lok-ai · Grudziądz"}
+        footerRight={`${nr} / ${all.length}`}
+        className="s-read"
+      >
+        <header style={{ marginBottom: "var(--space-3)" }}>
+          <h1 className="display" style={{ fontSize: "var(--step-3)", maxWidth: "20ch", marginBottom: "var(--space-2)" }}>
+            {fm.title}
+          </h1>
+          <p className="mono" style={{ color: "var(--ink-3)" }}>
+            <time dateTime={fm.date}>{plDate(fm.date)}</time>
+            {fm.tags?.length ? <> · {fm.tags.join(" · ")}</> : null}
+          </p>
+        </header>
 
-          {/* Header */}
-          <header className="mb-10">
-            <div className="flex items-center gap-3 mb-4">
-              {post.frontmatter.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="font-mono text-[10px] uppercase tracking-[0.1em] text-primary/80 border border-primary/20 rounded-full px-2.5 py-0.5"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <h1 className="font-heading text-[clamp(24px,3.5vw,36px)] font-semibold tracking-[-1px] text-on-surface mb-4">
-              {post.frontmatter.title}
-            </h1>
-            <div className="flex items-center gap-4 text-sm text-outline">
-              <time>
-                {new Date(post.frontmatter.date).toLocaleDateString("pl-PL", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-              <span>·</span>
-              <span>{post.frontmatter.readTime}</span>
-              {fm.dateModified && fm.dateModified !== fm.date && (
-                <>
-                  <span>·</span>
-                  <span>
-                    Zaktualizowano{" "}
-                    {new Date(fm.dateModified).toLocaleDateString("pl-PL", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </>
-              )}
-            </div>
-          </header>
+        {/* TL;DR (GEO answer-first) */}
+        <TldrBox>{fm.tldr}</TldrBox>
 
-          {/* TL;DR (GEO answer-first) */}
-          <TldrBox>{fm.tldr}</TldrBox>
-
-          {/* MDX content */}
-          <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-headings:font-heading prose-headings:tracking-tight prose-a:text-primary prose-strong:text-on-surface">
-            <MDXRemote source={post.content} components={mdxComponents} />
-          </div>
-
-          {/* Wnioski + FAQ (GEO) */}
-          <KeyTakeaways items={fm.takeaways} />
-          <ArticleFaq items={fm.faq} />
-
-          {/* Powiązane wpisy (internal linking) */}
-          {related.length > 0 && (
-            <div className="mt-14">
-              <h2 className="font-mono text-[11px] uppercase tracking-[0.14em] text-text-mute mb-4">
-                Powiązane artykuły
-              </h2>
-              <div className="grid sm:grid-cols-3 gap-3">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/blog/${r.slug}`}
-                    className="group block rounded-xl border border-border bg-surface hover:border-amber/40 transition-all p-4"
-                  >
-                    <span className="font-heading font-semibold text-on-surface group-hover:text-amber transition-colors text-[15px] leading-snug">
-                      {r.frontmatter.title}
-                    </span>
-                    <p className="text-text-dim text-[13px] leading-snug line-clamp-2 mt-1">
-                      {r.frontmatter.excerpt}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Zobacz też — internal-linking mesh (słownik + oferta) */}
-          <RelatedLinks items={relatedLinks} />
-
-          {/* Back */}
-          <div className="mt-14 pt-8 border-t border-outline-variant/15">
-            <Link
-              href="/blog"
-              className="text-sm text-on-surface-variant hover:text-primary transition-colors"
-            >
-              ← Wróć do bloga
-            </Link>
-          </div>
+        {/* MDX content */}
+        <div className="prose prose-paper">
+          <MDXRemote source={post.content} components={mdxComponents} />
         </div>
-      </article>
+
+        {/* Wnioski + FAQ (GEO) */}
+        <KeyTakeaways items={fm.takeaways} />
+        <ArticleFaq items={fm.faq} />
+
+        {/* Powiązane wpisy (internal linking) */}
+        {related.length > 0 && (
+          <section aria-labelledby="rel" className="ruled">
+            <h2 id="rel" className="label">
+              Powiązane wpisy
+            </h2>
+            <ul className="rows">
+              {related.map((r) => (
+                <li key={r.slug}>
+                  <span className="n">{r.frontmatter.date.slice(5, 10)}</span>
+                  <span className="t">
+                    <Link href={`/blog/${r.slug}`}>{r.frontmatter.title}</Link>
+                    <span className="d">{r.frontmatter.excerpt}</span>
+                  </span>
+                  <span className="v">{r.frontmatter.readTime}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* Zobacz też — internal-linking mesh (słownik + oferta) */}
+        <RelatedLinks items={relatedLinks} />
+      </Tabliczka>
+
+      <aside className="s-side" aria-label="metadane">
+        <Miejsce nr="02" className="" short />
+
+        <Tabliczka nr="03" title="Skąd > dokąd" right={sideRoutes.length} footer="/blog · /slownik · /procesy">
+          <WierszeAB rows={sideRoutes} />
+        </Tabliczka>
+
+        <CtaPole className="" />
+      </aside>
     </>
   );
 }
