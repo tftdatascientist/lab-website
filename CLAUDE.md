@@ -90,6 +90,9 @@ praca może iść wprost na `main` (dzienny blog i tak tam wchodzi). Stary desig
    w `procesy-tresc.ts`. Autolink słownika łapał „momentum” w nazwie firmy → każde źródło w tabeli
    jest linkiem (autolink nie wchodzi w `<a>`). Tytuł wpisu z sufiksem „— lok-ai Blog | lok-ai”
    ma 68 zn. — szablon layoutu, backlog „tytuły >60”. Brak `image` (OG) — jak inne wpisy stałe.
+   Tabele na 375 px ROZPYCHAŁY dokument (466 px przy oknie 375): `table` w `createAutolinkComponents`
+   owija `<div class="table-wrap">` (overflow-x auto, CSS w `.prose-paper`) — zmierzone puppeteerem:
+   scrollWidth dokumentu 375/375, tabliczka 341/341, tabele przewijają się w środku.
 3. **Artykuł o LAB247.pl** (monitoring WordPress CREATO_PING jako produkt; fakty z
    `10_PROJEKTY/CREAITO/CLAUDE.md`, bez obietnic o czasie reakcji, dopóki nie jest mierzony).
 4. **Przeglądy dnia** — dalej codziennie (format jak `2026-09-09-polscy-programisci…`).

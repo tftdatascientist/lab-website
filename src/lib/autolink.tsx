@@ -163,11 +163,20 @@ export function createAutolinkComponents() {
   function TableCell({ children, ...rest }: ElProps) {
     return <td {...rest}>{processChildren(children, state, "td")}</td>;
   }
+  // Tabela w wąskiej kolumnie (375 px) przewija się w poziomie zamiast rozpychać tabliczkę.
+  function Table(props: React.TableHTMLAttributes<HTMLTableElement>) {
+    return (
+      <div className="table-wrap">
+        <table {...props} />
+      </div>
+    );
+  }
 
   return {
     p: Paragraph,
     li: ListItem,
     td: TableCell,
+    table: Table,
   };
 }
 

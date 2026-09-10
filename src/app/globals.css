@@ -531,6 +531,20 @@
   .prose-paper img {
     border: 1px solid var(--paper-3);
   }
+  /* tabela z MDX: w wąskiej kolumnie przewija się w poziomie, nie rozpycha tabliczki */
+  .prose-paper .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1.5em 0;
+  }
+  .prose-paper .table-wrap table {
+    margin: 0;
+    min-width: 100%;
+  }
+  .prose-paper .table-wrap td,
+  .prose-paper .table-wrap th {
+    padding-right: 12px;
+  }
 
   /* blok „W skrócie” / wnioski: reguły, nie karta */
   .ruled {
